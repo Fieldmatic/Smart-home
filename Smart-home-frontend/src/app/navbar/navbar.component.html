@@ -1,0 +1,22 @@
+<nav>
+  <div class="container">
+    <div class="row" style="justify-content: space-between;">
+      <a id="logo" class="navbar-logo" routerLink="/">
+        <img src="favicon.ico" alt="Smart Home">
+        <h1>Smart Home</h1>
+      </a>
+      <button class="toggle-button" [ngClass]="showMobileMenu ? 'active' : null" (click)="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="row" style="justify-content: center">
+      <div class="menu" [ngClass]="showMobileMenu ? 'show' : null">
+        <a routerLink="/login">Login</a>
+        <a routerLink="/sign-up">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</nav>
