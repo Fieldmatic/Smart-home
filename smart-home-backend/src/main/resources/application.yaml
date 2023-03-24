@@ -34,3 +34,9 @@ server:
   servlet:
     contextPath: /api
   port: '8081'
+  ssl:
+    key-store: src/main/resources/keystore/myKeystore.jks
+    key-store-password: Micomilic123!
+    key-password: Micomilic123!
+    enabled: true
+    key-alias: smart-home

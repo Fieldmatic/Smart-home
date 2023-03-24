@@ -1,22 +1,19 @@
 package com.bsep.smart.home.controller;
 
 import com.bsep.smart.home.dto.request.auth.LoginRequest;
+import com.bsep.smart.home.dto.request.registration.RegistrationRequest;
 import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.dto.response.UserResponse;
+import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.services.auth.GetSelf;
 import com.bsep.smart.home.services.auth.LogInUser;
-
-
+import com.bsep.smart.home.services.registration.RegisterNewUser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import java.security.KeyStoreException;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 	private final LogInUser loginUser;
 	private final GetSelf getSelf;
+	private final RegisterNewUser registerNewUser;
 
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping("/login")
@@ -35,6 +33,12 @@ public class AuthController {
 	@GetMapping("/self")
 	public UserResponse getSelf() {
 		return getSelf.execute();
+	}
+
+	@PostMapping("/register")
+	public void register(@RequestBody RegistrationRequest registrationRequest) throws KeyStoreException {
+		Person person = registerNewUser.execute(registrationRequest);
+
 	}
 
 }
