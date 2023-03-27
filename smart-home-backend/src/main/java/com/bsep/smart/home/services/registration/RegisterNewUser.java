@@ -20,9 +20,6 @@ public class RegisterNewUser {
 
     private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
-
-    private final CreateKeyPair createKeyPair;
-
     public Person execute(RegistrationRequest registrationRequest) throws KeyStoreException {
         if (userExistsByEmail.execute(registrationRequest.getEmail())) {
             throw new UserAlreadyExistsException();

@@ -39,8 +39,10 @@ public class SecurityConfig {
             .antMatchers("/api-docs/**").permitAll()
             .antMatchers("/auth/login").permitAll()
             .antMatchers("/auth/self").permitAll()
+                .antMatchers("/auth/register").permitAll()
 
-            .antMatchers("/passenger/create").permitAll()
+
+                .antMatchers("/passenger/create").permitAll()
             .antMatchers("/password/request-change").permitAll()
             .antMatchers("/password/change").permitAll()
 

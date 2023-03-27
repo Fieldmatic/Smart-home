@@ -11,9 +11,8 @@ public class CreateKeyPair {
 
     private final KeyStore keyStore;
 
-    public byte[] execute() throws KeyStoreException {
-        KeyPair keyPair = generateKeyPair();
-        return keyPair.getPublic().getEncoded();
+    public KeyPair execute() throws KeyStoreException {
+        return generateKeyPair();
     }
 
     private KeyPair generateKeyPair() {
