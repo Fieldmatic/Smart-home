@@ -25,6 +25,7 @@ custom:
   jwtSecret: superepiksecret
   clientUrl: http://localhost:4200
   authTokenExpirationMilliseconds: 2592000000
+  jwtActivateEmailTokenExpiration: 86400000
   jwtForgotPasswordExpiration: 3600000
   createUserTokenExpirationMilliseconds: 2592000000
   messageSource: messages
