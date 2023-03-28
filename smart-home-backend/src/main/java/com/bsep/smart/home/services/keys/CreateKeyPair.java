@@ -9,18 +9,11 @@ import java.security.*;
 @RequiredArgsConstructor
 public class CreateKeyPair {
 
-    private final KeyStore keyStore;
-
-    public byte[] execute() throws KeyStoreException {
-        KeyPair keyPair = generateKeyPair();
-        return keyPair.getPublic().getEncoded();
-    }
-
-    private KeyPair generateKeyPair() {
+    public KeyPair execute(String algorithm, int keySize) throws KeyStoreException {
         try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance(algorithm);
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
-            keyGen.initialize(2048, random);
+            keyGen.initialize(keySize, random);
             return keyGen.generateKeyPair();
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
             e.printStackTrace();

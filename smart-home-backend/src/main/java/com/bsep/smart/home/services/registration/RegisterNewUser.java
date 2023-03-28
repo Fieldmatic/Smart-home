@@ -8,6 +8,7 @@ import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.repository.PersonRepository;
 import com.bsep.smart.home.services.jwt.JwtGenerateToken;
 import com.bsep.smart.home.services.mail.SendMail;
+import com.bsep.smart.home.services.role.GetRoleByName;
 import com.bsep.smart.home.services.user.UserExistsByEmail;
 import com.bsep.smart.home.translations.Codes;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class RegisterNewUser {
     private final JwtGenerateToken jwtGenerateToken;
     private final CustomProperties customProperties;
     private final SendMail sendMail;
+    private final GetRoleByName getRoleByName;
 
     public Person execute(RegistrationRequest registrationRequest) throws KeyStoreException {
         if (userExistsByEmail.execute(registrationRequest.getEmail())) {
@@ -42,6 +44,7 @@ public class RegisterNewUser {
                 .surname(registrationRequest.getSurname())
                 .passwordHash(passwordEncoder.encode(registrationRequest.getPassword()))
                 .verified(false)
+                .role(getRoleByName.execute("TENANT"))
                 .build();
 
         final String activateEmailUrl = constructActivateEmailUrl(person.getEmail());
@@ -52,8 +55,8 @@ public class RegisterNewUser {
         return personRepository.save(person);
     }
 
-    private String constructActivateEmailUrl(final String passengerEmail) {
-        final String authToken = jwtGenerateToken.execute(passengerEmail, customProperties.getJwtActivateEmailTokenExpiration());
+    private String constructActivateEmailUrl(final String email) {
+        final String authToken = jwtGenerateToken.execute(email, customProperties.getJwtActivateEmailTokenExpiration());
         return customProperties.getClientUrl().concat(EMAIL_ACTIVATION_PATH).concat(authToken);
     }
 }

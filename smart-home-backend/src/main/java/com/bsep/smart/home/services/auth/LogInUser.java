@@ -1,10 +1,10 @@
 package com.bsep.smart.home.services.auth;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
-import com.bsep.smart.home.services.jwt.JwtGenerateToken;
+import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.model.Person;
+import com.bsep.smart.home.services.jwt.JwtGenerateToken;
 import com.bsep.smart.home.services.user.GetUserByEmail;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -40,7 +40,8 @@ public class LogInUser {
         final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         final Person user = getUserByEmail.execute(userDetails.getUsername());
-        
+        if (!user.isVerified()) throw new EmailNotVerifiedException();
+
         return jwtGenerateToken.execute(user.getEmail(), customProperties.getAuthTokenExpirationMilliseconds());
     }
 }
