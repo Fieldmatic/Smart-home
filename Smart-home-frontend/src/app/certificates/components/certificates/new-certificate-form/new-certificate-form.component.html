@@ -1,0 +1,174 @@
+<mat-card class="form">
+  <mat-card-header class="form">
+    <mat-card-title>Certificate Creation</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="form">
+    <form [formGroup]="newCertificateForm" (ngSubmit)="createCertificate()">
+
+      <app-form-navigation [steps]="steps" (stepClicked)="stepChanged($event)"></app-form-navigation>
+
+      <section *ngIf="visibleSectionId === 1">
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Organization</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Organizational Unit</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>State/Province</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Algorithm</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Key Size</mat-label>
+            <input matInput [disabled]="true">
+          </mat-form-field>
+        </div>
+      </section>
+
+
+      <section *ngIf="visibleSectionId === 2">
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter certificate name" formControlName="name">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Certificate Type</mat-label>
+            <mat-select formControlName="type">
+              <mat-option value="MIME">S/MIME (Email)</mat-option>
+              <mat-option value="SSL_CLIENT">SSL Client</mat-option>
+              <mat-option value="SSL_SERVER">SSL Server</mat-option>
+              <mat-option value="VPN_CLIENT">VPN Client</mat-option>
+              <mat-option value="VPN_SERVER">VPN Server</mat-option>
+              <mat-option value="CODE_SIGNING">Code Signing</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Serial Number</mat-label>
+            <input matInput [disabled]="true" value="3">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill" (focus)="picker.open()" (click)="picker.open()">
+            <mat-label>Enter validity period</mat-label>
+            <mat-date-range-input [formGroup]="validityPeriod" [rangePicker]="picker">
+              <input matStartDate (focus)="picker.open()" (click)="picker.open()" formControlName="start"
+                     placeholder="Start date">
+              <input matEndDate (focus)="picker.open()" (click)="picker.open()" formControlName="end"
+                     placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <mat-error *ngIf="validityPeriod.controls.start.hasError('matStartDateInvalid')">Invalid start date
+            </mat-error>
+            <mat-error *ngIf="validityPeriod.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+          </mat-form-field>
+          <div *ngIf="validityPeriod.valid" style="width: 100%">
+            <div class="row">
+              <p>
+                Valid From: {{ validityPeriod.controls.start.value | date }}
+              </p>
+            </div>
+            <div class="row">
+              <p>
+                Valid To: {{ validityPeriod.controls.end.value | date }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section *ngIf="visibleSectionId === 3">
+        <div class="row">
+          <div class="col">
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="signature">Signature</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="non_repudiation">Non Repudiation</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="key_encipherment">Key Encipherment</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="data_encipherment">Data Encipherment</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="key_agreement">Key Agreement</mat-checkbox>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="certificate_signing">Certificate Signing</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="crl_signing">CRL Signing</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="encipher_only">Encipher Only</mat-checkbox>
+            </div>
+            <div class="input-row">
+              <mat-checkbox color="accent" formControlName="decipher_only">Decipher Only</mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="button-row">
+        <button mat-raised-button class="btn" color="primary">Create CSR</button>
+      </div>
+    </form>
+  </mat-card-content>
+
+</mat-card>

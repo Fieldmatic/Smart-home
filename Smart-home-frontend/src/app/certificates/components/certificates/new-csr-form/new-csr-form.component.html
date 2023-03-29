@@ -1,0 +1,86 @@
+<mat-card class="form">
+  <mat-card-header class="form">
+    <mat-card-title>CSR Creation</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="form">
+    <form [formGroup]="newCSRForm" (ngSubmit)="createCSR()">
+
+      <app-form-navigation [steps]="steps" (stepClicked)="stepChanged($event)"></app-form-navigation>
+
+      <section *ngIf="visibleSectionId === 1">
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email" formControlName="email">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Organization</mat-label>
+            <input matInput placeholder="Enter your organization" formControlName="organization">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Organizational Unit</mat-label>
+            <input matInput placeholder="Enter your organizational unit" formControlName="organizational_unit">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <input matInput placeholder="Enter your city" formControlName="city">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>State/Province</mat-label>
+            <input matInput placeholder="Enter your state/province" formControlName="state">
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput placeholder="Enter your country" formControlName="country">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section *ngIf="visibleSectionId === 2">
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Key Size</mat-label>
+            <mat-select formControlName="key_size">
+              <mat-option value="2048">2048 bits</mat-option>
+              <mat-option value="4096">4096 bits</mat-option>
+              <mat-option value="8192">8192 bits</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Algorithm</mat-label>
+            <mat-select formControlName="algorithm">
+              <mat-option value="RSA">RSA</mat-option>
+              <mat-option value="ECC">ECC</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </section>
+
+      <div class="button-row">
+        <button mat-raised-button class="btn" color="primary">Create CSR</button>
+      </div>
+    </form>
+  </mat-card-content>
+
+</mat-card>
+
+
