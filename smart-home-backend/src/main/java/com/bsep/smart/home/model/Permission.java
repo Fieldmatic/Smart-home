@@ -3,7 +3,8 @@ package com.bsep.smart.home.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Permission implements GrantedAuthority {
-    REGISTER_DRIVER;
+    SEND_CSR_REQUEST,
+    CSR_MANIPULATION;
     //permission list
 
     @Override

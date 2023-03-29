@@ -37,4 +37,10 @@ public class Person extends BaseEntity {
 
     @Column(name = "surname", nullable = false)
     String surname;
+
+    @Column(name = "verified", nullable = false)
+    boolean verified;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    CSR csr;
 }

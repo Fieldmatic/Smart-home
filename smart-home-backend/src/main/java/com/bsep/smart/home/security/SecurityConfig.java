@@ -2,7 +2,6 @@ package com.bsep.smart.home.security;
 
 import com.bsep.smart.home.exception.FilterChainExceptionHandler;
 import com.bsep.smart.home.filter.AuthTokenFilter;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,20 +31,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().configurationSource(corsConfigurationSource()).and().csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests()
-            .antMatchers("/swagger-ui/**").permitAll()
-            .antMatchers("/api-docs/**").permitAll()
-            .antMatchers("/auth/login").permitAll()
-            .antMatchers("/auth/self").permitAll()
+                .exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/api-docs/**").permitAll()
+                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/self").permitAll()
+                .antMatchers("/auth/register").permitAll()
+                .antMatchers("/auth/activateEmail/{token}").permitAll()
+                .antMatchers("/passenger/create").permitAll()
+                .antMatchers("/password/request-change").permitAll()
+                .antMatchers("/password/change").permitAll()
+                .antMatchers("/**").permitAll()
+                // .antMatchers("/**").authenticated()
 
-            .antMatchers("/passenger/create").permitAll()
-            .antMatchers("/password/request-change").permitAll()
-            .antMatchers("/password/change").permitAll()
-
-            .antMatchers("/**").authenticated()
-            .anyRequest().authenticated();
+                .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(filterChainExceptionHandler, LogoutFilter.class);
 

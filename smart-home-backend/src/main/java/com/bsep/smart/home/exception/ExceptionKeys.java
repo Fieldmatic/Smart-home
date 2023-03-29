@@ -1,7 +1,6 @@
 package com.bsep.smart.home.exception;
 
 import com.bsep.smart.home.translations.Translation;
-
 import lombok.Getter;
 
 @Getter
@@ -22,7 +21,9 @@ public enum ExceptionKeys implements Translation {
     AUTH_TOKEN_INVALID("auth_token_invalid"),
     MAIL_FAILED("mail_failed"),
     PASSWORD_SAME("password_same"),
-    PASSWORD_MISMATCH("password_mismatch");
+    PASSWORD_MISMATCH("password_mismatch"),
+    USER_HAS_PENDING_CSR("user_has_pending_csr"),
+    EMAIL_NOT_VERIFIED("email_not_verified");
 
     private final String code;
 
