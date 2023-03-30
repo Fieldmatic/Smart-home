@@ -5,6 +5,9 @@ import { AuthComponent } from './components/auth/auth.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ForgotPasswordFormComponent } from './components/auth/forgot-password-form/forgot-password-form.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromAuth from './store/auth.reducer';
+import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +15,12 @@ import { ForgotPasswordFormComponent } from './components/auth/forgot-password-f
     SignupFormComponent,
     AuthComponent,
     ForgotPasswordFormComponent,
+    EmailConfirmationComponent,
   ],
-  imports: [AuthRoutingModule, SharedModule],
+  imports: [
+    AuthRoutingModule,
+    SharedModule,
+    StoreModule.forFeature('auth', fromAuth.reducer),
+  ],
 })
 export class AuthModule {}

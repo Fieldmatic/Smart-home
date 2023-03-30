@@ -7,15 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import * as fromApp from './store/app.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment.prod';
 import { CoreModule } from './core/core.module';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -27,14 +22,14 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center',
+      progressBar: true,
+    }),
     HttpClientModule,
-    StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     SharedModule,
     CoreModule,
     AppRoutingModule,
-    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -10,6 +10,8 @@
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Enter your email" formControlName="email">
+            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">Email is a mandatory field</mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('email')">Email is invalid</mat-error>
           </mat-form-field>
         </div>
 
@@ -23,11 +25,9 @@
                     (click)="toggleShowPassword($event)">
               <mat-icon [svgIcon]="hidePassword ? 'showPassword' : 'hidePassword'"></mat-icon>
             </button>
+            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Password is a mandatory field
+            </mat-error>
           </mat-form-field>
-        </div>
-
-        <div class="input-row">
-          <mat-checkbox color="accent" formControlName="rememberMe">Remember me</mat-checkbox>
         </div>
       </section>
 

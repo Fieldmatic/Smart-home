@@ -1,6 +1,7 @@
 package com.bsep.smart.home.services.auth;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
+import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.services.jwt.JwtGenerateToken;
@@ -25,7 +26,7 @@ public class LogInUser {
 
     private final CustomProperties customProperties;
 
-    public String execute(final String email, final String password) {
+    public AuthTokenResponse execute(final String email, final String password) {
         final Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
@@ -42,6 +43,6 @@ public class LogInUser {
         final Person user = getUserByEmail.execute(userDetails.getUsername());
         if (!user.isVerified()) throw new EmailNotVerifiedException();
 
-        return jwtGenerateToken.execute(user.getEmail(), customProperties.getAuthTokenExpirationMilliseconds());
+        return new AuthTokenResponse(jwtGenerateToken.execute(user.getEmail(), customProperties.getAuthTokenExpirationMilliseconds()), user.getRole().getName());
     }
 }

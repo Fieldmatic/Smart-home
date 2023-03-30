@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { sign_up } from '../../../store/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-signup-form',
@@ -13,6 +15,7 @@ export class SignupFormComponent implements OnInit {
   signUpForm!: FormGroup;
 
   constructor(
+    private store: Store,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
@@ -32,13 +35,14 @@ export class SignupFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
-      email: new FormControl(null, [
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [
         Validators.required,
-        Validators.email,
-        Validators.minLength(6),
+        Validators.pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{12,32}$/
+        ),
       ]),
-      password: new FormControl(null, [Validators.required]),
-      role: new FormControl('tenant', [Validators.required]),
+      role: new FormControl('TENANT', [Validators.required]),
     });
   }
 
@@ -48,6 +52,11 @@ export class SignupFormComponent implements OnInit {
   }
 
   signUp() {
-    console.log('SIGN UP!');
+    if (this.signUpForm.valid) {
+      const email = this.signUpForm.controls['email'].value;
+      const password = this.signUpForm.controls['password'].value;
+      const role = this.signUpForm.controls['role'].value;
+      this.store.dispatch(sign_up({ email, password, role }));
+    }
   }
 }

@@ -7,4 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class AuthTokenResponse {
 	String token;
+	String role;
 }

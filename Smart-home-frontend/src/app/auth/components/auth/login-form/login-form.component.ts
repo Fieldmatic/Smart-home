@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { login } from '../../../store/auth.actions';
 
 @Component({
   selector: 'app-login-form',
@@ -13,6 +15,7 @@ export class LoginFormComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
+    private store: Store,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
@@ -32,13 +35,8 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl(null, [
-        Validators.required,
-        Validators.email,
-        Validators.minLength(6),
-      ]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
-      rememberMe: new FormControl(false),
     });
   }
 
@@ -48,6 +46,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    console.log('LOGIN!');
+    if (this.loginForm.valid) {
+      const email = this.loginForm.controls['email'].value;
+      const password = this.loginForm.controls['password'].value;
+      this.store.dispatch(login({ email, password }));
+    }
   }
 }

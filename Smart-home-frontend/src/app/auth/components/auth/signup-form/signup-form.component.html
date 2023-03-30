@@ -11,8 +11,8 @@
           <mat-form-field appearance="fill">
             <mat-label>User Role</mat-label>
             <mat-select formControlName="role">
-              <mat-option value="owner">Owner</mat-option>
-              <mat-option value="tenant">Tenant</mat-option>
+              <mat-option value="OWNER">Owner</mat-option>
+              <mat-option value="TENANT">Tenant</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -21,6 +21,8 @@
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Enter your email" formControlName="email">
+            <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">Email is a mandatory field</mat-error>
+            <mat-error *ngIf="signUpForm.controls['email'].hasError('email')">Email is invalid</mat-error>
           </mat-form-field>
         </div>
 
@@ -34,6 +36,15 @@
                     (click)="toggleShowPassword($event)">
               <mat-icon [svgIcon]="hidePassword ? 'showPassword' : 'hidePassword'"></mat-icon>
             </button>
+            <mat-hint>Password should have 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character and be
+              long at least 12 characters.
+            </mat-hint>
+            <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">Password is a mandatory field
+            </mat-error>
+            <mat-error *ngIf="signUpForm.controls['password'].hasError('pattern')">Password should have at least 1
+              uppercase letter, 1 lowercase letter, 1 number, 1 special character and be
+              long at least 12 characters.
+            </mat-error>
           </mat-form-field>
         </div>
       </section>

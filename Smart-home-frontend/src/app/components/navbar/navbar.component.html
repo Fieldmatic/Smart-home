@@ -14,8 +14,8 @@
 
     <div class="row" style="justify-content: center">
       <div class="menu" [ngClass]="showMobileMenu ? 'show' : null">
-        <a routerLink="/auth/login">Login</a>
-        <a routerLink="/auth/sign-up">Sign Up</a>
+        <a *ngIf="!userRole" routerLink="/auth/login">Login</a>
+        <a *ngIf="!userRole" routerLink="/auth/sign-up">Sign Up</a>
       </div>
     </div>
   </div>

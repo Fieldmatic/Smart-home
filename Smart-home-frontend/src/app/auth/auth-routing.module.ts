@@ -4,6 +4,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { LoginFormComponent } from './components/auth/login-form/login-form.component';
 import { SignupFormComponent } from './components/auth/signup-form/signup-form.component';
 import { ForgotPasswordFormComponent } from './components/auth/forgot-password-form/forgot-password-form.component';
+import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'sign-up',
         component: SignupFormComponent,
+      },
+      {
+        path: 'email-confirm/:token',
+        component: EmailConfirmationComponent,
       },
       {
         path: 'reset-password',
