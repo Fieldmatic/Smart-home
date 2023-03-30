@@ -1,6 +1,7 @@
 package com.bsep.smart.home.services.auth;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
+import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.UserCertificateStatus;
@@ -33,7 +34,8 @@ public class LogInUser {
     private final CustomProperties customProperties;
     private final GetUserCertificateStatus getUserCertificateStatus;
 
-    public String execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
+
+    public AuthTokenResponse execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
@@ -50,6 +52,6 @@ public class LogInUser {
         final Person user = getUserByEmail.execute(userDetails.getUsername());
         if (!user.isVerified()) throw new EmailNotVerifiedException();
         UserCertificateStatus userCertificateStatus = getUserCertificateStatus.execute(user);
-        return jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, customProperties.getAuthTokenExpirationMilliseconds());
+        return new AuthTokenResponse(jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, customProperties.getAuthTokenExpirationMilliseconds()), user.getRole().getName());
     }
 }

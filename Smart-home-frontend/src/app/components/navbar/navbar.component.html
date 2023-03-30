@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row" style="justify-content: space-between;">
       <a id="logo" class="navbar-logo" routerLink="/">
-        <img src="favicon.ico" alt="Smart Home">
+        <img src="../../../favicon.ico" alt="Smart Home">
         <h1>Smart Home</h1>
       </a>
       <button class="toggle-button" [ngClass]="showMobileMenu ? 'active' : null" (click)="toggleMobileMenu()">
@@ -14,8 +14,9 @@
 
     <div class="row" style="justify-content: center">
       <div class="menu" [ngClass]="showMobileMenu ? 'show' : null">
-        <a routerLink="/login">Login</a>
-        <a routerLink="/sign-up">Sign Up</a>
+        <a *ngIf="!userRole" routerLink="/auth/login">Login</a>
+        <a *ngIf="!userRole" routerLink="/auth/sign-up">Sign Up</a>
+        <a *ngIf="userRole" (click)="logout()">Log Out</a>
       </div>
     </div>
   </div>

@@ -15,10 +15,4 @@ public class UserResponse {
     @Email
     @NotEmpty
     String email;
-
-    @NotEmpty
-    private String name;
-
-    @NotEmpty
-    private String surname;
 }

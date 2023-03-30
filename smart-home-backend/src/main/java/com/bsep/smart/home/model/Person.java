@@ -32,12 +32,6 @@ public class Person extends BaseEntity {
     @NotNull
     String passwordHash;
 
-    @Column(name = "name", nullable = false)
-    String name;
-
-    @Column(name = "surname", nullable = false)
-    String surname;
-
     @Column(name = "verified", nullable = false)
     boolean verified;
 

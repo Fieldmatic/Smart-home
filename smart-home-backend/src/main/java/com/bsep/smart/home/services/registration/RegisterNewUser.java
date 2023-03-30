@@ -5,6 +5,7 @@ import com.bsep.smart.home.dto.request.registration.RegistrationRequest;
 import com.bsep.smart.home.exception.UserAlreadyExistsException;
 import com.bsep.smart.home.model.EmailDetails;
 import com.bsep.smart.home.model.Person;
+import com.bsep.smart.home.model.Role;
 import com.bsep.smart.home.repository.PersonRepository;
 import com.bsep.smart.home.services.jwt.JwtGenerateToken;
 import com.bsep.smart.home.services.mail.SendMail;
@@ -40,11 +41,9 @@ public class RegisterNewUser {
 
         final Person person = Person.builder()
                 .email(registrationRequest.getEmail())
-                .name(registrationRequest.getName())
-                .surname(registrationRequest.getSurname())
                 .passwordHash(passwordEncoder.encode(registrationRequest.getPassword()))
                 .verified(false)
-                .role(getRoleByName.execute("TENANT"))
+                .role(getRoleByName.execute(registrationRequest.getRole()))
                 .build();
 
         final String activateEmailUrl = constructActivateEmailUrl(person.getEmail());

@@ -53,6 +53,7 @@ $primary-gray-palette: (
 
 $Smart-home-frontend-green: #91e85b;
 $Smart-home-frontend-gray: #bdbdbd;
+$Smart-home-frontend-dark-gray: #424242;
 
 $Smart-home-frontend-primary: mat.define-palette($primary-gray-palette, 800);
 $Smart-home-frontend-accent: mat.define-palette($accent-green-palette, 400);
@@ -94,8 +95,7 @@ body {
 }
 
 .btn.mat-mdc-button {
-  font-weight: bolder;
-  text-decoration: underline 2px;
+  text-decoration: underline 1px;
 }
 
 .row {
@@ -123,6 +123,7 @@ body {
     font-size: 17px;
     box-sizing: border-box !important;
     margin: 7px 4px;
+    min-width: 300px;
   }
 
 }
@@ -132,6 +133,7 @@ body {
     font-size: 18px;
     box-sizing: border-box !important;
     margin: 8px 5px;
+    min-width: 300px;
   }
 
 }
