@@ -34,8 +34,6 @@ public class CSR extends BaseEntity {
     int keySize;
     @Column(name = "algorithm", nullable = false)
     String algorithm;
-    @Column(name = "publicKey", nullable = false)
-    byte[] publicKey;
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     CSRStatus status;

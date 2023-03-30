@@ -6,6 +6,9 @@ import com.bsep.smart.home.repository.CSRRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.List;
 
 @Service
@@ -13,7 +16,7 @@ import java.util.List;
 public class GetAllCSRByStatus {
     private final CSRRepository csrRepository;
 
-    public List<CSR> execute(CSRStatus status) {
+    public List<CSR> execute(CSRStatus status) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException {
         return csrRepository.findAllByStatus(status);
     }
 }

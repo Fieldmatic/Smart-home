@@ -3,5 +3,5 @@ package com.bsep.smart.home.model;
 public enum CSRStatus {
     PENDING,
     REJECTED,
-    FINISHED
+    ACCEPTED
 }

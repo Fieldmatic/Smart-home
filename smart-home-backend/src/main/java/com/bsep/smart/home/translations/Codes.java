@@ -6,8 +6,9 @@ public enum Codes implements Translation {
     PASSWORD_RESET_REQUEST_SUCCESS("password_reset_request_success"),
     EMAIL_ACTIVATION_SUCCESS("email_activation_success"),
     SIGN_UP_ACTIVATION_EMAIL_SUBJECT("sign_up_activation_email_subject"),
-    SIGN_UP_ACTIVATION_EMAIL("sign_up_activation_email");
-
+    SIGN_UP_ACTIVATION_EMAIL("sign_up_activation_email"),
+    SEND_CERTIFICATE_SUBJECT("send_certificate_subject"),
+    SEND_CERTIFICATE_MESSAGE("send_certificate_message");
 
 
     private final String code;
