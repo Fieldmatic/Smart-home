@@ -23,7 +23,7 @@ spring:
           auth: 'true'
 custom:
   jwtSecret: superepiksecret
-  clientUrl: https://localhost:4200
+  clientUrl: http://localhost:4200
   authTokenExpirationMilliseconds: 2592000000
   jwtActivateEmailTokenExpiration: 86400000
   jwtForgotPasswordExpiration: 3600000
