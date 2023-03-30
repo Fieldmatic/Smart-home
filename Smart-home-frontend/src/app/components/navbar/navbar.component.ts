@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { selectToken } from '../../auth/store/auth.selectors';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { logout } from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -26,6 +27,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.storeSubscription = this.store
       .select(selectToken)
-      .subscribe((token) => (this.userRole = token?.token));
+      .subscribe((token) => (this.userRole = token?.role));
+  }
+
+  logout() {
+    this.store.dispatch(logout());
   }
 }

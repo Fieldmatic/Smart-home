@@ -11,6 +11,8 @@ export const login_success = createAction(
   props<AuthToken>()
 );
 
+export const logout = createAction('[Auth] Logout');
+
 export const sign_up = createAction(
   '[Auth] Sign Up Start',
   props<{ email: string; password: string; role: string }>()
@@ -30,6 +32,7 @@ export const confirm_email_success = createAction(
 const all = union({
   login,
   login_success,
+  logout,
   sign_up,
   sign_up_success,
   confirm_email,

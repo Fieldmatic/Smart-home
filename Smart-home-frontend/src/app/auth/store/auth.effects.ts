@@ -35,6 +35,20 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  logout = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.logout.type),
+        tap(() => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('role');
+          this.router.navigate(['/auth/login']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
   sign_up = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.sign_up.type),

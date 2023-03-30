@@ -15,6 +15,10 @@ const authReducer = createReducer(
   on(AuthActions.login_success, (state, { token, role }) => ({
     ...state,
     token: new AuthToken(token, role),
+  })),
+  on(AuthActions.logout, (state) => ({
+    ...state,
+    token: null,
   }))
 );
 
