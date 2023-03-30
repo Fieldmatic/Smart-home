@@ -25,4 +25,10 @@ public class CertificateController {
     public void create(@RequestBody CreateCertificateRequest createCertificateRequest) throws UnrecoverableKeyException, CertificateException, KeyStoreException, NoSuchAlgorithmException, InvalidKeySpecException, SignatureException, OperatorCreationException, InvalidKeyException, NoSuchProviderException, IOException {
         generateCertificate.execute(createCertificateRequest);
     }
+
+    @DeleteMapping("/delete/{alias}")
+    // @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
+    public void delete(@PathVariable String alias) throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException {
+        deleteEntryByAlias.execute(alias);
+    }
 }
