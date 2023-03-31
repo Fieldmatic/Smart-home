@@ -1,5 +1,6 @@
 package com.bsep.smart.home.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -20,8 +21,9 @@ public class CertificateType extends BaseEntity {
     String name;
 
     @ManyToMany
-    @JoinTable(name = "certificate_type_extension",
+    @JoinTable(name = "certificate_type_capability",
             joinColumns = @JoinColumn(name = "certificate_type_id"),
-            inverseJoinColumns = @JoinColumn(name = "extension_id"))
-    List<Extension> extensions;
+            inverseJoinColumns = @JoinColumn(name = "capability_id"))
+    @JsonManagedReference
+    List<Capabilities> capabilities;
 }

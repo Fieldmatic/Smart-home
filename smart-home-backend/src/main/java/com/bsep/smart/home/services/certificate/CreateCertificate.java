@@ -37,7 +37,7 @@ public class CreateCertificate {
         KeyEntryData issuer = getKeyEntryData.execute(createCertificateRequest.getCaAlias());
         KeyEntryData subject = getKeyEntryData.execute(csr.getEmail());
         SubjectData subjectData = new SubjectData(subject.getPublicKey(), subject.getX500Principal(), createCertificateRequest.getSerialNumber(), createCertificateRequest.getStart(), createCertificateRequest.getEnd());
-        X509Certificate certificate = certificateGenerator.execute(subjectData, issuer);
+        X509Certificate certificate = certificateGenerator.execute(subjectData, issuer, createCertificateRequest.getCapabilities());
         X509Certificate[] chain = createChain(createCertificateRequest.getCaAlias(), certificate);
         File file = createFileFromCertificateObject.execute(certificate);
         sendMailWithAttachment.execute(new EmailWithAttachmentDetails(csr.getEmail(), Translator.toLocale(Codes.SEND_CERTIFICATE_MESSAGE), Translator.toLocale(Codes.SEND_CERTIFICATE_SUBJECT), file));

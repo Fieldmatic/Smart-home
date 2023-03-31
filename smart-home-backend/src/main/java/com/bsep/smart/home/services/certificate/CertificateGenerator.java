@@ -1,8 +1,10 @@
 package com.bsep.smart.home.services.certificate;
 
+import com.bsep.smart.home.dto.request.certificate.CapabilityRequest;
 import com.bsep.smart.home.model.KeyEntryData;
 import com.bsep.smart.home.model.SubjectData;
 import lombok.RequiredArgsConstructor;
+import org.bouncycastle.cert.CertIOException;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
@@ -15,11 +17,14 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CertificateGenerator {
-    public X509Certificate execute(SubjectData subjectData, KeyEntryData issuerData) throws CertificateException, OperatorCreationException {
+    private final AddExtensions addExtensions;
+
+    public X509Certificate execute(SubjectData subjectData, KeyEntryData issuerData, List<CapabilityRequest> capabilities) throws CertificateException, OperatorCreationException, CertIOException {
         JcaContentSignerBuilder builder = new JcaContentSignerBuilder("SHA256WithRSAEncryption");
         builder = builder.setProvider("BC");
         ContentSigner contentSigner = builder.build(issuerData.getPrivateKey());
@@ -30,10 +35,11 @@ public class CertificateGenerator {
                 subjectData.getEndDate(),
                 subjectData.getX500Principal(),
                 subjectData.getPublicKey());
-
+        addExtensions.execute(capabilities, certGen);
         X509CertificateHolder certHolder = certGen.build(contentSigner);
         JcaX509CertificateConverter certConverter = new JcaX509CertificateConverter();
         certConverter = certConverter.setProvider("BC");
         return certConverter.getCertificate(certHolder);
     }
+
 }

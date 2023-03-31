@@ -1,9 +1,8 @@
 package com.bsep.smart.home.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,14 +12,15 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "extension")
+@Table(name = "capabilities")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-@SuperBuilder
-public class Extension extends BaseEntity {
+public class Capabilities extends BaseEntity {
     String name;
-
-    @OneToMany(mappedBy = "extension")
-    @JsonManagedReference
-    List<Capabilities> capabilities;
+    @ManyToOne
+    @JsonBackReference
+    Extension extension;
+    @ManyToMany(mappedBy = "capabilities")
+    @JsonBackReference
+    List<CertificateType> certificateType;
 }
