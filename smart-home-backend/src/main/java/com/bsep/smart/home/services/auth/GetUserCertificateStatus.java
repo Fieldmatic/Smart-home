@@ -22,19 +22,21 @@ public class GetUserCertificateStatus {
     private final LoadX509Certificate loadX509Certificate;
 
     public UserCertificateStatus execute(Person person) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateNotYetValidException, CertificateExpiredException {
-        try {
-            if (person.getRole().getName().equals("ADMIN")) return UserCertificateStatus.ACCEPTED_CSR;
-            CSR csr = person.getCsr();
-            if (Objects.isNull(csr)) return UserCertificateStatus.NO_CSR;
-            else if (csr.getStatus().equals(CSRStatus.PENDING)) return UserCertificateStatus.PENDING_CSR;
-            else {
+        if (person.getRole().getName().equals("ADMIN")) return UserCertificateStatus.ACCEPTED_CSR;
+        CSR csr = person.getCsr();
+        if (Objects.isNull(csr)) return UserCertificateStatus.NO_CSR;
+        else if (csr.getStatus().equals(CSRStatus.REJECTED)) return UserCertificateStatus.NO_CSR;
+        else if (csr.getStatus().equals(CSRStatus.PENDING)) return UserCertificateStatus.PENDING_CSR;
+        else {
+            try {
                 X509Certificate x509Certificate = loadX509Certificate.execute(csr.getEmail());
                 x509Certificate.checkValidity();
                 return UserCertificateStatus.ACCEPTED_CSR;
+            } catch (Exception e) {
+                return UserCertificateStatus.PENDING_CSR;
             }
-        } catch (Exception e) {
-            return UserCertificateStatus.PENDING_CSR;
         }
+
 
     }
 }
