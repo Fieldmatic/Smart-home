@@ -18,9 +18,6 @@ export class FormNavigationComponent implements OnInit {
   }
 
   onStepClick(index: number) {
-    for (let i = 0; i < index; i++) {
-      if (this.steps && !this.steps[i].filled) return;
-    }
     this.steps?.forEach((step) => (step.active = false));
     if (this.steps) this.steps[index].active = true;
     this.updateProgressWidth();

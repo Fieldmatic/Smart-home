@@ -16,6 +16,7 @@
       <div class="menu" [ngClass]="showMobileMenu ? 'show' : null">
         <a *ngIf="!userRole" routerLink="/auth/login">Login</a>
         <a *ngIf="!userRole" routerLink="/auth/sign-up">Sign Up</a>
+        <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/security/csr/pending">CSR</a>
         <a *ngIf="userRole" (click)="logout()">Log Out</a>
       </div>
     </div>

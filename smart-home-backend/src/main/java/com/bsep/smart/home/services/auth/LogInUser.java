@@ -35,7 +35,7 @@ public class LogInUser {
     private final GetUserCertificateStatus getUserCertificateStatus;
 
 
-    public AuthTokenResponse execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
+    public String execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
@@ -52,6 +52,6 @@ public class LogInUser {
         final Person user = getUserByEmail.execute(userDetails.getUsername());
         if (!user.isVerified()) throw new EmailNotVerifiedException();
         UserCertificateStatus userCertificateStatus = getUserCertificateStatus.execute(user);
-        return new AuthTokenResponse(jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, customProperties.getAuthTokenExpirationMilliseconds()), user.getRole().getName());
+        return jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, user.getRole().getName(), customProperties.getAuthTokenExpirationMilliseconds());
     }
 }

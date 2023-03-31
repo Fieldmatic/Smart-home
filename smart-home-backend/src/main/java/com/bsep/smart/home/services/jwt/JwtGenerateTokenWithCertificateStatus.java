@@ -1,6 +1,7 @@
 package com.bsep.smart.home.services.jwt;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
+import com.bsep.smart.home.model.Role;
 import com.bsep.smart.home.model.UserCertificateStatus;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,10 +15,11 @@ import java.util.Date;
 public class JwtGenerateTokenWithCertificateStatus {
     private final CustomProperties customProperties;
 
-    public String execute(final String email, final UserCertificateStatus certificateStatus, final long expirationMilliseconds) {
+    public String execute(final String email, final UserCertificateStatus certificateStatus, final String role, final long expirationMilliseconds) {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("certificateStatus", certificateStatus)
+                .claim("role", role)
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMilliseconds))
                 .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret().getBytes())

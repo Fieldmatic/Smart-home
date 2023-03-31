@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { AuthHttpService } from '../services/auth-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
+import { auto_login_fail, login_success } from './auth.actions';
 import { map, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotifierService } from '../../core/notifier.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -14,10 +16,27 @@ export class AuthEffects {
       switchMap((action) => {
         return this.httpService
           .sendLoginRequest(action.email, action.password)
-          .pipe(map((authToken) => AuthActions.login_success(authToken)));
+          .pipe(
+            map((authToken) =>
+              AuthActions.login_success({ token: authToken.token })
+            )
+          );
       })
     );
   });
+
+  autoLogin = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.auto_login.type),
+      map(() => {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+          return auto_login_fail();
+        }
+        return login_success({ token });
+      })
+    )
+  );
 
   login_success = createEffect(
     () => {
@@ -28,7 +47,7 @@ export class AuthEffects {
         }),
         map((action) => {
           sessionStorage.setItem('token', action.token);
-          sessionStorage.setItem('role', action.role);
+          this.authService.setLogoutTimer();
         })
       );
     },
@@ -40,9 +59,9 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(AuthActions.logout.type),
         tap(() => {
-          sessionStorage.removeItem('token');
-          sessionStorage.removeItem('role');
-          this.router.navigate(['/auth/login']);
+          sessionStorage.clear();
+          this.authService.clearLogoutTimer();
+          this.router.navigate(['/']);
         })
       );
     },
@@ -103,6 +122,7 @@ export class AuthEffects {
     private notifierService: NotifierService,
     private router: Router,
     private actions$: Actions<AuthActions.AuthActionsUnion>,
-    private httpService: AuthHttpService
+    private httpService: AuthHttpService,
+    private authService: AuthService
   ) {}
 }

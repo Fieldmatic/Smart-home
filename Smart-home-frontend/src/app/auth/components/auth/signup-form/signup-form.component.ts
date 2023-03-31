@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { sign_up } from '../../../store/auth.actions';
 import { Store } from '@ngrx/store';
 
@@ -14,24 +12,7 @@ export class SignupFormComponent implements OnInit {
   hidePassword = true;
   signUpForm!: FormGroup;
 
-  constructor(
-    private store: Store,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
-    matIconRegistry.addSvgIcon(
-      'hidePassword',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/password_visibility/visibility_off.svg'
-      )
-    );
-    matIconRegistry.addSvgIcon(
-      'showPassword',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/password_visibility/visibility.svg'
-      )
-    );
-  }
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({

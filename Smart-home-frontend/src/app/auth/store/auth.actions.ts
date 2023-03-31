@@ -1,5 +1,4 @@
 import { createAction, props, union } from '@ngrx/store';
-import { AuthToken } from '../model/auth-token.model';
 
 export const login = createAction(
   '[Auth] Login Start',
@@ -8,8 +7,12 @@ export const login = createAction(
 
 export const login_success = createAction(
   '[Auth] Login Success',
-  props<AuthToken>()
+  props<{ token: string }>()
 );
+
+export const auto_login = createAction('[Auth] Auto Login');
+
+export const auto_login_fail = createAction('[Auth] Auto Login  Failed');
 
 export const logout = createAction('[Auth] Logout');
 
@@ -31,6 +34,8 @@ export const confirm_email_success = createAction(
 
 const all = union({
   login,
+  auto_login,
+  auto_login_fail,
   login_success,
   logout,
   sign_up,

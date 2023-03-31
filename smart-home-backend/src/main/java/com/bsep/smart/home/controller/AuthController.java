@@ -31,7 +31,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public AuthTokenResponse login(@Valid @RequestBody final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
-        return loginUser.execute(loginRequest.getEmail(), loginRequest.getPassword());
+        return new AuthTokenResponse(loginUser.execute(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 
     @ResponseStatus(HttpStatus.OK)

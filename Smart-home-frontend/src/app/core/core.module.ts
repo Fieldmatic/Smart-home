@@ -8,6 +8,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment.prod';
 import { AuthEffects } from '../auth/store/auth.effects';
 import { ErrorInterceptor } from './error.interceptor';
+import { CertificatesEffects } from '../certificates/store/certificates.effects';
+import { AuthInterceptor } from '../auth/auth.interceptor';
+import { CertificatesAdminEffects } from '../certificates-admin/store/certificates-admin.effects';
 
 @NgModule({
   providers: [
@@ -15,11 +18,11 @@ import { ErrorInterceptor } from './error.interceptor';
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
@@ -28,7 +31,11 @@ import { ErrorInterceptor } from './error.interceptor';
   ],
   imports: [
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      CertificatesEffects,
+      CertificatesAdminEffects,
+    ]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
   exports: [StoreModule, EffectsModule, StoreDevtoolsModule],

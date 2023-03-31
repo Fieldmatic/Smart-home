@@ -3,6 +3,8 @@ package com.bsep.smart.home.controller;
 import com.bsep.smart.home.dto.request.certificate.CreateCertificateRequest;
 import com.bsep.smart.home.model.CertificateType;
 import com.bsep.smart.home.model.Extension;
+import com.bsep.smart.home.model.Permission;
+import com.bsep.smart.home.security.HasAnyPermission;
 import com.bsep.smart.home.services.certificate.CreateCertificate;
 import com.bsep.smart.home.services.certificate.GetCertificateExtensions;
 import com.bsep.smart.home.services.certificate.GetCertificateTypes;
@@ -28,25 +30,25 @@ public class CertificateController {
     private final GetCertificateExtensions getCertificateExtensions;
 
     @PostMapping
-    // @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
+    @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
     public void create(@RequestBody CreateCertificateRequest createCertificateRequest) throws UnrecoverableKeyException, CertificateException, KeyStoreException, NoSuchAlgorithmException, InvalidKeySpecException, SignatureException, OperatorCreationException, InvalidKeyException, NoSuchProviderException, IOException {
         generateCertificate.execute(createCertificateRequest);
     }
 
     @DeleteMapping("/delete/{alias}")
-    // @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
+    @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
     public void delete(@PathVariable String alias) throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException {
         deleteEntryByAlias.execute(alias);
     }
 
     @GetMapping("/types")
-    // @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
+    @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
     public List<CertificateType> getCertificateTypes() {
         return getCertificateTypes.execute();
     }
 
     @GetMapping("/extensions")
-    // @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
+    @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
     public List<Extension> getExtensions() {
         return getCertificateExtensions.execute();
     }

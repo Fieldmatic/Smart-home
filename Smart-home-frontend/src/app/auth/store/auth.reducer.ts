@@ -1,9 +1,8 @@
-import { AuthToken } from '../model/auth-token.model';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 
 export interface State {
-  token: AuthToken | null;
+  token: string | null;
 }
 
 const initialState: State = {
@@ -12,9 +11,9 @@ const initialState: State = {
 
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.login_success, (state, { token, role }) => ({
+  on(AuthActions.login_success, (state, { token }) => ({
     ...state,
-    token: new AuthToken(token, role),
+    token: token,
   })),
   on(AuthActions.logout, (state) => ({
     ...state,

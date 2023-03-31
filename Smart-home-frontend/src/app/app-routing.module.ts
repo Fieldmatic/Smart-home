@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AdminGuard } from './auth/admin.guard';
 
 const routes: Routes = [
   {
@@ -19,6 +21,15 @@ const routes: Routes = [
       import('./certificates/certificates.module').then(
         (module) => module.CertificatesModule
       ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin/security',
+    loadChildren: () =>
+      import('./certificates-admin/certificates-admin.module').then(
+        (module) => module.CertificatesAdminModule
+      ),
+    canActivate: [AuthGuard, AdminGuard],
   },
 ];
 

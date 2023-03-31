@@ -1,0 +1,3 @@
+<app-user-home-page-no-csr *ngIf="userCertificateStatus === 'NO_CSR'"></app-user-home-page-no-csr>
+<app-user-home-page-pending-csr *ngIf="userCertificateStatus === 'PENDING_CSR'"></app-user-home-page-pending-csr>
+<app-user-home-page-csr *ngIf="userCertificateStatus === 'ACCEPTED_CSR'"></app-user-home-page-csr>
