@@ -39,12 +39,19 @@ public class AddKeyPair {
                 builder.build(),
                 SubjectPublicKeyInfo.getInstance(keyPair.getPublic().getEncoded())
         );
-        ContentSigner signer = new JcaContentSignerBuilder("SHA256WithRSAEncryption")
-                .setProvider("BC").build(keyPair.getPrivate());
+        ContentSigner signer = getContentSigner(keyPair, csr);
         X509CertificateHolder certHolder = certBuilder.build(signer);
         X509Certificate cert = new JcaX509CertificateConverter()
                 .setProvider("BC").getCertificate(certHolder);
         saveCertificate.execute(email, keyPair.getPrivate(), new X509Certificate[]{cert});
+    }
+
+    private ContentSigner getContentSigner(KeyPair keyPair, CSRRequest csr) throws OperatorCreationException {
+        if (csr.getAlgorithm().equals("RSA")) {
+            return new JcaContentSignerBuilder("SHA512WITHRSAENCRYPTION").setProvider("BC").build(keyPair.getPrivate());
+        } else {
+            return new JcaContentSignerBuilder("SHA512WITHECDSA").setProvider("BC").build(keyPair.getPrivate());
+        }
     }
 
     private X500NameBuilder createName(String email, CSRRequest csr) {
