@@ -118,6 +118,49 @@ export class CertificatesAdminEffects {
     { dispatch: false }
   );
 
+  get_certificates = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CertificatesAdminActions.get_certificates.type),
+      switchMap(() => {
+        return this.httpService.getCertificates().pipe(
+          map((certificates) => {
+            return CertificatesAdminActions.set_certificates({ certificates });
+          })
+        );
+      })
+    );
+  });
+
+  delete_certificate = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CertificatesAdminActions.delete_certificate.type),
+      switchMap((action) => {
+        return this.httpService.deleteCertificate(action.alias).pipe(
+          map(() => {
+            return CertificatesAdminActions.delete_certificate_success({
+              alias: action.alias,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  delete_certificate_success = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(CertificatesAdminActions.delete_certificate_success.type),
+        map((action) => action.alias),
+        tap((alias) => {
+          const message =
+            'You have successfully delete certificate for user ' + alias + '.';
+          this.notifierService.notifySuccess(message);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
   constructor(
     private notifierService: NotifierService,
     private router: Router,

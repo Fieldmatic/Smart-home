@@ -6,12 +6,14 @@ import { CsrPendingTableComponent } from './components/certificates-admin/csr-pe
 import { StoreModule } from '@ngrx/store';
 import * as fromCertificatesAdmin from './store/certificates-admin.reducer';
 import { NewCertificateFormComponent } from './components/certificates-admin/new-certificate-form/new-certificate-form.component';
+import { AllCertificatesTableComponent } from './components/certificates-admin/all-certificates-table/all-certificates-table.component';
 
 @NgModule({
   declarations: [
     CertificatesAdminComponent,
     CsrPendingTableComponent,
     NewCertificateFormComponent,
+    AllCertificatesTableComponent,
   ],
   imports: [
     CertificatesAdminRoutingModule,

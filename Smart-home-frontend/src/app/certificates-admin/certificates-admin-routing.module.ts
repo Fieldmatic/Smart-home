@@ -6,6 +6,8 @@ import { NewCertificateFormComponent } from './components/certificates-admin/new
 import { CsrResolver } from './resolvers/csr.resolver';
 import { CertificateTypesResolver } from './resolvers/certificate-types.resolver';
 import { CertificateExtensionsResolver } from './resolvers/certificate-extensions.resolver';
+import { AllCertificatesTableComponent } from './components/certificates-admin/all-certificates-table/all-certificates-table.component';
+import { CertificatesResolver } from './resolvers/certificates.resolver';
 
 const routes: Routes = [
   {
@@ -24,6 +26,11 @@ const routes: Routes = [
           CertificateTypesResolver,
           CertificateExtensionsResolver,
         ],
+      },
+      {
+        path: 'certificate/all',
+        component: AllCertificatesTableComponent,
+        resolve: [CertificatesResolver],
       },
     ],
   },

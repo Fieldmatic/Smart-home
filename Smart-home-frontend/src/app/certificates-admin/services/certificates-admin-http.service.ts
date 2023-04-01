@@ -5,6 +5,7 @@ import { CSR } from '../model/CSR.model';
 import { CertificateType } from '../model/certificate-type.model';
 import { Extension } from '../model/extension.model';
 import { Capabilities } from '../model/capabilities.model';
+import { Certificate } from '../model/certificate.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,8 @@ export class CertificatesAdminHttpService {
   GET_CERTIFICATE_TYPES = 'certificate/types';
   GET_CERTIFICATE_EXTENSIONS = 'certificate/extensions';
   CREATE_CERTIFICATE = 'certificate';
+  GET_CERTIFICATES = 'certificate/all';
+  DELETE_CERTIFICATE = 'certificate/delete/';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
@@ -59,5 +62,17 @@ export class CertificatesAdminHttpService {
       serialNumber,
       caAlias,
     });
+  }
+
+  getCertificates() {
+    return this.http.get<Certificate[]>(
+      this.config.apiEndpoint + this.GET_CERTIFICATES
+    );
+  }
+
+  deleteCertificate(alias: string) {
+    return this.http.delete(
+      this.config.apiEndpoint + this.DELETE_CERTIFICATE + alias
+    );
   }
 }
