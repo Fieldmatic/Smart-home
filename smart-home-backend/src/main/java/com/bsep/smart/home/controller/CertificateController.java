@@ -58,7 +58,7 @@ public class CertificateController {
     }
 
     @GetMapping("/all")
-    // @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
+    @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
     public List<CertificateResponse> getCertificates() throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertPathValidatorException, InvalidAlgorithmParameterException, CertificateException {
         return getAllCertificates.execute();
     }

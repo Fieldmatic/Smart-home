@@ -21,3 +21,11 @@ export const selectCertificateExtensions = createSelector(
 
 export const selectCSR = (id: string) =>
   createSelector(selectCSRs, (csrs) => csrs.find((csr) => csr.id === id));
+
+export const selectCertificates = createSelector(
+  selectCertificatesAdmin,
+  (state) => state.certificates
+);
+
+export const selectCertificate = (index: number) =>
+  createSelector(selectCertificates, (certificates) => certificates[index]);

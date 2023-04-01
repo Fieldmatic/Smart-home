@@ -3,6 +3,7 @@ import { CSR } from '../model/CSR.model';
 import { CertificateType } from '../model/certificate-type.model';
 import { Extension } from '../model/extension.model';
 import { Capabilities } from '../model/capabilities.model';
+import { Certificate } from '../model/certificate.model';
 
 export const get_pending_csrs = createAction(
   '[Certificates Admin] Get Pending CSRs'
@@ -57,6 +58,25 @@ export const create_certificate_success = createAction(
   '[Certificates Admin] Create Certificate Success'
 );
 
+export const get_certificates = createAction(
+  '[Certificates Admin] Get Certificates'
+);
+
+export const set_certificates = createAction(
+  '[Certificates Admin] Set Certificates',
+  props<{ certificates: Certificate[] }>()
+);
+
+export const delete_certificate = createAction(
+  '[Certificates Admin] Delete Certificate',
+  props<{ alias: string }>()
+);
+
+export const delete_certificate_success = createAction(
+  '[Certificates Admin] Delete Certificate Success',
+  props<{ alias: string }>()
+);
+
 const all = union({
   get_pending_csrs,
   set_csrs,
@@ -68,6 +88,10 @@ const all = union({
   set_certificate_extensions,
   create_certificate,
   create_certificate_success,
+  get_certificates,
+  set_certificates,
+  delete_certificate,
+  delete_certificate_success,
 });
 
 export type CertificatesAdminActionsUnion = typeof all;

@@ -58,8 +58,4 @@ export class CsrPendingTableComponent
   rejectCsr(id: string) {
     this.store.dispatch(reject_csr({ id }));
   }
-
-  acceptCsr(id: string) {
-    console.log('ACCEPT ' + id);
-  }
 }
