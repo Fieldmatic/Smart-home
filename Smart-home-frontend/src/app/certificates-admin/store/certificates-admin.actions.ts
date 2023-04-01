@@ -16,7 +16,7 @@ export const set_csrs = createAction(
 
 export const reject_csr = createAction(
   '[Certificates Admin] Reject CSR',
-  props<{ id: string }>()
+  props<{ id: string; reason: string }>()
 );
 
 export const reject_csr_success = createAction(

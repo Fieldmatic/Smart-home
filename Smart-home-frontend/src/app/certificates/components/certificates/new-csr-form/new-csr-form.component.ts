@@ -16,8 +16,17 @@ export class NewCsrFormComponent implements OnInit {
     { label: 'Key Settings', active: false, filled: false },
   ];
   visibleSectionId = 1;
+  algorithms = ['RSA', 'EC'];
+  keySizes: { [key: string]: string[] } = {
+    RSA: ['2048', '4096'],
+    EC: ['256', '384', '521'],
+  };
 
   constructor(private store: Store) {}
+
+  get selectedAlgorithm(): string {
+    return this.newCSRForm.controls['algorithm'].value;
+  }
 
   ngOnInit(): void {
     this.newCSRForm = new FormGroup({
@@ -27,8 +36,8 @@ export class NewCsrFormComponent implements OnInit {
       city: new FormControl(null, [Validators.required]),
       state: new FormControl(null, [Validators.required]),
       country: new FormControl(null, [Validators.required]),
-      key_size: new FormControl('4096', [Validators.required]),
       algorithm: new FormControl('RSA', [Validators.required]),
+      key_size: new FormControl(null, [Validators.required]),
     });
     this.newCSRForm.valueChanges.subscribe(() => {
       this.steps[0].filled =

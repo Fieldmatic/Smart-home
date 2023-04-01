@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormNavigationStep } from '../model/form-navigation-step.model';
+import { FormNavigationStep } from '../../model/form-navigation-step.model';
 
 @Component({
   selector: 'app-form-navigation',

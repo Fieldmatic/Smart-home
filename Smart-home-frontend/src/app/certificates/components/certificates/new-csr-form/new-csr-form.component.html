@@ -57,9 +57,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Key Size</mat-label>
             <mat-select formControlName="key_size">
-              <mat-option value="2048">2048 bits</mat-option>
-              <mat-option value="4096">4096 bits</mat-option>
-              <mat-option value="8192">8192 bits</mat-option>
+              <mat-option *ngFor="let i of keySizes[selectedAlgorithm]" [value]="i">{{i}} bits</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -68,8 +66,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Algorithm</mat-label>
             <mat-select formControlName="algorithm">
-              <mat-option value="RSA">RSA</mat-option>
-              <mat-option value="ECC">ECC</mat-option>
+              <mat-option *ngFor="let i of algorithms" [value]="i">{{i}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

@@ -25,7 +25,7 @@ export class CertificatesAdminEffects {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.reject_csr.type),
       switchMap((action) => {
-        return this.httpService.rejectCSR(action.id).pipe(
+        return this.httpService.rejectCSR(action.id, action.reason).pipe(
           map(() => {
             return CertificatesAdminActions.reject_csr_success({
               id: action.id,

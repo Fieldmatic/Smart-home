@@ -29,7 +29,7 @@
     <ng-container matColumnDef="disable">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let certificate">
-        <button mat-raised-button color="warn" (click)="disableCertificate(certificate.email)">Disable</button>
+        <button mat-raised-button color="warn" (click)="deleteCertificate(certificate.email)">Delete</button>
       </td>
     </ng-container>
 

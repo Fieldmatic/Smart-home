@@ -15,6 +15,8 @@ import {
 } from '../../../store/certificates-admin.actions';
 import { selectCertificates } from '../../../store/certificates-admin.selectors';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-all-certificates-table',
@@ -36,7 +38,7 @@ export class AllCertificatesTableComponent
   storeSubscription!: Subscription;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(get_certificates());
@@ -55,7 +57,18 @@ export class AllCertificatesTableComponent
     this.dataSource.sort = this.sort;
   }
 
-  disableCertificate(email: string) {
-    this.store.dispatch(delete_certificate({ alias: email }));
+  deleteCertificate(email: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Certificate Deletion',
+        text: `Are you sure you want to delete the certificate of user ${email}?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        this.store.dispatch(delete_certificate({ alias: email }));
+      }
+    });
   }
 }

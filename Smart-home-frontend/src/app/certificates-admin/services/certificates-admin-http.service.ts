@@ -12,7 +12,7 @@ import { Certificate } from '../model/certificate.model';
 })
 export class CertificatesAdminHttpService {
   GET_PENDING_CSRS = 'csr/pending';
-  REJECT_CSR = 'csr/reject/';
+  REJECT_CSR = 'csr/reject';
   GET_CERTIFICATE_TYPES = 'certificate/types';
   GET_CERTIFICATE_EXTENSIONS = 'certificate/extensions';
   CREATE_CERTIFICATE = 'certificate';
@@ -30,8 +30,11 @@ export class CertificatesAdminHttpService {
     );
   }
 
-  rejectCSR(id: string) {
-    return this.http.put(this.config.apiEndpoint + this.REJECT_CSR + id, {});
+  rejectCSR(id: string, reason: string) {
+    return this.http.put(this.config.apiEndpoint + this.REJECT_CSR, {
+      id,
+      reason,
+    });
   }
 
   getCertificateTypes() {
