@@ -7,7 +7,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: smtp.gmail.com
@@ -23,7 +23,7 @@ spring:
           auth: 'true'
 custom:
   jwtSecret: superepiksecret
-  clientUrl: http://localhost:4200
+  clientUrl: https://localhost:4200
   authTokenExpirationMilliseconds: 2592000000
   jwtActivateEmailTokenExpiration: 86400000
   jwtForgotPasswordExpiration: 3600000

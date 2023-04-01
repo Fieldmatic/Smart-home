@@ -1,6 +1,7 @@
 package com.bsep.smart.home.controller;
 
 
+import com.bsep.smart.home.dto.request.csr.CSRRejectionRequest;
 import com.bsep.smart.home.dto.request.csr.CSRRequest;
 import com.bsep.smart.home.model.CSR;
 import com.bsep.smart.home.model.CSRStatus;
@@ -17,7 +18,6 @@ import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/csr")
@@ -40,9 +40,9 @@ public class CSRController {
         return getAllCSRByStatus.execute(CSRStatus.PENDING);
     }
 
-    @PutMapping("/reject/{id}")
+    @PutMapping("/reject")
     @HasAnyPermission({Permission.CSR_MANIPULATION})
-    public void rejectCSR(@PathVariable UUID id) {
-        rejectCSR.execute(id);
+    public void rejectCSR(@RequestBody CSRRejectionRequest csrRejectionRequest) {
+        rejectCSR.execute(csrRejectionRequest);
     }
 }

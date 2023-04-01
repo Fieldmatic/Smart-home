@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface CSRRepository extends JpaRepository<CSR, UUID> {
     List<CSR> findAllByStatus(CSRStatus status);
+
+    CSR findByEmail(String email);
 }
