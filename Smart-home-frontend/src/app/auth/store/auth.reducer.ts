@@ -18,6 +18,10 @@ const authReducer = createReducer(
   on(AuthActions.logout, (state) => ({
     ...state,
     token: null,
+  })),
+  on(AuthActions.auto_login_fail, (state) => ({
+    ...state,
+    token: null,
   }))
 );
 
