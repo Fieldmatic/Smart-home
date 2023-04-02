@@ -43,9 +43,6 @@ public class SecurityConfig {
                 .antMatchers("/passenger/create").permitAll()
                 .antMatchers("/password/request-change").permitAll()
                 .antMatchers("/password/change").permitAll()
-                .antMatchers("/**").permitAll()
-                // .antMatchers("/**").authenticated()
-
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(filterChainExceptionHandler, LogoutFilter.class);
