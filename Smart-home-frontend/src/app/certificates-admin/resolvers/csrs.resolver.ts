@@ -5,15 +5,15 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
-import { Certificate } from '../model/certificate.model';
 import { Store } from '@ngrx/store';
 import { Actions, ofType } from '@ngrx/effects';
 import * as CertificatesAdminActions from '../store/certificates-admin.actions';
+import { CSR } from '../model/CSR.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CertificatesResolver implements Resolve<Certificate[]> {
+export class CsrsResolver implements Resolve<CSR[]> {
   constructor(
     private store: Store,
     private actions$: Actions<CertificatesAdminActions.CertificatesAdminActionsUnion>
@@ -22,12 +22,12 @@ export class CertificatesResolver implements Resolve<Certificate[]> {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<Certificate[]> | Promise<Certificate[]> | Certificate[] {
-    this.store.dispatch(CertificatesAdminActions.get_certificates());
+  ): Observable<CSR[]> | Promise<CSR[]> | CSR[] {
+    this.store.dispatch(CertificatesAdminActions.get_pending_csrs());
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.set_certificates.type),
+      ofType(CertificatesAdminActions.set_csrs.type),
       take(1),
-      map((action) => action.certificates)
+      map((action) => action.csrs)
     );
   }
 }

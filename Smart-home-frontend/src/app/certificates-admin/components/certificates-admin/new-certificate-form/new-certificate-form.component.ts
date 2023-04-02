@@ -166,6 +166,15 @@ export class NewCertificateFormComponent implements OnInit {
       (certificateType) => {
         const capabilities =
           this.capabilitiesByCertificateType(certificateType);
+        this.certificateExtensions.forEach((extension) => {
+          Object.values(
+            (<FormGroup>(
+              this.extensionForms.controls[this.optimizeName(extension.name)]
+            )).controls
+          ).forEach((control) => {
+            control.setValue(false);
+          });
+        });
         capabilities.forEach((c) => {
           this.certificateExtensions.forEach((extension) => {
             this.extensionsFormGroups[

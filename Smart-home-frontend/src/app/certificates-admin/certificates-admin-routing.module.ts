@@ -8,6 +8,7 @@ import { CertificateTypesResolver } from './resolvers/certificate-types.resolver
 import { CertificateExtensionsResolver } from './resolvers/certificate-extensions.resolver';
 import { AllCertificatesTableComponent } from './components/certificates-admin/all-certificates-table/all-certificates-table.component';
 import { CertificatesResolver } from './resolvers/certificates.resolver';
+import { CsrsResolver } from './resolvers/csrs.resolver';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       {
         path: 'csr/pending',
         component: CsrPendingTableComponent,
+        resolve: [CsrsResolver],
       },
       {
         path: 'certificate/:id/new',

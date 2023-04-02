@@ -9,10 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Certificate } from '../../../model/certificate.model';
 import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
-import {
-  delete_certificate,
-  get_certificates,
-} from '../../../store/certificates-admin.actions';
+import { delete_certificate } from '../../../store/certificates-admin.actions';
 import { selectCertificates } from '../../../store/certificates-admin.selectors';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,7 +38,6 @@ export class AllCertificatesTableComponent
   constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.store.dispatch(get_certificates());
     this.storeSubscription = this.store
       .select(selectCertificates)
       .subscribe((certificates) => {

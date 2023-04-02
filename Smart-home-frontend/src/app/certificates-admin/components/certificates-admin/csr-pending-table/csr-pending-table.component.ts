@@ -9,10 +9,7 @@ import { CSR } from '../../../model/CSR.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectCSRs } from '../../../store/certificates-admin.selectors';
-import {
-  get_pending_csrs,
-  reject_csr,
-} from '../../../store/certificates-admin.actions';
+import { reject_csr } from '../../../store/certificates-admin.actions';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,7 +40,6 @@ export class CsrPendingTableComponent
   constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.store.dispatch(get_pending_csrs());
     this.storeSubscription = this.store.select(selectCSRs).subscribe((csrs) => {
       this.dataSource = new MatTableDataSource<CSR>(csrs);
     });

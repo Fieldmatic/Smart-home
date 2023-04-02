@@ -3,7 +3,7 @@ import { AuthHttpService } from '../services/auth-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { auto_login_fail, login_success } from './auth.actions';
-import { map, switchMap, tap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotifierService } from '../../core/notifier.service';
 import { AuthService } from '../services/auth.service';
@@ -42,30 +42,26 @@ export class AuthEffects {
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.login_success.type),
-        tap(() => {
-          this.router.navigate(['/']);
-        }),
         map((action) => {
           sessionStorage.setItem('token', action.token);
           this.authService.setLogoutTimer();
+          this.router.navigate(['/']);
         })
       );
     },
     { dispatch: false }
   );
 
-  logout = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(AuthActions.logout.type),
-        tap(() => {
-          sessionStorage.clear();
-          this.authService.clearLogoutTimer();
-        })
-      );
-    },
-    { dispatch: false }
-  );
+  logout = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logout.type),
+      map(() => {
+        sessionStorage.clear();
+        this.authService.clearLogoutTimer();
+        return AuthActions.logout_success();
+      })
+    );
+  });
 
   sign_up = createEffect(() => {
     return this.actions$.pipe(
