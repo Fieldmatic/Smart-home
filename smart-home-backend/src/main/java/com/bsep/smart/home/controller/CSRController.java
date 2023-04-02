@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -30,7 +31,7 @@ public class CSRController {
 
     @PostMapping
     @HasAnyPermission({Permission.SEND_CSR_REQUEST})
-    public void create(@RequestBody CSRRequest csrRequest) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, OperatorCreationException, IOException {
+    public void create(@RequestBody @Valid CSRRequest csrRequest) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, OperatorCreationException, IOException {
         createCSR.execute(csrRequest);
     }
 

@@ -20,6 +20,7 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -58,11 +59,11 @@ public class AddKeyPair {
         X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
         builder.addRDN(BCStyle.EmailAddress, email);
         builder.addRDN(BCStyle.UID, getUserByEmail.execute(email).getId().toString());
-        builder.addRDN(BCStyle.C, csr.getCountry());
-        builder.addRDN(BCStyle.ST, csr.getState());
-        builder.addRDN(BCStyle.L, csr.getCity());
-        builder.addRDN(BCStyle.O, csr.getOrganization());
-        builder.addRDN(BCStyle.OU, csr.getOrganizationalUnit());
+        if (!Objects.isNull(csr.getCountry())) builder.addRDN(BCStyle.C, csr.getCountry());
+        if (!Objects.isNull(csr.getCountry())) builder.addRDN(BCStyle.ST, csr.getState());
+        if (!Objects.isNull(csr.getCountry())) builder.addRDN(BCStyle.L, csr.getCity());
+        if (!Objects.isNull(csr.getCountry())) builder.addRDN(BCStyle.O, csr.getOrganization());
+        if (!Objects.isNull(csr.getCountry())) builder.addRDN(BCStyle.OU, csr.getOrganizationalUnit());
         builder.addRDN(BCStyle.CN, csr.getCommonName());
         return builder;
     }
