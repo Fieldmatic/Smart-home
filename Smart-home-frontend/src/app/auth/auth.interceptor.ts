@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, switchMap, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectToken } from './store/auth.selectors';
 
@@ -25,6 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
     return this.store.select(selectToken).pipe(
+      take(1),
       switchMap((token) => {
         if (!token) {
           return next.handle(request);

@@ -21,41 +21,38 @@ const initialState: State = {
 
 const authReducer = createReducer(
   initialState,
-  on(CertificatesAdminActions.set_csrs, (state, { csrs }) => ({
+  on(CertificatesAdminActions.setCSRs, (state, { csrs }) => ({
     ...state,
     csrs,
   })),
-  on(CertificatesAdminActions.reject_csr_success, (state, { id }) => {
+  on(CertificatesAdminActions.rejectCSRSuccess, (state, { id }) => {
     const updatedCsrs = state.csrs.filter((csr) => csr.id !== id);
     return { ...state, csrs: updatedCsrs };
   }),
   on(
-    CertificatesAdminActions.set_certificate_types,
+    CertificatesAdminActions.setCertificateTypes,
     (state, { certificateTypes }) => ({
       ...state,
       certificateTypes,
     })
   ),
   on(
-    CertificatesAdminActions.set_certificate_extensions,
+    CertificatesAdminActions.setCertificateExtensions,
     (state, { certificateExtensions }) => ({
       ...state,
       certificateExtensions,
     })
   ),
-  on(CertificatesAdminActions.set_certificates, (state, { certificates }) => ({
+  on(CertificatesAdminActions.setCertificates, (state, { certificates }) => ({
     ...state,
     certificates,
   })),
-  on(
-    CertificatesAdminActions.delete_certificate_success,
-    (state, { alias }) => {
-      const updatedCertificates = state.certificates.filter(
-        (certificate) => certificate.email !== alias
-      );
-      return { ...state, certificates: updatedCertificates };
-    }
-  )
+  on(CertificatesAdminActions.deleteCertificateSuccess, (state, { alias }) => {
+    const updatedCertificates = state.certificates.filter(
+      (certificate) => certificate.email !== alias
+    );
+    return { ...state, certificates: updatedCertificates };
+  })
 );
 
 export function reducer(state: State | undefined, action: Action) {

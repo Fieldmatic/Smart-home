@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormNavigationStep } from '../../../../shared/model/form-navigation-step.model';
 import { Store } from '@ngrx/store';
-import { create_csr } from '../../../store/certificates.actions';
+import { createCSR } from '../../../store/certificates.actions';
 
 @Component({
   selector: 'app-new-csr-form',
@@ -62,7 +62,7 @@ export class NewCsrFormComponent implements OnInit {
       const keySize = +this.newCSRForm.controls['key_size'].value;
       const algorithm = this.newCSRForm.controls['algorithm'].value;
       this.store.dispatch(
-        create_csr({
+        createCSR({
           commonName,
           organization,
           organizationalUnit,

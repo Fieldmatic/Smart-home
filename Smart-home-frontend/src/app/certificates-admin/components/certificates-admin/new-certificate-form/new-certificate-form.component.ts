@@ -17,7 +17,7 @@ import { CSR } from '../../../model/CSR.model';
 import { CertificateType } from '../../../model/certificate-type.model';
 import { Extension } from '../../../model/extension.model';
 import { Capabilities } from '../../../model/capabilities.model';
-import { create_certificate } from '../../../store/certificates-admin.actions';
+import { createCertificate } from '../../../store/certificates-admin.actions';
 
 @Component({
   selector: 'app-new-certificate-form',
@@ -197,7 +197,7 @@ export class NewCertificateFormComponent implements OnInit {
       const caAlias = this.newCertificateForm.controls['caAlias'].value;
       if (start && end && csrId) {
         this.store.dispatch(
-          create_certificate({
+          createCertificate({
             capabilities,
             start,
             end,

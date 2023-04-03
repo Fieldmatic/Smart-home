@@ -10,7 +10,7 @@ import * as CertificatesActions from './certificates.actions';
 export class CertificatesEffects {
   create_csr = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesActions.create_csr.type),
+      ofType(CertificatesActions.createCSR.type),
       switchMap((action) => {
         return this.httpService
           .sendCreateCSRRequest(
@@ -25,7 +25,7 @@ export class CertificatesEffects {
           )
           .pipe(
             map(() => {
-              return CertificatesActions.create_csr_success();
+              return CertificatesActions.createCSRSuccess();
             })
           );
       })
@@ -35,7 +35,7 @@ export class CertificatesEffects {
   create_csr_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(CertificatesActions.create_csr_success.type),
+        ofType(CertificatesActions.createCSRSuccess.type),
         tap(() => {
           this.router.navigate(['/']);
         }),

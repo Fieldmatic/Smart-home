@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthHttpService } from '../services/auth-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
-import { auto_login_fail, login_success } from './auth.actions';
+import { autoLoginFail, loginSuccess } from './auth.actions';
 import { map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotifierService } from '../../core/notifier.service';
@@ -18,7 +18,7 @@ export class AuthEffects {
           .sendLoginRequest(action.email, action.password)
           .pipe(
             map((authToken) =>
-              AuthActions.login_success({ token: authToken.token })
+              AuthActions.loginSuccess({ token: authToken.token })
             )
           );
       })
@@ -27,13 +27,13 @@ export class AuthEffects {
 
   autoLogin = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.auto_login.type),
+      ofType(AuthActions.autoLogin.type),
       map(() => {
         const token = sessionStorage.getItem('token');
         if (!token) {
-          return auto_login_fail();
+          return autoLoginFail();
         }
-        return login_success({ token });
+        return loginSuccess({ token });
       })
     )
   );
@@ -41,7 +41,7 @@ export class AuthEffects {
   login_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(AuthActions.login_success.type),
+        ofType(AuthActions.loginSuccess.type),
         map((action) => {
           sessionStorage.setItem('token', action.token);
           this.authService.setLogoutTimer();
@@ -58,18 +58,18 @@ export class AuthEffects {
       map(() => {
         sessionStorage.clear();
         this.authService.clearLogoutTimer();
-        return AuthActions.logout_success();
+        return AuthActions.logoutSuccess();
       })
     );
   });
 
   sign_up = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.sign_up.type),
+      ofType(AuthActions.signUp.type),
       switchMap((action) => {
         return this.httpService
           .sendSignUpRequest(action.email, action.password, action.role)
-          .pipe(map(() => AuthActions.sign_up_success()));
+          .pipe(map(() => AuthActions.signUpSuccess()));
       })
     );
   });
@@ -77,7 +77,7 @@ export class AuthEffects {
   sign_up_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(AuthActions.sign_up_success.type),
+        ofType(AuthActions.signUpSuccess.type),
         map(() => {
           const message =
             'Your sign up request has been sent. Please go check your email.';
@@ -90,11 +90,11 @@ export class AuthEffects {
 
   confirm_email = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.confirm_email.type),
+      ofType(AuthActions.confirmEmail.type),
       switchMap((action) => {
         return this.httpService
           .sendEmailConfirmationRequest(action.token)
-          .pipe(map(() => AuthActions.confirm_email_success()));
+          .pipe(map(() => AuthActions.confirmEmailSuccess()));
       })
     );
   });
@@ -102,11 +102,12 @@ export class AuthEffects {
   confirm_email_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(AuthActions.confirm_email_success.type),
+        ofType(AuthActions.confirmEmailSuccess.type),
         map(() => {
           const message =
             'You have successfully confirmed your email address. You may log in now.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/auth/login']);
         })
       );
     },

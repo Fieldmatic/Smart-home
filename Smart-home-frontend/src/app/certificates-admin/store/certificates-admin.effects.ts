@@ -10,11 +10,11 @@ import { NotifierService } from '../../core/notifier.service';
 export class CertificatesAdminEffects {
   get_pending_csrs = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.get_pending_csrs.type),
+      ofType(CertificatesAdminActions.getPendingCSRs.type),
       switchMap(() => {
         return this.httpService.getPendingCSRs().pipe(
           map((csrs) => {
-            return CertificatesAdminActions.set_csrs({ csrs });
+            return CertificatesAdminActions.setCSRs({ csrs });
           })
         );
       })
@@ -23,11 +23,11 @@ export class CertificatesAdminEffects {
 
   reject_csr = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.reject_csr.type),
+      ofType(CertificatesAdminActions.rejectCSR.type),
       switchMap((action) => {
         return this.httpService.rejectCSR(action.id, action.reason).pipe(
           map(() => {
-            return CertificatesAdminActions.reject_csr_success({
+            return CertificatesAdminActions.rejectCSRSuccess({
               id: action.id,
             });
           })
@@ -39,7 +39,7 @@ export class CertificatesAdminEffects {
   reject_csr_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(CertificatesAdminActions.reject_csr_success.type),
+        ofType(CertificatesAdminActions.rejectCSRSuccess.type),
         map((action) => {
           const message =
             'You have successfully rejected CSR with ID ' + action.id + '.';
@@ -52,11 +52,11 @@ export class CertificatesAdminEffects {
 
   get_certificate_types = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.get_certificate_types.type),
+      ofType(CertificatesAdminActions.getCertificateTypes.type),
       switchMap(() => {
         return this.httpService.getCertificateTypes().pipe(
           map((certificateTypes) => {
-            return CertificatesAdminActions.set_certificate_types({
+            return CertificatesAdminActions.setCertificateTypes({
               certificateTypes,
             });
           })
@@ -67,11 +67,11 @@ export class CertificatesAdminEffects {
 
   get_certificate_extensions = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.get_certificate_extensions.type),
+      ofType(CertificatesAdminActions.getCertificateExtensions.type),
       switchMap(() => {
         return this.httpService.getCertificateExtensions().pipe(
           map((certificateExtensions) => {
-            return CertificatesAdminActions.set_certificate_extensions({
+            return CertificatesAdminActions.setCertificateExtensions({
               certificateExtensions,
             });
           })
@@ -82,7 +82,7 @@ export class CertificatesAdminEffects {
 
   create_certificate = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.create_certificate.type),
+      ofType(CertificatesAdminActions.createCertificate.type),
       switchMap((action) => {
         return this.httpService
           .sendCreateCertificateRequest(
@@ -95,7 +95,7 @@ export class CertificatesAdminEffects {
           )
           .pipe(
             map(() => {
-              return CertificatesAdminActions.create_certificate_success();
+              return CertificatesAdminActions.createCertificateSuccess();
             })
           );
       })
@@ -105,7 +105,7 @@ export class CertificatesAdminEffects {
   create_certificate_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(CertificatesAdminActions.create_certificate_success.type),
+        ofType(CertificatesAdminActions.createCertificateSuccess.type),
         tap(() => {
           this.router.navigate(['/admin/security/csr/pending']);
         }),
@@ -120,11 +120,11 @@ export class CertificatesAdminEffects {
 
   get_certificates = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.get_certificates.type),
+      ofType(CertificatesAdminActions.getCertificates.type),
       switchMap(() => {
         return this.httpService.getCertificates().pipe(
           map((certificates) => {
-            return CertificatesAdminActions.set_certificates({ certificates });
+            return CertificatesAdminActions.setCertificates({ certificates });
           })
         );
       })
@@ -133,11 +133,11 @@ export class CertificatesAdminEffects {
 
   delete_certificate = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.delete_certificate.type),
+      ofType(CertificatesAdminActions.deleteCertificate.type),
       switchMap((action) => {
         return this.httpService.deleteCertificate(action.alias).pipe(
           map(() => {
-            return CertificatesAdminActions.delete_certificate_success({
+            return CertificatesAdminActions.deleteCertificateSuccess({
               alias: action.alias,
             });
           })
@@ -149,7 +149,7 @@ export class CertificatesAdminEffects {
   delete_certificate_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(CertificatesAdminActions.delete_certificate_success.type),
+        ofType(CertificatesAdminActions.deleteCertificateSuccess.type),
         map((action) => action.alias),
         tap((alias) => {
           const message =

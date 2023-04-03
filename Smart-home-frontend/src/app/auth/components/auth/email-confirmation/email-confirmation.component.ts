@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { confirm_email } from '../../../store/auth.actions';
+import { confirmEmail } from '../../../store/auth.actions';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,6 +13,6 @@ export class EmailConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
     const token = this.route.snapshot.params['token'];
-    this.store.dispatch(confirm_email({ token }));
+    this.store.dispatch(confirmEmail({ token }));
   }
 }

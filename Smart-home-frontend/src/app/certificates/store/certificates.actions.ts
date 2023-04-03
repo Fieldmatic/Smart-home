@@ -1,6 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 
-export const create_csr = createAction(
+export const createCSR = createAction(
   '[Certificates] Create CSR',
   props<{
     commonName: string;
@@ -14,13 +14,13 @@ export const create_csr = createAction(
   }>()
 );
 
-export const create_csr_success = createAction(
+export const createCSRSuccess = createAction(
   '[Certificates] Create CSR Success'
 );
 
 const all = union({
-  create_csr,
-  create_csr_success,
+  createCSR,
+  createCSRSuccess,
 });
 
 export type CertificatesActionsUnion = typeof all;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { auto_login } from './auth/store/auth.actions';
+import { autoLogin } from './auth/store/auth.actions';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -32,6 +32,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(auto_login());
+    this.store.dispatch(autoLogin());
   }
 }
