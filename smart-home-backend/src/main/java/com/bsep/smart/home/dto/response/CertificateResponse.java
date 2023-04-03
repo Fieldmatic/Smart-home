@@ -18,5 +18,6 @@ public class CertificateResponse {
     Date start;
     Date end;
     boolean isValid;
+    boolean revoked;
 
 }

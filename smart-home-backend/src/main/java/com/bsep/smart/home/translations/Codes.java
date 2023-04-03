@@ -11,8 +11,8 @@ public enum Codes implements Translation {
     SEND_CERTIFICATE_MESSAGE("send_certificate_message"),
     CSR_REJECTION_SUBJECT("csr_rejection_subject"),
     CSR_REJECTION_MESSAGE("csr_rejection_message"),
-    CERTIFICATE_WITHDRAWAL_SUBJECT("certificate_withdrawal_subject"),
-    CERTIFICATE_WITHDRAWAL_MESSAGE("certificate_withdrawal_message");
+    CERTIFICATE_REVOKED_SUBJECT("certificate_revoked_subject"),
+    CERTIFICATE_REVOKED_MESSAGE("certificate_revoked_message");
 
 
     private final String code;

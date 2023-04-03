@@ -1,7 +1,6 @@
 package com.bsep.smart.home.services.auth;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
-import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.UserCertificateStatus;

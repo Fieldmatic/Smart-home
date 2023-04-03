@@ -24,10 +24,8 @@ import java.util.List;
 public class CertificateGenerator {
     private final AddExtensions addExtensions;
 
-    public X509Certificate execute(SubjectData subjectData, KeyEntryData issuerData, List<CapabilityRequest> capabilities) throws CertificateException, OperatorCreationException, CertIOException {
-        JcaContentSignerBuilder builder = new JcaContentSignerBuilder("SHA256WithRSAEncryption");
-        builder = builder.setProvider("BC");
-        ContentSigner contentSigner = builder.build(issuerData.getPrivateKey());
+    public X509Certificate execute(SubjectData subjectData, KeyEntryData issuerData, List<CapabilityRequest> capabilities, String algorithm) throws CertificateException, OperatorCreationException, CertIOException {
+        ContentSigner contentSigner = new JcaContentSignerBuilder("SHA512WITHRSAENCRYPTION").setProvider("BC").build(issuerData.getPrivateKey());
         X509v3CertificateBuilder certGen = new JcaX509v3CertificateBuilder(
                 issuerData.getX500Principal(),
                 new BigInteger(subjectData.getSerialNumber()),
@@ -41,5 +39,4 @@ public class CertificateGenerator {
         certConverter = certConverter.setProvider("BC");
         return certConverter.getCertificate(certHolder);
     }
-
 }
