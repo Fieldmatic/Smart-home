@@ -4,7 +4,6 @@ import com.bsep.smart.home.services.keystore.LoadCertificateChain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.security.KeyStore;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -12,7 +11,6 @@ import java.security.cert.X509Certificate;
 @Service
 @RequiredArgsConstructor
 public class IsCertificateValid {
-    private final KeyStore keyStore;
     private final LoadCertificateChain loadCertificateChain;
 
     public boolean execute(String alias) {
