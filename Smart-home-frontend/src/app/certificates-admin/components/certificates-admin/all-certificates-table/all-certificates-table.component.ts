@@ -26,6 +26,7 @@ export class AllCertificatesTableComponent
   displayedColumns = [
     'email',
     'issuedFor',
+    'issuedBy',
     'start',
     'end',
     'isValid',
@@ -73,7 +74,8 @@ export class AllCertificatesTableComponent
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const reason = options.findIndex(result);
+        console.log(result);
+        const reason = options.indexOf(result);
         this.store.dispatch(
           revokeCertificate({ alias: email, reason, message: result })
         );

@@ -5,6 +5,7 @@ export class Certificate {
     public issuedBy: string,
     public start: Date,
     public end: Date,
-    public valid: boolean
+    public valid: boolean,
+    public revoked: boolean
   ) {}
 }

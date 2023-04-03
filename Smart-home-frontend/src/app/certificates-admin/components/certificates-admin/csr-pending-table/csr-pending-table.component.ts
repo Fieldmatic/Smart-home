@@ -59,7 +59,7 @@ export class CsrPendingTableComponent
       {
         data: {
           title: 'CSR Rejection',
-          text: `Are you sure you want to reject CSR with id ${id}?`,
+          text: `Are you sure you want to reject the CSR?`,
           options: ['Non-compliance with CA policies', 'Suspicious data'],
         },
       }

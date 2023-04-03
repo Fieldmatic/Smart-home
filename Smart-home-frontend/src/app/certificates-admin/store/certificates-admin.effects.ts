@@ -40,9 +40,8 @@ export class CertificatesAdminEffects {
     () => {
       return this.actions$.pipe(
         ofType(CertificatesAdminActions.rejectCSRSuccess.type),
-        map((action) => {
-          const message =
-            'You have successfully rejected CSR with ID ' + action.id + '.';
+        tap(() => {
+          const message = 'You have successfully rejected a CSR.';
           this.notifierService.notifySuccess(message);
         })
       );
@@ -152,10 +151,8 @@ export class CertificatesAdminEffects {
     () => {
       return this.actions$.pipe(
         ofType(CertificatesAdminActions.revokeCertificateSuccess.type),
-        map((action) => action.alias),
-        tap((alias) => {
-          const message =
-            'You have successfully delete certificate for user ' + alias + '.';
+        tap(() => {
+          const message = 'You have successfully revoked a certificate.';
           this.notifierService.notifySuccess(message);
         })
       );

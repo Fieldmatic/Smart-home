@@ -11,6 +11,11 @@
       <td mat-cell *matCellDef="let certificate"> {{certificate.issuedFor}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="issuedBy">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued By</th>
+      <td mat-cell *matCellDef="let certificate"> {{certificate.issuedBy}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="start">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Valid From</th>
       <td mat-cell *matCellDef="let certificate"> {{certificate.start | date}} </td>
@@ -29,7 +34,9 @@
     <ng-container matColumnDef="disable">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let certificate">
-        <button mat-raised-button color="warn" (click)="revokeCertificate(certificate.email)">Revoke</button>
+        <button mat-raised-button color="warn" *ngIf="!certificate.revoked"
+                (click)="revokeCertificate(certificate.email)">Revoke
+        </button>
       </td>
     </ng-container>
 
