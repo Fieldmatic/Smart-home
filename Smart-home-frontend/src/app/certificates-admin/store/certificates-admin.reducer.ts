@@ -47,9 +47,11 @@ const authReducer = createReducer(
     ...state,
     certificates,
   })),
-  on(CertificatesAdminActions.deleteCertificateSuccess, (state, { alias }) => {
-    const updatedCertificates = state.certificates.filter(
-      (certificate) => certificate.email !== alias
+  on(CertificatesAdminActions.revokeCertificateSuccess, (state, { alias }) => {
+    const updatedCertificates = state.certificates.map((certificate) =>
+      certificate.email === alias
+        ? { ...certificate, isValid: false }
+        : certificate
     );
     return { ...state, certificates: updatedCertificates };
   })

@@ -17,7 +17,7 @@ export class CertificatesAdminHttpService {
   GET_CERTIFICATE_EXTENSIONS = 'certificate/extensions';
   CREATE_CERTIFICATE = 'certificate';
   GET_CERTIFICATES = 'certificate/all';
-  DELETE_CERTIFICATE = 'certificate/delete/';
+  REVOKE_CERTIFICATE = 'certificate/revoke';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
@@ -73,9 +73,11 @@ export class CertificatesAdminHttpService {
     );
   }
 
-  deleteCertificate(alias: string) {
-    return this.http.delete(
-      this.config.apiEndpoint + this.DELETE_CERTIFICATE + alias
-    );
+  revokeCertificate(alias: string, message: string, reason: number) {
+    return this.http.put(this.config.apiEndpoint + this.REVOKE_CERTIFICATE, {
+      alias,
+      message,
+      reason,
+    });
   }
 }

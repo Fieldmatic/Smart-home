@@ -12,7 +12,12 @@ export class ConfirmationDialogWithReasonOptionsComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { title: string; text: string; options: string[] },
+    public data: {
+      title: string;
+      text: string;
+      options: string[];
+      addCustom: true;
+    },
     private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({

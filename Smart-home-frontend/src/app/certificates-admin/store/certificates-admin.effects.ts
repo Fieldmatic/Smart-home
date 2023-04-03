@@ -133,15 +133,17 @@ export class CertificatesAdminEffects {
 
   delete_certificate = createEffect(() => {
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.deleteCertificate.type),
+      ofType(CertificatesAdminActions.revokeCertificate.type),
       switchMap((action) => {
-        return this.httpService.deleteCertificate(action.alias).pipe(
-          map(() => {
-            return CertificatesAdminActions.deleteCertificateSuccess({
-              alias: action.alias,
-            });
-          })
-        );
+        return this.httpService
+          .revokeCertificate(action.alias, action.message, action.reason)
+          .pipe(
+            map(() => {
+              return CertificatesAdminActions.revokeCertificateSuccess({
+                alias: action.alias,
+              });
+            })
+          );
       })
     );
   });
@@ -149,7 +151,7 @@ export class CertificatesAdminEffects {
   delete_certificate_success = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(CertificatesAdminActions.deleteCertificateSuccess.type),
+        ofType(CertificatesAdminActions.revokeCertificateSuccess.type),
         map((action) => action.alias),
         tap((alias) => {
           const message =

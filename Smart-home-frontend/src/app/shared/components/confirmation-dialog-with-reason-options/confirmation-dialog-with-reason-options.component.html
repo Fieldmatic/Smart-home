@@ -7,7 +7,7 @@
       <mat-label>Select the reason</mat-label>
       <mat-select formControlName="selectedOption">
         <mat-option *ngFor="let option of data.options" [value]="option">{{ option }}</mat-option>
-        <mat-option value="custom">Custom</mat-option>
+        <mat-option *ngIf="data.addCustom" value="custom">Custom</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

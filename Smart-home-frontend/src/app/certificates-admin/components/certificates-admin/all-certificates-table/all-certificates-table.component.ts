@@ -12,8 +12,8 @@ import { Store } from '@ngrx/store';
 import { selectCertificates } from '../../../store/certificates-admin.selectors';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { deleteCertificate } from '../../../store/certificates-admin.actions';
+import { revokeCertificate } from '../../../store/certificates-admin.actions';
+import { ConfirmationDialogWithReasonOptionsComponent } from '../../../../shared/components/confirmation-dialog-with-reason-options/confirmation-dialog-with-reason-options.component';
 
 @Component({
   selector: 'app-all-certificates-table',
@@ -53,17 +53,30 @@ export class AllCertificatesTableComponent
     this.dataSource.sort = this.sort;
   }
 
-  deleteCertificate(email: string) {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        title: 'Certificate Deletion',
-        text: `Are you sure you want to delete the certificate of user ${email}?`,
-      },
-    });
+  revokeCertificate(email: string) {
+    const options = [
+      'Non-specific reason',
+      'Private key has been compromised',
+      "Issuing CA's private key has been compromised",
+    ];
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogWithReasonOptionsComponent,
+      {
+        data: {
+          title: 'Certificate Revocation',
+          text: `Are you sure you want to revoke the certificate?`,
+          addCustom: false,
+          options,
+        },
+      }
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'confirm') {
-        this.store.dispatch(deleteCertificate({ alias: email }));
+      if (result) {
+        const reason = options.findIndex(result);
+        this.store.dispatch(
+          revokeCertificate({ alias: email, reason, message: result })
+        );
       }
     });
   }

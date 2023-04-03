@@ -67,13 +67,13 @@ export const setCertificates = createAction(
   props<{ certificates: Certificate[] }>()
 );
 
-export const deleteCertificate = createAction(
-  '[Certificates Admin] Delete Certificate',
-  props<{ alias: string }>()
+export const revokeCertificate = createAction(
+  '[Certificates Admin] Revoke Certificate',
+  props<{ alias: string; message: string; reason: number }>()
 );
 
-export const deleteCertificateSuccess = createAction(
-  '[Certificates Admin] Delete Certificate Success',
+export const revokeCertificateSuccess = createAction(
+  '[Certificates Admin] Revoke Certificate Success',
   props<{ alias: string }>()
 );
 
@@ -90,8 +90,8 @@ const all = union({
   createCertificateSuccess,
   getCertificates,
   setCertificates,
-  deleteCertificate,
-  deleteCertificateSuccess,
+  revokeCertificate,
+  revokeCertificateSuccess,
 });
 
 export type CertificatesAdminActionsUnion = typeof all;
