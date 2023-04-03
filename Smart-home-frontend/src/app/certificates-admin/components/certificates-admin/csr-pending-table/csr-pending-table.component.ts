@@ -9,11 +9,11 @@ import { CSR } from '../../../model/CSR.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectCSRs } from '../../../store/certificates-admin.selectors';
-import { reject_csr } from '../../../store/certificates-admin.actions';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogWithReasonOptionsComponent } from '../../../../shared/components/confirmation-dialog-with-reason-options/confirmation-dialog-with-reason-options.component';
+import { rejectCSR } from '../../../store/certificates-admin.actions';
 
 @Component({
   selector: 'app-csr-pending-table',
@@ -67,7 +67,7 @@ export class CsrPendingTableComponent
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.store.dispatch(reject_csr({ id, reason: result }));
+        this.store.dispatch(rejectCSR({ id, reason: result }));
       }
     });
   }

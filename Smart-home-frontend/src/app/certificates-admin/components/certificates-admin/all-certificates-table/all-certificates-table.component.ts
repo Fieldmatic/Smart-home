@@ -9,11 +9,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Certificate } from '../../../model/certificate.model';
 import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
-import { delete_certificate } from '../../../store/certificates-admin.actions';
 import { selectCertificates } from '../../../store/certificates-admin.selectors';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { deleteCertificate } from '../../../store/certificates-admin.actions';
 
 @Component({
   selector: 'app-all-certificates-table',
@@ -63,7 +63,7 @@ export class AllCertificatesTableComponent
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirm') {
-        this.store.dispatch(delete_certificate({ alias: email }));
+        this.store.dispatch(deleteCertificate({ alias: email }));
       }
     });
   }

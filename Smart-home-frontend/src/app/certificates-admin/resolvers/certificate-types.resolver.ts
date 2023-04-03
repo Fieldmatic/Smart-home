@@ -33,9 +33,9 @@ export class CertificateTypesResolver implements Resolve<CertificateType[]> {
         if (certificateTypes.length > 0) {
           return of(certificateTypes);
         }
-        this.store.dispatch(CertificatesAdminActions.get_certificate_types());
+        this.store.dispatch(CertificatesAdminActions.getCertificateTypes());
         return this.actions$.pipe(
-          ofType(CertificatesAdminActions.set_certificate_types.type),
+          ofType(CertificatesAdminActions.setCertificateTypes.type),
           take(1),
           map((action) => action.certificateTypes)
         );

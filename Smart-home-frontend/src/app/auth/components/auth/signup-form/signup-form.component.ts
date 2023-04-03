@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { sign_up } from '../../../store/auth.actions';
+import { signUp } from '../../../store/auth.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -37,7 +37,7 @@ export class SignupFormComponent implements OnInit {
       const email = this.signUpForm.controls['email'].value;
       const password = this.signUpForm.controls['password'].value;
       const role = this.signUpForm.controls['role'].value;
-      this.store.dispatch(sign_up({ email, password, role }));
+      this.store.dispatch(signUp({ email, password, role }));
     }
   }
 }

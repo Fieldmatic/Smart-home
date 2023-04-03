@@ -31,10 +31,10 @@ export class CertificateExtensionsResolver implements Resolve<Extension[]> {
           return of(certificateExtensions);
         }
         this.store.dispatch(
-          CertificatesAdminActions.get_certificate_extensions()
+          CertificatesAdminActions.getCertificateExtensions()
         );
         return this.actions$.pipe(
-          ofType(CertificatesAdminActions.set_certificate_extensions.type),
+          ofType(CertificatesAdminActions.setCertificateExtensions.type),
           take(1),
           map((action) => action.certificateExtensions)
         );

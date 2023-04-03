@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { State } from './certificates-admin.reducer';
 
 export const selectCertificatesAdmin =
-  createFeatureSelector<State>('security-admin');
+  createFeatureSelector<State>('security_admin');
 
 export const selectCSRs = createSelector(
   selectCertificatesAdmin,

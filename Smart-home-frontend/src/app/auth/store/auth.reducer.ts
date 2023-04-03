@@ -11,7 +11,7 @@ const initialState: State = {
 
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.login_success, (state, { token }) => ({
+  on(AuthActions.loginSuccess, (state, { token }) => ({
     ...state,
     token: token,
   })),
@@ -19,7 +19,7 @@ const authReducer = createReducer(
     ...state,
     token: null,
   })),
-  on(AuthActions.auto_login_fail, (state) => ({
+  on(AuthActions.autoLoginFail, (state) => ({
     ...state,
     token: null,
   }))

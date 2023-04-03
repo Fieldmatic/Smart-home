@@ -18,7 +18,7 @@ import { AllCertificatesTableComponent } from './components/certificates-admin/a
   imports: [
     CertificatesAdminRoutingModule,
     SharedModule,
-    StoreModule.forFeature('security-admin', fromCertificatesAdmin.reducer),
+    StoreModule.forFeature('security_admin', fromCertificatesAdmin.reducer),
   ],
 })
 export class CertificatesAdminModule {}

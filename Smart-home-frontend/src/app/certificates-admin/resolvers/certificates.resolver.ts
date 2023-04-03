@@ -23,9 +23,9 @@ export class CertificatesResolver implements Resolve<Certificate[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Certificate[]> | Promise<Certificate[]> | Certificate[] {
-    this.store.dispatch(CertificatesAdminActions.get_certificates());
+    this.store.dispatch(CertificatesAdminActions.getCertificates());
     return this.actions$.pipe(
-      ofType(CertificatesAdminActions.set_certificates.type),
+      ofType(CertificatesAdminActions.setCertificates.type),
       take(1),
       map((action) => action.certificates)
     );

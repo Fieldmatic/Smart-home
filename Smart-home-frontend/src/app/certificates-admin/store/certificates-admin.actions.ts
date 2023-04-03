@@ -5,44 +5,44 @@ import { Extension } from '../model/extension.model';
 import { Capabilities } from '../model/capabilities.model';
 import { Certificate } from '../model/certificate.model';
 
-export const get_pending_csrs = createAction(
+export const getPendingCSRs = createAction(
   '[Certificates Admin] Get Pending CSRs'
 );
 
-export const set_csrs = createAction(
+export const setCSRs = createAction(
   '[Certificates Admin] Set CSRs',
   props<{ csrs: CSR[] }>()
 );
 
-export const reject_csr = createAction(
+export const rejectCSR = createAction(
   '[Certificates Admin] Reject CSR',
   props<{ id: string; reason: string }>()
 );
 
-export const reject_csr_success = createAction(
+export const rejectCSRSuccess = createAction(
   '[Certificates Admin] Reject CSR Success',
   props<{ id: string }>()
 );
 
-export const get_certificate_types = createAction(
+export const getCertificateTypes = createAction(
   '[Certificates Admin] Get Certificate Types'
 );
 
-export const set_certificate_types = createAction(
+export const setCertificateTypes = createAction(
   '[Certificates Admin] Set Certificate Types',
   props<{ certificateTypes: CertificateType[] }>()
 );
 
-export const get_certificate_extensions = createAction(
+export const getCertificateExtensions = createAction(
   '[Certificates Admin] Get Certificate Extensions'
 );
 
-export const set_certificate_extensions = createAction(
+export const setCertificateExtensions = createAction(
   '[Certificates Admin] Set Certificate Extensions',
   props<{ certificateExtensions: Extension[] }>()
 );
 
-export const create_certificate = createAction(
+export const createCertificate = createAction(
   '[Certificates Admin] Create Certificate',
   props<{
     capabilities: Capabilities[];
@@ -54,44 +54,44 @@ export const create_certificate = createAction(
   }>()
 );
 
-export const create_certificate_success = createAction(
+export const createCertificateSuccess = createAction(
   '[Certificates Admin] Create Certificate Success'
 );
 
-export const get_certificates = createAction(
+export const getCertificates = createAction(
   '[Certificates Admin] Get Certificates'
 );
 
-export const set_certificates = createAction(
+export const setCertificates = createAction(
   '[Certificates Admin] Set Certificates',
   props<{ certificates: Certificate[] }>()
 );
 
-export const delete_certificate = createAction(
+export const deleteCertificate = createAction(
   '[Certificates Admin] Delete Certificate',
   props<{ alias: string }>()
 );
 
-export const delete_certificate_success = createAction(
+export const deleteCertificateSuccess = createAction(
   '[Certificates Admin] Delete Certificate Success',
   props<{ alias: string }>()
 );
 
 const all = union({
-  get_pending_csrs,
-  set_csrs,
-  reject_csr,
-  reject_csr_success,
-  get_certificate_types,
-  set_certificate_types,
-  get_certificate_extensions,
-  set_certificate_extensions,
-  create_certificate,
-  create_certificate_success,
-  get_certificates,
-  set_certificates,
-  delete_certificate,
-  delete_certificate_success,
+  getPendingCSRs,
+  setCSRs,
+  rejectCSR,
+  rejectCSRSuccess,
+  getCertificateTypes,
+  setCertificateTypes,
+  getCertificateExtensions,
+  setCertificateExtensions,
+  createCertificate,
+  createCertificateSuccess,
+  getCertificates,
+  setCertificates,
+  deleteCertificate,
+  deleteCertificateSuccess,
 });
 
 export type CertificatesAdminActionsUnion = typeof all;

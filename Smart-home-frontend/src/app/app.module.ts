@@ -37,6 +37,8 @@ import { UserHomePageCsrComponent } from './components/home-page/user-home-page/
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       progressBar: true,
+      preventDuplicates: true,
+      closeButton: true,
     }),
     HttpClientModule,
     SharedModule,

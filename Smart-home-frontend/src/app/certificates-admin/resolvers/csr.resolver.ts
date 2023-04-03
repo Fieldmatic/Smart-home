@@ -31,9 +31,9 @@ export class CsrResolver implements Resolve<CSR> {
         if (csr) {
           return of(csr);
         }
-        this.store.dispatch(CertificatesAdminActions.get_pending_csrs());
+        this.store.dispatch(CertificatesAdminActions.getPendingCSRs());
         return this.actions$.pipe(
-          ofType(CertificatesAdminActions.set_csrs.type),
+          ofType(CertificatesAdminActions.setCSRs.type),
           take(1),
           map((action) => action.csrs),
           filter((csrs) => csrs.length > 0),
