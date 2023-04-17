@@ -1,5 +1,6 @@
 package com.bsep.smart.home.exception;
 
+import com.bsep.smart.home.translations.Translator;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.bsep.smart.home.translations.Translator.toLocale;
-
-import com.bsep.smart.home.translations.Translator;
-
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -42,6 +39,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             AuthTokenExpiredException.class,
             AuthTokenInvalidException.class,
             UnauthorizedException.class,
+            FingerprintInvalidException.class,
+            SigningAlgorithmInvalidException.class
     })
     protected ResponseEntity<?> handleUnauthorizedExceptions(CustomRuntimeException ex) {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.UNAUTHORIZED));
@@ -73,7 +72,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = new ArrayList<>(ex.getBindingResult().getFieldErrors().stream().map((err) ->
-                err.getField() + " " + err.getDefaultMessage()
+                err.getDefaultMessage()
         ).toList());
 
         errors.addAll(ex.getBindingResult().getGlobalErrors().stream().map((err) ->

@@ -48,6 +48,10 @@ public class SecurityConfig {
         httpSecurity.addFilterBefore(filterChainExceptionHandler, LogoutFilter.class);
 
         httpSecurity.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
 
         return httpSecurity.build();
     }

@@ -10,6 +10,7 @@ import com.bsep.smart.home.services.mail.ActivateEmail;
 import com.bsep.smart.home.services.registration.RegisterNewUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,8 +31,8 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    public AuthTokenResponse login(@Valid @RequestBody final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
-        return new AuthTokenResponse(loginUser.execute(loginRequest.getEmail(), loginRequest.getPassword()));
+    public ResponseEntity<AuthTokenResponse> login(@Valid @RequestBody final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
+        return loginUser.execute(loginRequest.getEmail(), loginRequest.getPassword());
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -41,7 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegistrationRequest registrationRequest) throws KeyStoreException {
+    public void register(@Valid @RequestBody RegistrationRequest registrationRequest) throws KeyStoreException {
         registerNewUser.execute(registrationRequest);
     }
 

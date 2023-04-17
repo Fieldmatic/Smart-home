@@ -1,12 +1,17 @@
 package com.bsep.smart.home.services.auth;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
+import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.UserCertificateStatus;
+import com.bsep.smart.home.services.fingerprint.GenerateFingerprint;
 import com.bsep.smart.home.services.jwt.JwtGenerateTokenWithCertificateStatus;
 import com.bsep.smart.home.services.user.GetUserByEmail;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,9 +37,10 @@ public class LogInUser {
 
     private final CustomProperties customProperties;
     private final GetUserCertificateStatus getUserCertificateStatus;
+    private final GenerateFingerprint generateFingerprint;
 
 
-    public String execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
+    public ResponseEntity<AuthTokenResponse> execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
@@ -51,6 +57,16 @@ public class LogInUser {
         final Person user = getUserByEmail.execute(userDetails.getUsername());
         if (!user.isVerified()) throw new EmailNotVerifiedException();
         UserCertificateStatus userCertificateStatus = getUserCertificateStatus.execute(user);
-        return jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, user.getRole().getName(), customProperties.getAuthTokenExpirationMilliseconds());
+        String fingerprint = generateFingerprint.execute();
+        String authToken = jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, user.getRole().getName(), customProperties.getAuthTokenExpirationMilliseconds(), fingerprint);
+        HttpHeaders headers = createHeadersWithFingerprintCookie(fingerprint);
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(new AuthTokenResponse(authToken));
+    }
+
+    private HttpHeaders createHeadersWithFingerprintCookie(String fingerprint) {
+        String cookie = "Fingerprint=" + fingerprint + "; HttpOnly; Path=/";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Set-Cookie", cookie);
+        return headers;
     }
 }

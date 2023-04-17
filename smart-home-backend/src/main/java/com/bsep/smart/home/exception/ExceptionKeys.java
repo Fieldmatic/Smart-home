@@ -23,7 +23,9 @@ public enum ExceptionKeys implements Translation {
     PASSWORD_SAME("password_same"),
     PASSWORD_MISMATCH("password_mismatch"),
     USER_HAS_PENDING_CSR("user_has_pending_csr"),
-    EMAIL_NOT_VERIFIED("email_not_verified");
+    EMAIL_NOT_VERIFIED("email_not_verified"),
+    FINGERPRINT_INVALID("fingerprint_invalid"),
+    SIGNING_ALGORITHM_INVALID("signing_algorithm_invalid");
 
     private final String code;
 
