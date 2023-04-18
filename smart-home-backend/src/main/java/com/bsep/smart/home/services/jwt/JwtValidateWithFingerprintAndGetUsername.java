@@ -20,10 +20,12 @@ public class JwtValidateWithFingerprintAndGetUsername {
     private final GetClaimsFromToken getAllClaimsFromToken;
 
     private final GetAlgorithmFromToken getAlgorithmFromToken;
+    private final TokenBlacklistService tokenBlacklistService;
 
 
     public String execute(final String token, final String fingerprint) {
         try {
+            if (tokenBlacklistService.isBlacklisted(token)) throw new AuthTokenInvalidException();
             validateSigningAlgorithm(token);
             validateTokenFingerprint(fingerprint, token);
             return Jwts.parser().setSigningKey(customProperties.getJwtSecret().getBytes()).parseClaimsJws(token).getBody().getSubject();

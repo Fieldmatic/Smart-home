@@ -21,10 +21,13 @@ spring:
             enable: 'true'
             required: 'true'
           auth: 'true'
+  redis:
+    host: localhost
+    port: 6379
 custom:
   jwtSecret: superepiksecret
   clientUrl: https://localhost:4200
-  authTokenExpirationMilliseconds: 2592000000
+  authTokenExpirationMilliseconds: 86400000
   jwtActivateEmailTokenExpiration: 86400000
   jwtForgotPasswordExpiration: 3600000
   createUserTokenExpirationMilliseconds: 2592000000
