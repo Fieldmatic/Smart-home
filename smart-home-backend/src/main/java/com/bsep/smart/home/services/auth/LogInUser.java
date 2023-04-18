@@ -1,8 +1,10 @@
 package com.bsep.smart.home.services.auth;
 
 import com.bsep.smart.home.configProperties.CustomProperties;
+import com.bsep.smart.home.dto.request.auth.LoginRequest;
 import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
+import com.bsep.smart.home.exception.InvalidPinException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.UserCertificateStatus;
 import com.bsep.smart.home.services.fingerprint.GenerateFingerprint;
@@ -25,6 +27,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -38,17 +41,21 @@ public class LogInUser {
     private final CustomProperties customProperties;
     private final GetUserCertificateStatus getUserCertificateStatus;
     private final GenerateFingerprint generateFingerprint;
+    private final MFACacheService mfaCacheService;
 
 
-    public ResponseEntity<AuthTokenResponse> execute(final String email, final String password) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
+    public ResponseEntity<AuthTokenResponse> execute(final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(email, password)
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
         } catch (final Exception e) {
             throw new BadCredentialsException("Bad login credentials");
         }
+        String pin = mfaCacheService.getUserPin(loginRequest.getEmail());
+        if (Objects.isNull(pin) || !pin.equals(loginRequest.getPin()))
+            throw new InvalidPinException();
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

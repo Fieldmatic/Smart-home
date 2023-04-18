@@ -6,6 +6,8 @@ import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.dto.response.UserResponse;
 import com.bsep.smart.home.services.auth.GetSelf;
 import com.bsep.smart.home.services.auth.LogInUser;
+import com.bsep.smart.home.services.auth.LoginDetailsExist;
+import com.bsep.smart.home.services.auth.LogoutUser;
 import com.bsep.smart.home.services.mail.ActivateEmail;
 import com.bsep.smart.home.services.registration.RegisterNewUser;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +30,25 @@ public class AuthController {
     private final GetSelf getSelf;
     private final RegisterNewUser registerNewUser;
     private final ActivateEmail activateEmail;
+    private final LogoutUser logoutUser;
+    private final LoginDetailsExist loginDetailsExist;
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public ResponseEntity<AuthTokenResponse> login(@Valid @RequestBody final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
-        return loginUser.execute(loginRequest.getEmail(), loginRequest.getPassword());
+        return loginUser.execute(loginRequest);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/login-details-exist")
+    public boolean loginDetailsExist(@Valid @RequestBody final LoginRequest loginRequest) {
+        return loginDetailsExist.execute(loginRequest.getEmail(), loginRequest.getPassword());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/logout")
+    public void logout() {
+        logoutUser.execute();
     }
 
     @ResponseStatus(HttpStatus.OK)

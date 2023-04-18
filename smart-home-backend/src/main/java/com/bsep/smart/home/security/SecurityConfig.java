@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/api-docs/**").permitAll()
                 .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/login-details-exist").permitAll()
                 .antMatchers("/auth/self").permitAll()
                 .antMatchers("/auth/register").permitAll()
                 .antMatchers("/auth/activateEmail/{token}").permitAll()

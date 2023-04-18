@@ -12,12 +12,11 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class LoginDetailsExistRequest {
     @NotEmpty
     @Email
     private String email;
 
     @NotEmpty
     private String password;
-    private String pin;
 }

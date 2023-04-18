@@ -40,7 +40,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             AuthTokenInvalidException.class,
             UnauthorizedException.class,
             FingerprintInvalidException.class,
-            SigningAlgorithmInvalidException.class
+            SigningAlgorithmInvalidException.class,
+            InvalidPinException.class
     })
     protected ResponseEntity<?> handleUnauthorizedExceptions(CustomRuntimeException ex) {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.UNAUTHORIZED));
