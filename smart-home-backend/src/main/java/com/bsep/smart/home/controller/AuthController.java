@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.AccountLockedException;
 import javax.validation.Valid;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -35,13 +36,13 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    public ResponseEntity<AuthTokenResponse> login(@Valid @RequestBody final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
+    public ResponseEntity<AuthTokenResponse> login(@Valid @RequestBody final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException, AccountLockedException {
         return loginUser.execute(loginRequest);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login-details-exist")
-    public boolean loginDetailsExist(@Valid @RequestBody final LoginRequest loginRequest) {
+    public boolean loginDetailsExist(@Valid @RequestBody final LoginRequest loginRequest) throws AccountLockedException {
         return loginDetailsExist.execute(loginRequest.getEmail(), loginRequest.getPassword());
     }
 

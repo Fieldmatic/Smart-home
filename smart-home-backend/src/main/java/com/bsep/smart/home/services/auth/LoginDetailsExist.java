@@ -1,5 +1,6 @@
 package com.bsep.smart.home.services.auth;
 
+import com.bsep.smart.home.exception.LockedAccountException;
 import com.bsep.smart.home.model.EmailDetails;
 import com.bsep.smart.home.services.mail.SendMail;
 import com.bsep.smart.home.translations.Codes;
@@ -17,13 +18,16 @@ public class LoginDetailsExist {
     private final GeneratePin generatePin;
     private final MFACacheService mfaCacheService;
     private final SendMail sendMail;
+    private final AccountLockService accountLockService;
 
     public boolean execute(String email, String password) {
+        if (accountLockService.isLocked(email)) throw new LockedAccountException();
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, password)
             );
         } catch (final Exception e) {
+            accountLockService.increaseFailedAttempts(email);
             throw new BadCredentialsException("Bad login credentials");
         }
         String pin = generatePin.execute();

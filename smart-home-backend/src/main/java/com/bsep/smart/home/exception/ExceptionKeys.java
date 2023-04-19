@@ -26,7 +26,8 @@ public enum ExceptionKeys implements Translation {
     EMAIL_NOT_VERIFIED("email_not_verified"),
     FINGERPRINT_INVALID("fingerprint_invalid"),
     SIGNING_ALGORITHM_INVALID("signing_algorithm_invalid"),
-    INVALID_PIN("invalid_pin");
+    INVALID_PIN("invalid_pin"),
+    LOCKED_ACCOUNT_EXCEPTION("locked_account_exception");
 
     private final String code;
 

@@ -5,6 +5,7 @@ import com.bsep.smart.home.dto.request.auth.LoginRequest;
 import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.exception.InvalidPinException;
+import com.bsep.smart.home.exception.LockedAccountException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.UserCertificateStatus;
 import com.bsep.smart.home.services.fingerprint.GenerateFingerprint;
@@ -42,21 +43,25 @@ public class LogInUser {
     private final GetUserCertificateStatus getUserCertificateStatus;
     private final GenerateFingerprint generateFingerprint;
     private final MFACacheService mfaCacheService;
+    private final AccountLockService accountLockService;
 
 
     public ResponseEntity<AuthTokenResponse> execute(final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
+        if (accountLockService.isLocked(loginRequest.getEmail())) throw new LockedAccountException();
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
         } catch (final Exception e) {
+            accountLockService.increaseFailedAttempts(loginRequest.getEmail());
             throw new BadCredentialsException("Bad login credentials");
         }
         String pin = mfaCacheService.getUserPin(loginRequest.getEmail());
-        if (Objects.isNull(pin) || !pin.equals(loginRequest.getPin()))
+        if (Objects.isNull(pin) || !pin.equals(loginRequest.getPin())) {
+            accountLockService.increaseFailedAttempts(loginRequest.getEmail());
             throw new InvalidPinException();
-
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
