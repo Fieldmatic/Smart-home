@@ -12,7 +12,9 @@ public enum Codes implements Translation {
     CSR_REJECTION_SUBJECT("csr_rejection_subject"),
     CSR_REJECTION_MESSAGE("csr_rejection_message"),
     CERTIFICATE_REVOKED_SUBJECT("certificate_revoked_subject"),
-    CERTIFICATE_REVOKED_MESSAGE("certificate_revoked_message");
+    CERTIFICATE_REVOKED_MESSAGE("certificate_revoked_message"),
+    LOGIN_PIN_SUBJECT("login_pin_subject"),
+    LOGIN_PIN_MESSAGE("login_pin_message");
 
 
     private final String code;
