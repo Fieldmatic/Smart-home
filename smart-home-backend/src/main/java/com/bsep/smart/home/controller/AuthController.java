@@ -42,7 +42,7 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login-details-exist")
-    public boolean loginDetailsExist(@Valid @RequestBody final LoginRequest loginRequest) throws AccountLockedException {
+    public int loginDetailsExist(@Valid @RequestBody final LoginRequest loginRequest) {
         return loginDetailsExist.execute(loginRequest.getEmail(), loginRequest.getPassword());
     }
 

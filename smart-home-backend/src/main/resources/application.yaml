@@ -34,6 +34,7 @@ custom:
   messageSource: messages
   defaultLocale: en
   senderEmail: milicftn@gmail.com
+  pinLength: 120
 server:
   servlet:
     contextPath: /api

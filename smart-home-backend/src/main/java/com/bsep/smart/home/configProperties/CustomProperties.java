@@ -16,4 +16,5 @@ public class CustomProperties {
     private String clientUrl;
     private Long jwtForgotPasswordExpiration;
     private Long jwtActivateEmailTokenExpiration;
+    private int pinLength;
 }

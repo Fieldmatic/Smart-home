@@ -1,5 +1,6 @@
 package com.bsep.smart.home.services.auth;
 
+import com.bsep.smart.home.configProperties.CustomProperties;
 import com.bsep.smart.home.exception.LockedAccountException;
 import com.bsep.smart.home.model.EmailDetails;
 import com.bsep.smart.home.services.mail.SendMail;
@@ -19,8 +20,9 @@ public class LoginDetailsExist {
     private final MFACacheService mfaCacheService;
     private final SendMail sendMail;
     private final AccountLockService accountLockService;
+    private final CustomProperties customProperties;
 
-    public boolean execute(String email, String password) {
+    public int execute(String email, String password) {
         if (accountLockService.isLocked(email)) throw new LockedAccountException();
         try {
             authenticationManager.authenticate(
@@ -35,6 +37,6 @@ public class LoginDetailsExist {
         final EmailDetails emailDetails = new EmailDetails(email, Translator.toLocale(
                 Codes.LOGIN_PIN_MESSAGE, new String[]{pin}), Translator.toLocale(Codes.LOGIN_PIN_SUBJECT));
         sendMail.execute(emailDetails);
-        return true;
+        return customProperties.getPinLength();
     }
 }
