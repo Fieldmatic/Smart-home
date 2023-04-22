@@ -5,8 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 public enum Permission implements GrantedAuthority {
     SEND_CSR_REQUEST,
     CSR_MANIPULATION,
-    CERTIFICATE_MANIPULATION;
-    //permission list
+    CERTIFICATE_MANIPULATION,
+    USER_MANIPULATION;
 
     @Override
     public String getAuthority() {

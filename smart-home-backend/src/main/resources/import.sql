@@ -3,10 +3,14 @@ insert into PUBLIC.ROLE (ID, NAME) values ('faf8829f-cb60-4365-b419-14f7b80afa4c
 insert into PUBLIC.ROLE (ID, NAME) values ('ebc16e4e-64e1-4b35-946a-0885ab058453', 'TENANT');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'SEND_CSR_REQUEST');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'CSR_MANIPULATION');
+insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'USER_MANIPULATION');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'CERTIFICATE_MANIPULATION');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('faf8829f-cb60-4365-b419-14f7b80afa4c', 'SEND_CSR_REQUEST');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('ebc16e4e-64e1-4b35-946a-0885ab058453', 'SEND_CSR_REQUEST');
-insert into PUBLIC.ADMIN (ID, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('201ab15f-3b22-4659-b839-235b9e6a728e', 'admin@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
+insert into PUBLIC.ADMIN (ID, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('201ab15f-3b22-4659-b839-235b9e6a728e', 'milicftn@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
+insert into PUBLIC.ADMIN (ID, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('0d6df743-a243-4e80-86a0-ef5710a57e4c', 'istevanovic3112@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
+insert into PUBLIC.ADMIN (ID, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('83aebc30-729c-4923-8aa1-ef71bb1e5247', 'prijovic.sw79.2019@uns.ac.rs', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
+
 insert into extension (id, name) values ('033eca81-61ee-43e3-bfbf-7463063976b1', 'Key Usage');
 insert into extension (id, name) values ('5737e19b-0074-47b8-a3e1-52794895a24d', 'Extended Key Usage');
 insert into capabilities (id, name, extension_id) values ('16c83a6a-c56c-4e62-9543-dbebfd3bea0c', 'Signature', '033eca81-61ee-43e3-bfbf-7463063976b1');
