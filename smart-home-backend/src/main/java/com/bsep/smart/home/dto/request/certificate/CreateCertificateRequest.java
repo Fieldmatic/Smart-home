@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +18,10 @@ public class CreateCertificateRequest {
     List<CapabilityRequest> capabilities;
     Date start;
     Date end;
+    @NotBlank
     UUID csrId;
+    @NotBlank
     String serialNumber;
+    @NotBlank
     String caAlias;
 }

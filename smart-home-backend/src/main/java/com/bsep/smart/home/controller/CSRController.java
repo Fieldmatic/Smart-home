@@ -43,7 +43,7 @@ public class CSRController {
 
     @PutMapping("/reject")
     @HasAnyPermission({Permission.CSR_MANIPULATION})
-    public void rejectCSR(@RequestBody CSRRejectionRequest csrRejectionRequest) {
+    public void rejectCSR(@Valid @RequestBody CSRRejectionRequest csrRejectionRequest) {
         rejectCSR.execute(csrRejectionRequest);
     }
 }

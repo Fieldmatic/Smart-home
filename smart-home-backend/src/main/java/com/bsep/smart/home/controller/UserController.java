@@ -10,6 +10,7 @@ import com.bsep.smart.home.services.user.GetUsers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @HasAnyPermission({Permission.USER_MANIPULATION})
-    public UserResponse changeRole(@PathVariable UUID id, @RequestParam String roleName) {
+    public UserResponse changeRole(@NotBlank @PathVariable UUID id, @NotBlank @RequestParam String roleName) {
         return UserConverter.toUserResponse(changeUserRole.execute(id, roleName));
     }
 

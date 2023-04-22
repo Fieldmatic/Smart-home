@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.CRLException;
@@ -35,13 +36,13 @@ public class CertificateController {
 
     @PostMapping
     @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
-    public void create(@RequestBody CreateCertificateRequest createCertificateRequest) throws UnrecoverableKeyException, CertificateException, KeyStoreException, NoSuchAlgorithmException, InvalidKeySpecException, SignatureException, OperatorCreationException, InvalidKeyException, NoSuchProviderException, IOException {
+    public void create(@Valid @RequestBody CreateCertificateRequest createCertificateRequest) throws UnrecoverableKeyException, CertificateException, KeyStoreException, NoSuchAlgorithmException, InvalidKeySpecException, SignatureException, OperatorCreationException, InvalidKeyException, NoSuchProviderException, IOException {
         generateCertificate.execute(createCertificateRequest);
     }
 
     @PutMapping("/revoke")
     @HasAnyPermission({Permission.CERTIFICATE_MANIPULATION})
-    public void revoke(@RequestBody RevokeRequest revokeRequest) throws Exception {
+    public void revoke(@Valid @RequestBody RevokeRequest revokeRequest) throws Exception {
         revokeCertificate.execute(revokeRequest);
     }
 

@@ -3,10 +3,11 @@ package com.bsep.smart.home.controller;
 import com.bsep.smart.home.dto.request.password.ChangePasswordRequest;
 import com.bsep.smart.home.services.password.ChangePassword;
 import com.bsep.smart.home.services.password.SendPasswordResetEmail;
-
-import javax.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 
 @RestController
@@ -22,7 +23,7 @@ public class PasswordController {
     }
 
     @PutMapping("/change")
-    public void changePassword(@RequestBody ChangePasswordRequest changePasswordDTO) {
+    public void changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordDTO) {
         changePassword.execute(changePasswordDTO);
     }
 }
