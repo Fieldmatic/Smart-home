@@ -6,9 +6,11 @@ import com.bsep.smart.home.model.Permission;
 import com.bsep.smart.home.security.HasAnyPermission;
 import com.bsep.smart.home.services.user.ChangeUserRole;
 import com.bsep.smart.home.services.user.DeleteUser;
+import com.bsep.smart.home.services.user.GetUsers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +20,7 @@ public class UserController {
 
     private final DeleteUser deleteUser;
     private final ChangeUserRole changeUserRole;
+    private final GetUsers getUsers;
 
     @DeleteMapping("/{id}")
     @HasAnyPermission({Permission.USER_MANIPULATION})
@@ -29,5 +32,11 @@ public class UserController {
     @HasAnyPermission({Permission.USER_MANIPULATION})
     public UserResponse changeRole(@PathVariable UUID id, @RequestParam String roleName) {
         return UserConverter.toUserResponse(changeUserRole.execute(id, roleName));
+    }
+
+    @GetMapping("/all")
+    @HasAnyPermission({Permission.USER_MANIPULATION})
+    public List<UserResponse> getUsers() {
+        return UserConverter.toUsersResponse(getUsers.execute());
     }
 }
