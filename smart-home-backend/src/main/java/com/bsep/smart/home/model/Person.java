@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,4 +38,7 @@ public class Person extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     CSR csr;
+
+    @OneToMany(mappedBy = "owner")
+    List<Property> ownedProperties;
 }

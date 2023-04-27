@@ -5,7 +5,6 @@ import com.bsep.smart.home.dto.request.registration.RegistrationRequest;
 import com.bsep.smart.home.exception.UserAlreadyExistsException;
 import com.bsep.smart.home.model.EmailDetails;
 import com.bsep.smart.home.model.Person;
-import com.bsep.smart.home.model.Role;
 import com.bsep.smart.home.repository.PersonRepository;
 import com.bsep.smart.home.services.jwt.JwtGenerateToken;
 import com.bsep.smart.home.services.mail.SendMail;
@@ -17,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.KeyStoreException;
+import java.util.ArrayList;
 
 import static com.bsep.smart.home.constants.LinkConstants.EMAIL_ACTIVATION_PATH;
 import static com.bsep.smart.home.translations.Translator.toLocale;
@@ -44,6 +44,7 @@ public class RegisterNewUser {
                 .passwordHash(passwordEncoder.encode(registrationRequest.getPassword()))
                 .verified(false)
                 .role(getRoleByName.execute(registrationRequest.getRole()))
+                .ownedProperties(new ArrayList<>())
                 .build();
 
         final String activateEmailUrl = constructActivateEmailUrl(person.getEmail());

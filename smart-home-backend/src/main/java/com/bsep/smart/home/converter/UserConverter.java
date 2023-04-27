@@ -1,18 +1,20 @@
 package com.bsep.smart.home.converter;
 
 import com.bsep.smart.home.dto.response.UserResponse;
+import com.bsep.smart.home.model.BaseEntity;
 import com.bsep.smart.home.model.Person;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
 public class UserConverter {
-    private final static ModelMapper modelMapper = new ModelMapper();
 
     public static UserResponse toUserResponse(final Person user) {
-        UserResponse userResponse = modelMapper.map(user, UserResponse.class);
-        userResponse.setRole(user.getRole().getName());
-        return userResponse;
+        return UserResponse.builder()
+                .id(user.getId())
+                .role(user.getRole().getName())
+                .email(user.getEmail())
+                .ownedProperties(user.getOwnedProperties().stream().map((BaseEntity::getId)).toList())
+                .build();
     }
 
     public static List<UserResponse> toUsersResponse(final List<Person> users) {
