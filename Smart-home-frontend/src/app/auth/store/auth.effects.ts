@@ -3,23 +3,56 @@ import { AuthHttpService } from '../services/auth-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { autoLoginFail, loginSuccess } from './auth.actions';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotifierService } from '../../core/notifier.service';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthEffects {
-  login = createEffect(() => {
+  loginFirstStep = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.login.type),
+      ofType(AuthActions.loginFirstStep.type),
       switchMap((action) => {
         return this.httpService
-          .sendLoginRequest(action.email, action.password)
+          .sendFirstStepLoginRequest(action.email, action.password)
           .pipe(
-            map((authToken) =>
-              AuthActions.loginSuccess({ token: authToken.token })
+            map((pinValidityTime) =>
+              AuthActions.loginFirstStepSuccess({
+                email: action.email,
+                password: action.password,
+                pinValidityTime,
+              })
             )
+          );
+      })
+    );
+  });
+
+  loginFirstStepSuccess = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loginFirstStepSuccess.type),
+        tap(() => {
+          this.router.navigate(['/auth/auth-confirm']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  loginSecondStep = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.loginSecondStep.type),
+      switchMap((action) => {
+        return this.httpService
+          .sendSecondStepLoginRequest(action.email, action.password, action.pin)
+          .pipe(
+            map((authToken) => {
+              return AuthActions.loginSuccess({
+                token: authToken.token,
+              });
+            })
           );
       })
     );
@@ -55,13 +88,26 @@ export class AuthEffects {
   logout = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.logout.type),
-      map(() => {
-        sessionStorage.clear();
-        this.authService.clearLogoutTimer();
-        return AuthActions.logoutSuccess();
+      switchMap(() => {
+        return this.httpService
+          .sendLogoutRequest()
+          .pipe(map(() => AuthActions.logoutSuccess()));
       })
     );
   });
+
+  logout_success = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.logoutSuccess.type),
+        tap(() => {
+          sessionStorage.clear();
+          this.authService.clearLogoutTimer();
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   sign_up = createEffect(() => {
     return this.actions$.pipe(

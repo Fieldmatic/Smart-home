@@ -5,6 +5,11 @@ import { DecodedJwt } from '../model/decoded-jwt.model';
 
 export const selectAuth = createFeatureSelector<State>('auth');
 
+export const selectUserTryingToLogin = createSelector(
+  selectAuth,
+  (state: State) => state.userTryingToLogin
+);
+
 export const selectToken = createSelector(
   selectAuth,
   (state: State) => state.token

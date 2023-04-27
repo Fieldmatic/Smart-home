@@ -61,6 +61,7 @@ export class CsrPendingTableComponent
           title: 'CSR Rejection',
           text: `Are you sure you want to reject the CSR?`,
           options: ['Non-compliance with CA policies', 'Suspicious data'],
+          addCustom: true,
         },
       }
     );

@@ -1,0 +1,11 @@
+.timer-container {
+  width: 100%;
+  height: 4px;
+  background-color: #ccc;
+}
+
+.timer-progress {
+  height: 100%;
+  background-color: #91e85b;
+  transition: width 1s linear;
+}

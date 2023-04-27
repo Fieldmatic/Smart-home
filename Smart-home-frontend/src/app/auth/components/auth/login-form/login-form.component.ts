@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { login } from '../../../store/auth.actions';
+import { loginFirstStep } from '../../../store/auth.actions';
 
 @Component({
   selector: 'app-login-form',
@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit {
     if (this.loginForm.valid) {
       const email = this.loginForm.controls['email'].value;
       const password = this.loginForm.controls['password'].value;
-      this.store.dispatch(login({ email, password }));
+      this.store.dispatch(loginFirstStep({ email, password }));
     }
   }
 }

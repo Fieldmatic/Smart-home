@@ -30,12 +30,19 @@ export class NewCsrFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.newCSRForm = new FormGroup({
-      common_name: new FormControl(null, [Validators.required]),
-      organization: new FormControl(null),
-      organizational_unit: new FormControl(null),
-      city: new FormControl(null),
-      state: new FormControl(null),
-      country: new FormControl(null),
+      common_name: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z\s]*$/),
+      ]),
+      organization: new FormControl(null, [
+        Validators.pattern(/^[A-Za-z\s]*$/),
+      ]),
+      organizational_unit: new FormControl(null, [
+        Validators.pattern(/^[A-Za-z\s]*$/),
+      ]),
+      city: new FormControl(null, [Validators.pattern(/^[A-Za-z\s]*$/)]),
+      state: new FormControl(null, [Validators.pattern(/^[A-Za-z\s]*$/)]),
+      country: new FormControl(null, [Validators.pattern(/^[A-Za-z\s]*$/)]),
       algorithm: new FormControl('RSA', [Validators.required]),
       key_size: new FormControl(null, [Validators.required]),
     });

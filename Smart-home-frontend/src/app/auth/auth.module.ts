@@ -8,6 +8,8 @@ import { ForgotPasswordFormComponent } from './components/auth/forgot-password-f
 import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './store/auth.reducer';
 import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
+import { LoginPinFormComponent } from './components/auth/login-pin-form/login-pin-form.component';
+import { TimerComponent } from './components/auth/login-pin-form/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { EmailConfirmationComponent } from './components/auth/email-confirmation
     AuthComponent,
     ForgotPasswordFormComponent,
     EmailConfirmationComponent,
+    LoginPinFormComponent,
+    TimerComponent,
   ],
   imports: [
     AuthRoutingModule,

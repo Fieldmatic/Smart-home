@@ -5,12 +5,13 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/core.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 import { AuthEffects } from '../auth/store/auth.effects';
 import { CertificatesEffects } from '../certificates/store/certificates.effects';
 import { AuthInterceptor } from '../auth/auth.interceptor';
 import { CertificatesAdminEffects } from '../certificates-admin/store/certificates-admin.effects';
 import { ErrorInterceptor } from './error.interceptor';
+import { UsersEffects } from '../users/store/users.effects';
 
 @NgModule({
   providers: [
@@ -35,6 +36,7 @@ import { ErrorInterceptor } from './error.interceptor';
       AuthEffects,
       CertificatesEffects,
       CertificatesAdminEffects,
+      UsersEffects,
     ]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],

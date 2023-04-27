@@ -16,6 +16,10 @@ export class NotifierService {
     this.toast.error(errorMessage, '');
   }
 
+  public notifyErrorMessage(message: string) {
+    this.toast.error(message, '');
+  }
+
   public notifySuccess(message: string) {
     this.toast.success(message, '');
   }

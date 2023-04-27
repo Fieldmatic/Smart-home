@@ -5,6 +5,8 @@ import { LoginFormComponent } from './components/auth/login-form/login-form.comp
 import { SignupFormComponent } from './components/auth/signup-form/signup-form.component';
 import { ForgotPasswordFormComponent } from './components/auth/forgot-password-form/forgot-password-form.component';
 import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
+import { LoginPinFormComponent } from './components/auth/login-pin-form/login-pin-form.component';
+import { PinGuard } from './pin.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +16,11 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginFormComponent,
+      },
+      {
+        path: 'auth-confirm',
+        component: LoginPinFormComponent,
+        canActivate: [PinGuard],
       },
       {
         path: 'sign-up',

@@ -7,7 +7,9 @@ import { APP_SERVICE_CONFIG, AppConfig } from '../../app-config/app-config';
   providedIn: 'root',
 })
 export class AuthHttpService {
-  LOGIN = 'auth/login';
+  LOGIN_FIRST_STEP = 'auth/login-details-exist';
+  LOGIN_SECOND_STEP = 'auth/login';
+  LOGOUT = 'auth/logout';
   SIGN_UP = 'auth/register';
   EMAIL_CONFIRMATION = 'auth/activateEmail/';
 
@@ -16,11 +18,32 @@ export class AuthHttpService {
     private http: HttpClient
   ) {}
 
-  sendLoginRequest(email: string, password: string) {
-    return this.http.post<AuthToken>(this.config.apiEndpoint + this.LOGIN, {
-      email,
-      password,
-    });
+  sendFirstStepLoginRequest(email: string, password: string) {
+    return this.http.post<number>(
+      this.config.apiEndpoint + this.LOGIN_FIRST_STEP,
+      {
+        email,
+        password,
+      }
+    );
+  }
+
+  sendSecondStepLoginRequest(email: string, password: string, pin: string) {
+    return this.http.post<AuthToken>(
+      this.config.apiEndpoint + this.LOGIN_SECOND_STEP,
+      {
+        email,
+        password,
+        pin,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  sendLogoutRequest() {
+    return this.http.post(this.config.apiEndpoint + this.LOGOUT, {});
   }
 
   sendSignUpRequest(email: string, password: string, role: string) {

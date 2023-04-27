@@ -16,7 +16,7 @@ export class ConfirmationDialogWithReasonOptionsComponent {
       title: string;
       text: string;
       options: string[];
-      addCustom: true;
+      addCustom: boolean;
     },
     private formBuilder: FormBuilder
   ) {
