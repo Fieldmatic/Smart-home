@@ -30,7 +30,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({
             UserAlreadyExistsException.class,
             PasswordSameException.class,
-            PasswordMismatchException.class})
+            PasswordMismatchException.class,
+            InvalidSortUserFieldException.class})
     protected ResponseEntity<?> handleBadRequestExceptions(CustomRuntimeException ex) {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.BAD_REQUEST));
     }

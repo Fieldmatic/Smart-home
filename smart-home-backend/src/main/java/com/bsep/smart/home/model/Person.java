@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @SuperBuilder
+@FieldNameConstants
 public class Person extends BaseEntity {
     @Column(name = "email", nullable = false)
     String email;

@@ -28,7 +28,8 @@ public enum ExceptionKeys implements Translation {
     SIGNING_ALGORITHM_INVALID("signing_algorithm_invalid"),
     INVALID_PIN("invalid_pin"),
     LOCKED_ACCOUNT_EXCEPTION("locked_account_exception"),
-    PROPERTY_NOT_FOUND("property_not_found");
+    PROPERTY_NOT_FOUND("property_not_found"),
+    INVALID_SORT_USER_FIELD("invalid_sort_user_field");
 
     private final String code;
 

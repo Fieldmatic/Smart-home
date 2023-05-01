@@ -1,7 +1,10 @@
 package com.bsep.smart.home.controller;
 
 import com.bsep.smart.home.converter.UserConverter;
+import com.bsep.smart.home.dto.request.users.PageRequest;
+import com.bsep.smart.home.dto.response.PageResponse;
 import com.bsep.smart.home.dto.response.UserResponse;
+import com.bsep.smart.home.jpaspecification.SortDirection;
 import com.bsep.smart.home.model.Permission;
 import com.bsep.smart.home.security.HasAnyPermission;
 import com.bsep.smart.home.services.user.ChangeUserRole;
@@ -10,8 +13,8 @@ import com.bsep.smart.home.services.user.GetUsers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,9 +38,11 @@ public class UserController {
         return UserConverter.toUserResponse(changeUserRole.execute(id, roleName));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     @HasAnyPermission({Permission.USER_MANIPULATION})
-    public List<UserResponse> getUsers() {
-        return UserConverter.toUsersResponse(getUsers.execute());
+    public PageResponse<UserResponse> getUsers(@Valid final PageRequest pageRequest, @RequestParam(required = false) final String search,
+                                               @RequestParam(required = false) final String sortField, @RequestParam(required = false) final SortDirection sortDirection,
+                                               @RequestParam(required = false) final String userRole) {
+        return getUsers.execute(UserConverter.toUserPageInfo(pageRequest.getPageNumber(), pageRequest.getPageSize(), search, sortField, sortDirection, userRole));
     }
 }
