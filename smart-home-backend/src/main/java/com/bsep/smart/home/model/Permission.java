@@ -6,7 +6,8 @@ public enum Permission implements GrantedAuthority {
     SEND_CSR_REQUEST,
     CSR_MANIPULATION,
     CERTIFICATE_MANIPULATION,
-    USER_MANIPULATION;
+    USER_MANIPULATION,
+    PROPERTY_MANIPULATION;
 
     @Override
     public String getAuthority() {

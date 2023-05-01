@@ -54,7 +54,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({
-            RoleNotFoundException.class
+            RoleNotFoundException.class,
+            UserNotFoundException.class,
+            PropertyNotFoundException.class
     })
     protected ResponseEntity<?> handleNotFoundExceptions(CustomRuntimeException ex) {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.NOT_FOUND));
