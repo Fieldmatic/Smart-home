@@ -30,8 +30,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({
             UserAlreadyExistsException.class,
             PasswordSameException.class,
-            PasswordMismatchException.class,
-            UserNotFoundException.class})
+            PasswordMismatchException.class})
     protected ResponseEntity<?> handleBadRequestExceptions(CustomRuntimeException ex) {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.BAD_REQUEST));
     }
@@ -55,7 +54,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({
-            RoleNotFoundException.class
+            RoleNotFoundException.class,
+            UserNotFoundException.class,
+            PropertyNotFoundException.class
     })
     protected ResponseEntity<?> handleNotFoundExceptions(CustomRuntimeException ex) {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.NOT_FOUND));
