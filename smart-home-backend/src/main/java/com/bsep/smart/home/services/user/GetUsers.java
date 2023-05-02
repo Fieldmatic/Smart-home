@@ -50,6 +50,7 @@ public class GetUsers {
                 .items(userResponses)
                 .totalPages(usersPage.getTotalPages())
                 .numberOfElements(usersPage.getNumberOfElements())
+                .totalElements(usersPage.getTotalElements())
                 .build();
     }
 
