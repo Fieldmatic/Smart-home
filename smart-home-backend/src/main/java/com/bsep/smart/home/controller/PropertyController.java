@@ -33,6 +33,7 @@ public class PropertyController {
     }
 
     @DeleteMapping("/{id}")
+    @HasAnyPermission({Permission.PROPERTY_MANIPULATION})
     public void delete(@PathVariable UUID id) {
         deleteProperty.execute(id);
     }
