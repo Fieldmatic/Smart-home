@@ -24,11 +24,17 @@ public class PropertyController {
     private final GetAccessiblePropertiesForUser getAccessiblePropertiesForUser;
     private final GetAccessibleProperties getAccessibleProperties;
     private final RemoveMember removeMember;
+    private final DeleteProperty deleteProperty;
 
     @PostMapping
     @HasAnyPermission({Permission.PROPERTY_MANIPULATION})
     public PropertyResponse create(@Valid @RequestBody CreatePropertyRequest createPropertyRequest) {
         return PropertyConverter.toPropertyResponse(createProperty.execute(createPropertyRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable UUID id) {
+        deleteProperty.execute(id);
     }
 
     @PutMapping("/add-member")
