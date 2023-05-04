@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../../../../users/model/user.model';
 import {
   debounceTime,
@@ -18,7 +18,7 @@ import { addPropertyMember } from '../../../../store/properties.actions';
   templateUrl: './property-profile-members.component.html',
   styleUrls: ['./property-profile-members.component.scss'],
 })
-export class PropertyProfileMembersComponent {
+export class PropertyProfileMembersComponent implements OnInit {
   @Input() members!: User[];
   @Input() owner!: User;
   @Input() propertyId!: string;

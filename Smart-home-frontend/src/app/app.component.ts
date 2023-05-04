@@ -48,6 +48,12 @@ export class AppComponent implements OnInit {
       )
     );
     matIconRegistry.addSvgIcon(
+      'edit',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/edit.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
       'property-avatar',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/property_avatar.svg'
@@ -57,6 +63,24 @@ export class AppComponent implements OnInit {
       'add-member',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/new_member.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'members',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/members.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'owner',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/owner_mark.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'remove-member',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/remove_member.svg'
       )
     );
   }

@@ -1,5 +1,9 @@
 @import "src/app/users/components/users/users.component";
 
+.btn {
+  min-width: fit-content;
+}
+
 .col {
   display: flex;
   justify-content: flex-end;
@@ -29,4 +33,8 @@ a.btn {
 a.btn:hover {
   color: $Smart-home-frontend-green;
   text-decoration: 2px $Smart-home-frontend-green underline;
+}
+
+.mat-mdc-menu-content {
+  padding: 16px 32px !important;
 }

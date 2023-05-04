@@ -138,6 +138,30 @@ table, .search-fields, mat-paginator {
   grid-gap: 1rem;
 }
 
+.attribute-name {
+  font-size: 14px;
+  color: $Smart-home-frontend-gray;
+  font-weight: bolder;
+}
+
+.attribute-value {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  word-wrap: break-word;
+}
+
+.white-btn-icon {
+  path {
+    fill: #ffffff;
+  }
+}
+
+.red-btn-icon {
+  path {
+    fill: #F44336;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .btn {
     font-size: 16px;
@@ -167,7 +191,7 @@ table, .search-fields, mat-paginator {
 
   .table-container {
     grid-template-columns: 10% 80% 10%;
-    margin-top: 10%;
+    margin-top: 5%;
   }
 }
 

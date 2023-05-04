@@ -1,5 +1,9 @@
 <mat-tab-group class="property-tabs" mat-stretch-tabs="true" mat-align-tabs="center">
-  <mat-tab label="Members">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon svgIcon="members"></mat-icon>
+      Members
+    </ng-template>
     <div class="input-row" [formGroup]="userIdGroup">
       <mat-form-field appearance="fill">
         <mat-label>New Member</mat-label>
