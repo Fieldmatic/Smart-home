@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-header style="align-items: center">
+    <mat-icon mat-card-avatar svgIcon="account-avatar"></mat-icon>
+    <mat-card-title>{{member.email}} <span style="font-weight: lighter">{{isOwner ? "(Owner)" : ""}}</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Role: {{member.role}}</p>
+  </mat-card-content>
+  <mat-card-actions *ngIf="!isOwner" align="end">
+    <button mat-button color="warn" (click)="removeMember()">Remove</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,6 @@
+<div class="container">
+  <app-property-profile-info [property]="property"
+                             [isAdminLogged]="this.loggedInUsersRole === 'ADMIN'"></app-property-profile-info>
+  <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
+                                [owner]="property.owner"></app-property-profile-members>
+</div>

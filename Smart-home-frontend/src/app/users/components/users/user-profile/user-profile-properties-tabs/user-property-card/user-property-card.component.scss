@@ -1,0 +1,19 @@
+@import "src/app/users/components/users/users.component";
+
+a {
+  color: #1b1c1e;
+}
+
+mat-card-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+mat-card {
+  width: 100%;
+}
+
+mat-card-header, mat-card-actions {
+  display: flex;
+  justify-content: center;
+}

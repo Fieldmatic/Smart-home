@@ -29,6 +29,36 @@ export class AppComponent implements OnInit {
         '../assets/password_visibility/visibility.svg'
       )
     );
+    matIconRegistry.addSvgIcon(
+      'search',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/search/search.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'filters',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/search/filters.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'account-avatar',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/account_avatar.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'property-avatar',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/property_avatar.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'add-member',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/new_member.svg'
+      )
+    );
   }
 
   ngOnInit(): void {

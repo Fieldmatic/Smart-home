@@ -23,11 +23,11 @@ export class UsersResolver implements Resolve<User[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<User[]> | Promise<User[]> | User[] {
-    this.store.dispatch(UsersActions.getUsers());
+    this.store.dispatch(UsersActions.getUsers({}));
     return this.actions$.pipe(
       ofType(UsersActions.setUsers.type),
       take(1),
-      map((action) => action.users)
+      map((action) => action.userPage.items)
     );
   }
 }

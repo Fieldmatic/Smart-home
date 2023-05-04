@@ -1,29 +1,28 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as UsersActions from './users.actions';
 import { User } from '../model/user.model';
+import { PageResponse } from '../../shared/model/page-response';
 
 export interface State {
-  users: User[];
+  userPage: PageResponse<User> | void;
+  userEmailsSearchResult: User[];
 }
 
 const initialState: State = {
-  users: [],
+  userPage: undefined,
+  userEmailsSearchResult: [],
 };
 
 const usersReducer = createReducer(
   initialState,
-  on(UsersActions.setUsers, (state, { users }) => ({
+  on(UsersActions.setUsers, (state, { userPage }) => ({
     ...state,
-    users,
+    userPage: userPage,
   })),
-  on(UsersActions.userChangeSuccess, (state, { id, user }) => {
-    const updatedUsers = state.users.map((u) => (u.id === id ? user : u));
-    return { ...state, users: updatedUsers };
-  }),
-  on(UsersActions.deleteUserSuccess, (state, { id }) => {
-    const updatedUsers = state.users.filter((u) => u.id !== id);
-    return { ...state, users: updatedUsers };
-  })
+  on(UsersActions.setUserEmailsSearchResult, (state, { users }) => ({
+    ...state,
+    userEmailsSearchResult: users,
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

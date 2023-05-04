@@ -51,6 +51,7 @@ public class PropertyController {
     }
 
     @GetMapping("/accessible/{userId}")
+    @HasAnyPermission({Permission.PROPERTY_MANIPULATION})
     public List<PropertyResponse> getAccessiblePropertiesForUser(@Valid @PathVariable UUID userId) {
         return PropertyConverter.toPropertiesResponse(getAccessiblePropertiesForUser.execute(userId));
     }

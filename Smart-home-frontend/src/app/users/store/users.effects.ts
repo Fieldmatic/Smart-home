@@ -5,16 +5,35 @@ import { Router } from '@angular/router';
 import { UsersHttpService } from '../services/users-http.service';
 import * as UsersActions from './users.actions';
 import { map, switchMap } from 'rxjs';
+import { SortDirection } from '../../shared/model/sort-direction';
 
 @Injectable()
 export class UsersEffects {
   getUsers = createEffect(() => {
     return this.actions$.pipe(
       ofType(UsersActions.getUsers.type),
-      switchMap(() => {
+      switchMap((action) => {
         return this.httpService
-          .getUsers()
-          .pipe(map((users) => UsersActions.setUsers({ users })));
+          .getUsers(
+            action.pageSize,
+            action.pageNumber,
+            action.searchContent,
+            action.sortField,
+            action.sortDirection,
+            action.userRole
+          )
+          .pipe(map((userPage) => UsersActions.setUsers({ userPage })));
+      })
+    );
+  });
+
+  createUser = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UsersActions.createUser.type),
+      switchMap((action) => {
+        return this.httpService
+          .createUser(action.email, action.role)
+          .pipe(map(() => UsersActions.createUserSuccess()));
       })
     );
   });
@@ -25,7 +44,7 @@ export class UsersEffects {
       switchMap((action) => {
         return this.httpService
           .deleteUser(action.id)
-          .pipe(map(() => UsersActions.deleteUserSuccess({ id: action.id })));
+          .pipe(map(() => UsersActions.deleteUserSuccess()));
       })
     );
   });
@@ -36,11 +55,7 @@ export class UsersEffects {
       switchMap((action) => {
         return this.httpService
           .changeUserRole(action.id, action.role)
-          .pipe(
-            map((user) =>
-              UsersActions.userChangeSuccess({ id: action.id, user })
-            )
-          );
+          .pipe(map(() => UsersActions.userChangeSuccess()));
       })
     );
   });
@@ -52,6 +67,7 @@ export class UsersEffects {
         map(() => {
           const message = 'You have successfully updated user.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
         })
       );
     },
@@ -65,11 +81,43 @@ export class UsersEffects {
         map(() => {
           const message = 'You have successfully removed user.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
         })
       );
     },
     { dispatch: false }
   );
+
+  createUserSuccess = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(UsersActions.createUserSuccess.type),
+        map(() => {
+          const message = 'You have successfully created a user.';
+          this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  searchUserEmails = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UsersActions.searchUserEmails.type),
+      switchMap((action) => {
+        return this.httpService
+          .getUsers(10, 0, action.value, 'email', SortDirection.ASC)
+          .pipe(
+            map((userPage) => {
+              return UsersActions.setUserEmailsSearchResult({
+                users: userPage.items,
+              });
+            })
+          );
+      })
+    );
+  });
 
   constructor(
     private notifierService: NotifierService,

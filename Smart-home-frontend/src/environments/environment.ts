@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   apiEndpoint: 'https://localhost:8081/api/',
+  addressApiEndpoint: 'https://api.geoapify.com/v1/geocode/autocomplete',
+  addressApiKey: 'b66a7896d2774c2ba544b47fe1c270ce',
 };
 
 /*

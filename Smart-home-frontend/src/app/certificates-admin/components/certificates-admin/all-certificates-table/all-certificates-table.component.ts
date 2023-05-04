@@ -74,7 +74,6 @@ export class AllCertificatesTableComponent
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         const reason = options.indexOf(result);
         this.store.dispatch(
           revokeCertificate({ alias: email, reason, message: result })
