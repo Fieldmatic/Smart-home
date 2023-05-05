@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Resolve } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
 import { Certificate } from '../model/certificate.model';
 import { Store } from '@ngrx/store';
@@ -19,10 +15,10 @@ export class CertificatesResolver implements Resolve<Certificate[]> {
     private actions$: Actions<CertificatesAdminActions.CertificatesAdminActionsUnion>
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Certificate[]> | Promise<Certificate[]> | Certificate[] {
+  resolve():
+    | Observable<Certificate[]>
+    | Promise<Certificate[]>
+    | Certificate[] {
     this.store.dispatch(CertificatesAdminActions.getCertificates());
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.setCertificates.type),

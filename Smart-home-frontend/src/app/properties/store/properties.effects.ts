@@ -134,7 +134,7 @@ export class PropertiesEffects {
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.addPropertyMemberSuccess.type),
-        map((action) => {
+        map(() => {
           const message =
             'You have successfully added a member to the property.';
           this.notifierService.notifySuccess(message);
@@ -148,7 +148,7 @@ export class PropertiesEffects {
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.removePropertyMemberSuccess.type),
-        map((action) => {
+        map(() => {
           const message =
             'You have successfully removed a member from the property.';
           this.notifierService.notifySuccess(message);

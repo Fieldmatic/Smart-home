@@ -17,7 +17,7 @@
       <span class="attribute-value">{{user.role | titlecase}}</span>
     </span>
   </mat-card-content>
-  <mat-card-actions *ngIf="isAdminLogged">
+  <mat-card-actions *ngIf="isAdminLogged && user.role !== 'ADMIN'">
     <a mat-raised-button class="btn" [routerLink]="'/admin/users/edit/' + user.id" color="primary">
       <mat-icon svgIcon="edit" class="white-btn-icon"></mat-icon>
       <span>Edit</span>

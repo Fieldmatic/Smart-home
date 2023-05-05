@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Resolve } from '@angular/router';
 import { map, Observable, of, switchMap, take } from 'rxjs';
 import { CertificateType } from '../model/certificate-type.model';
 import { Store } from '@ngrx/store';
@@ -20,10 +16,7 @@ export class CertificateTypesResolver implements Resolve<CertificateType[]> {
     private actions$: Actions<CertificatesAdminActions.CertificatesAdminActionsUnion>
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  resolve():
     | Observable<CertificateType[]>
     | Promise<CertificateType[]>
     | CertificateType[] {

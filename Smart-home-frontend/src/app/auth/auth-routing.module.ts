@@ -6,7 +6,7 @@ import { SignupFormComponent } from './components/auth/signup-form/signup-form.c
 import { ForgotPasswordFormComponent } from './components/auth/forgot-password-form/forgot-password-form.component';
 import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
 import { LoginPinFormComponent } from './components/auth/login-pin-form/login-pin-form.component';
-import { PinGuard } from './pin.guard';
+import { PinGuard } from './guards/pin.guard';
 
 const routes: Routes = [
   {

@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Resolve } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
 import { User } from '../../shared/model/user.model';
 import { Store } from '@ngrx/store';
@@ -19,10 +15,7 @@ export class UsersResolver implements Resolve<User[]> {
     private actions$: Actions<UsersActions.UsersActionsUnion>
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<User[]> | Promise<User[]> | User[] {
+  resolve(): Observable<User[]> | Promise<User[]> | User[] {
     this.store.dispatch(UsersActions.getUsers({}));
     return this.actions$.pipe(
       ofType(UsersActions.setUsers.type),

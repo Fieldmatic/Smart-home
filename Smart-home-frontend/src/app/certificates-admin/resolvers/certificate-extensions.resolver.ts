@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Resolve } from '@angular/router';
 import { map, Observable, of, switchMap, take } from 'rxjs';
 import { Extension } from '../model/extension.model';
 import { Store } from '@ngrx/store';
@@ -20,10 +16,7 @@ export class CertificateExtensionsResolver implements Resolve<Extension[]> {
     private actions$: Actions<CertificatesAdminActions.CertificatesAdminActionsUnion>
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Extension[]> | Promise<Extension[]> | Extension[] {
+  resolve(): Observable<Extension[]> | Promise<Extension[]> | Extension[] {
     return this.store.select(selectCertificateExtensions).pipe(
       take(1),
       switchMap((certificateExtensions) => {

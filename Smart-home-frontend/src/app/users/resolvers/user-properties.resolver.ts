@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
 import { Property } from '../../shared/model/property';
 import { Store } from '@ngrx/store';
@@ -20,8 +16,7 @@ export class UserPropertiesResolver implements Resolve<Property[]> {
   ) {}
 
   resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Observable<Property[]> | Promise<Property[]> | Property[] {
     this.store.dispatch(
       PropertiesActions.getUserProperties({ id: route.params['id'] })

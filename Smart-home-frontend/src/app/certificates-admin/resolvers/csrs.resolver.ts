@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Resolve } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Actions, ofType } from '@ngrx/effects';
@@ -19,10 +15,7 @@ export class CsrsResolver implements Resolve<CSR[]> {
     private actions$: Actions<CertificatesAdminActions.CertificatesAdminActionsUnion>
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<CSR[]> | Promise<CSR[]> | CSR[] {
+  resolve(): Observable<CSR[]> | Promise<CSR[]> | CSR[] {
     this.store.dispatch(CertificatesAdminActions.getPendingCSRs());
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.setCSRs.type),

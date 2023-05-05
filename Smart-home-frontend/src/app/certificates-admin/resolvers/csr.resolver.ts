@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { filter, map, Observable, of, switchMap, take } from 'rxjs';
 import { CSR } from '../model/CSR.model';
 import { Store } from '@ngrx/store';
@@ -20,10 +16,7 @@ export class CsrResolver implements Resolve<CSR> {
     private actions$: Actions<CertificatesAdminActions.CertificatesAdminActionsUnion>
   ) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<CSR> | Promise<CSR> | CSR {
+  resolve(route: ActivatedRouteSnapshot): Observable<CSR> | Promise<CSR> | CSR {
     const id = route.params['id'];
     return this.store.select(selectCSR(id)).pipe(
       take(1),
