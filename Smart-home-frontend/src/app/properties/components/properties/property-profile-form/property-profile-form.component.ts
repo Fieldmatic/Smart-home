@@ -62,6 +62,7 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
         .subscribe((property) => {
           name = property.name;
           address = property.address;
+          this.ownerId = property.owner.id;
         });
     }
     this.propertyProfileForm = new FormGroup({
@@ -99,9 +100,6 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
   }
 
   submitPropertyForm() {
-    console.log(
-      this.propertyProfileForm.controls['addressSelection'].hasError('required')
-    );
     if (this.propertyProfileForm.valid) {
       const name = this.propertyProfileForm.controls['name'].value;
       const address =
@@ -139,6 +137,7 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
   }
 
   deleteProperty($event: MouseEvent) {
+    this.storeSubscription.unsubscribe();
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Property Deletion',
