@@ -42,7 +42,7 @@ public class RegisterNewUserAdmin {
         final Person person = Person.builder()
                 .email(registrationRequest.getEmail())
                 .passwordHash(passwordEncoder.encode(UUID.randomUUID().toString()))
-                .verified(false)
+                .verified(true)
                 .role(getRoleByName.execute(registrationRequest.getRole()))
                 .ownedProperties(new ArrayList<>())
                 .build();
