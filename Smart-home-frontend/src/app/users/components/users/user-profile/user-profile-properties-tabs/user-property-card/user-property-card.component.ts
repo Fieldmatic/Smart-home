@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Property } from '../../../../../../shared/model/property';
 
 @Component({
@@ -6,10 +6,6 @@ import { Property } from '../../../../../../shared/model/property';
   templateUrl: './user-property-card.component.html',
   styleUrls: ['./user-property-card.component.scss'],
 })
-export class UserPropertyCardComponent implements OnInit {
+export class UserPropertyCardComponent {
   @Input() property!: Property;
-
-  ngOnInit() {
-    console.log(this.property);
-  }
 }

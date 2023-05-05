@@ -12,6 +12,8 @@ import { Store } from '@ngrx/store';
 import { selectUserEmailsSearchResults } from '../../../../../users/store/users.selectors';
 import { searchUserEmails } from '../../../../../users/store/users.actions';
 import { addPropertyMember } from '../../../../store/properties.actions';
+import { ConfirmationDialogComponent } from '../../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-property-profile-members',
@@ -24,10 +26,11 @@ export class PropertyProfileMembersComponent implements OnInit {
   @Input() propertyId!: string;
   users$!: Observable<Array<User>>;
   userIdGroup = new FormGroup({
+    email: new FormControl(''),
     id: new FormControl(''),
   });
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.users$ = this.store
@@ -45,7 +48,7 @@ export class PropertyProfileMembersComponent implements OnInit {
   }
 
   private initEmailAutocompleteOnChange() {
-    this.userIdGroup.controls['id'].valueChanges
+    this.userIdGroup.controls['email'].valueChanges
       .pipe(
         debounceTime(25),
         distinctUntilChanged(),
@@ -63,9 +66,20 @@ export class PropertyProfileMembersComponent implements OnInit {
   addMember() {
     const id = this.userIdGroup.controls['id'].value;
     if (id) {
-      this.store.dispatch(
-        addPropertyMember({ propertyId: this.propertyId, userId: id })
-      );
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        data: {
+          title: 'New Property Member',
+          text: `Are you sure you want to add a new member to the property?`,
+        },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.store.dispatch(
+            addPropertyMember({ propertyId: this.propertyId, userId: id })
+          );
+        }
+      });
     }
   }
 }

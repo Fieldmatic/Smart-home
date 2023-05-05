@@ -13,46 +13,53 @@
         </button>
       </mat-form-field>
       <mat-menu #filterAndSortMenu="matMenu" (click)="preventClose($event)">
-        <ng-template class="mat-mdc-menu-content" matMenuContent>
-          <p>Filters</p>
-          <div class="input-row">
-            <mat-form-field appearance="fill" (click)="preventClose($event)">
-              <mat-label>User Role</mat-label>
-              <mat-select formControlName="userRoleFilter">
-                <mat-option>None</mat-option>
-                <mat-option value="ADMIN">Admin</mat-option>
-                <mat-option value="OWNER">Owner</mat-option>
-                <mat-option value="TENANT">Tenant</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+        <ng-template matMenuContent>
+          <div class="menu-content">
+            <p>Filter Options</p>
+            <div class="input-row">
+              <mat-form-field appearance="fill" (click)="preventClose($event)">
+                <mat-label>User Role</mat-label>
+                <mat-select formControlName="userRoleFilter">
+                  <mat-option>None</mat-option>
+                  <mat-option value="ADMIN">Admin</mat-option>
+                  <mat-option value="OWNER">Owner</mat-option>
+                  <mat-option value="TENANT">Tenant</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-          <p>Sort</p>
-          <div class="input-row">
-            <mat-form-field appearance="fill" (click)="preventClose($event)">
-              <mat-label>Sort by Field</mat-label>
-              <mat-select formControlName="byFieldSort">
-                <mat-option>None</mat-option>
-                <mat-option value="email">Email</mat-option>
-                <mat-option value="role">Role</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+            <p>Sorting Options</p>
+            <div class="input-row">
+              <mat-form-field appearance="fill" (click)="preventClose($event)">
+                <mat-label>Sort by Field</mat-label>
+                <mat-select formControlName="byFieldSort">
+                  <mat-option>None</mat-option>
+                  <mat-option value="email">Email</mat-option>
+                  <mat-option value="role">Role</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-          <div class="input-row">
-            <mat-form-field appearance="fill" (click)="preventClose($event)">
-              <mat-label>Sorting Order</mat-label>
-              <mat-select formControlName="sortOrder">
-                <mat-option>None</mat-option>
-                <mat-option value="ASC">Ascending</mat-option>
-                <mat-option value="DESC">Descending</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+            <div class="input-row">
+              <mat-form-field appearance="fill" (click)="preventClose($event)">
+                <mat-label>Sorting Order</mat-label>
+                <mat-select formControlName="sortOrder">
+                  <mat-option>None</mat-option>
+                  <mat-option value="ASC">Ascending</mat-option>
+                  <mat-option value="DESC">Descending</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-          <div class="button-row">
-            <button mat-button (click)="clearFilters()" color="primary">Clear All</button>
-            <button mat-raised-button (click)="searchUsers()" color="primary">Search</button>
+            <div class="button-row">
+              <button mat-button (click)="clearFilters()" color="primary">
+                <mat-icon svgIcon="clear"></mat-icon>
+                <span>Clear All</span></button>
+              <button mat-raised-button (click)="searchUsers()" color="primary">
+                <mat-icon svgIcon="search" class="white-btn-icon"></mat-icon>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </ng-template>
       </mat-menu>

@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { FormMode } from '../../../../shared/model/form-mode';
+import { User } from '../../../../shared/model/user.model';
 
 @Component({
   selector: 'app-user-profile-form',
@@ -23,6 +24,8 @@ export class UserProfileFormComponent implements OnInit, OnDestroy {
   mode: FormMode = FormMode.NEW;
   storeSubscription!: Subscription;
   userId!: string;
+  oldUser!: User;
+  userChanged = false;
 
   constructor(
     private store: Store,
@@ -39,6 +42,7 @@ export class UserProfileFormComponent implements OnInit, OnDestroy {
       this.storeSubscription = this.store
         .select(selectUserById(this.userId))
         .subscribe((user) => {
+          this.oldUser = user;
           email = user.email;
           role = user.role;
         });
@@ -52,6 +56,9 @@ export class UserProfileFormComponent implements OnInit, OnDestroy {
     });
     if (this.mode === FormMode.EDIT) {
       this.userProfileForm.controls['email'].disable();
+      this.userProfileForm.controls['role'].valueChanges.subscribe((value) => {
+        this.userChanged = value !== this.oldUser.role;
+      });
     }
   }
 
@@ -76,7 +83,7 @@ export class UserProfileFormComponent implements OnInit, OnDestroy {
             this.store.dispatch(createUser({ email, role }));
           }
         });
-      } else {
+      } else if (this.oldUser.role !== role) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
           data: {
             title: 'User Edit',

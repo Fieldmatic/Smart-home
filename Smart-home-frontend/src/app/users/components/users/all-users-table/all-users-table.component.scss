@@ -2,6 +2,7 @@
 
 .btn {
   min-width: fit-content;
+  box-shadow: none;
 }
 
 .col {
@@ -35,6 +36,6 @@ a.btn:hover {
   text-decoration: 2px $Smart-home-frontend-green underline;
 }
 
-.mat-mdc-menu-content {
+.menu-content {
   padding: 16px 32px !important;
 }

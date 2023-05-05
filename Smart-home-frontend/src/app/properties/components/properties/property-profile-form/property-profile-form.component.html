@@ -13,6 +13,9 @@
             <input matInput placeholder="Enter name of property" formControlName="name">
             <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('required')">Name is a mandatory field
             </mat-error>
+            <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('pattern')">Name must contain only
+              words
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -24,12 +27,15 @@
               formControlName="address"
               [matAutocomplete]="addresses"
             />
-            <mat-error *ngIf="propertyProfileForm.controls['address'].hasError('required')">Address is a mandatory field
+            <mat-error
+              *ngIf="propertyProfileForm.controls['address'].hasError('required') || propertyProfileForm.controls['addressSelection'].hasError('required')">
+              Address is a mandatory field
             </mat-error>
             <mat-autocomplete #addresses="matAutocomplete">
               <mat-option
                 *ngFor="let address of addresses$ | async"
                 [value]="address"
+                (onSelectionChange)="propertyProfileForm.get('addressSelection')?.setValue(address)"
               >
                 {{ address }}
               </mat-option>

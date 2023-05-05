@@ -1,11 +1,17 @@
 <mat-card>
   <mat-card-header>
     <mat-icon svgIcon="account-avatar"></mat-icon>
-    <mat-card-title>
-      {{user.email}}
-    </mat-card-title>
+    <div class="title">
+      <mat-card-title>
+        {{user.email.split('@')[0]}}
+      </mat-card-title>
+    </div>
   </mat-card-header>
   <mat-card-content>
+        <span class="attribute-container">
+      <span class="attribute-name">Email</span>
+      <span class="attribute-value">{{user.email}}</span>
+    </span>
     <span class="attribute-container">
       <span class="attribute-name">Role</span>
       <span class="attribute-value">{{user.role | titlecase}}</span>

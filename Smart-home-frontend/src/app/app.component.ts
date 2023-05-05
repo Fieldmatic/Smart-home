@@ -93,6 +93,18 @@ export class AppComponent implements OnInit {
       'visible-property',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/user/key.svg')
     );
+    matIconRegistry.addSvgIcon(
+      'plus',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/plus.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'clear',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/clear.svg'
+      )
+    );
   }
 
   ngOnInit(): void {

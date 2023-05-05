@@ -9,7 +9,7 @@
         <mat-label>New Member</mat-label>
         <input
           matInput
-          formControlName="id"
+          formControlName="email"
           [matAutocomplete]="users"
         />
         <button matTooltip="Add Member" type="button" matSuffix mat-icon-button (click)="addMember()">
@@ -18,7 +18,8 @@
         <mat-autocomplete #users="matAutocomplete">
           <mat-option
             *ngFor="let user of users$ | async"
-            [value]="user.id"
+            [value]="user.email"
+            (onSelectionChange)="userIdGroup.get('id')?.setValue(user.id)"
           >
             {{ user.email }}
           </mat-option>

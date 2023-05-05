@@ -8,6 +8,7 @@ import {
   filter,
   Observable,
   Subscription,
+  tap,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
@@ -32,7 +33,11 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
   ownerId!: string;
   propertyId!: string;
   addresses$!: Observable<Array<string>>;
-  propertyProfileForm!: FormGroup;
+  propertyProfileForm!: FormGroup<{
+    name: FormControl;
+    address: FormControl;
+    addressSelection: FormControl;
+  }>;
   storeSubscription!: Subscription;
 
   constructor(
@@ -60,8 +65,12 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
         });
     }
     this.propertyProfileForm = new FormGroup({
-      name: new FormControl(name, [Validators.required]),
+      name: new FormControl(name, [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z\s]*$/),
+      ]),
       address: new FormControl(address, [Validators.required]),
+      addressSelection: new FormControl(address, [Validators.required]),
     });
     this.initAddressesAutocompleteOnChange();
   }
@@ -77,6 +86,11 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(25),
         distinctUntilChanged(),
+        tap((value: string) => {
+          if (value.length === 0) {
+            this.propertyProfileForm.get('addressSelection')?.setValue(value);
+          }
+        }),
         filter((value: string) => value.length > 0)
       )
       .subscribe((value: string) => {
@@ -85,9 +99,13 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
   }
 
   submitPropertyForm() {
+    console.log(
+      this.propertyProfileForm.controls['addressSelection'].hasError('required')
+    );
     if (this.propertyProfileForm.valid) {
       const name = this.propertyProfileForm.controls['name'].value;
-      const address = this.propertyProfileForm.controls['address'].value;
+      const address =
+        this.propertyProfileForm.controls['addressSelection'].value;
       if (this.mode === FormMode.NEW) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
           data: {
