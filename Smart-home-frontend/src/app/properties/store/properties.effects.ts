@@ -90,6 +90,7 @@ export class PropertiesEffects {
         map(() => {
           const message = 'You have successfully created a property.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
         })
       );
     },
@@ -103,6 +104,7 @@ export class PropertiesEffects {
         map(() => {
           const message = 'You have successfully deleted the property.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
         })
       );
     },
@@ -117,6 +119,7 @@ export class PropertiesEffects {
           const message =
             'You have successfully added a member to the property.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
         })
       );
     },
@@ -131,6 +134,7 @@ export class PropertiesEffects {
           const message =
             'You have successfully removed a member from the property.';
           this.notifierService.notifySuccess(message);
+          this.router.navigate(['/admin/users/all']);
         })
       );
     },
