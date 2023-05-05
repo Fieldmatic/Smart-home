@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class AddMember {
@@ -18,8 +20,8 @@ public class AddMember {
 
     @Transactional
     public Property execute(AddMemberRequest addMemberRequest) {
-        Person user = getUserById.execute(addMemberRequest.getUserId());
-        Property property = getPropertyById.execute(addMemberRequest.getPropertyId());
+        Person user = getUserById.execute(UUID.fromString(addMemberRequest.getUserId()));
+        Property property = getPropertyById.execute(UUID.fromString(addMemberRequest.getPropertyId()));
         property.getMembers().add(user);
         return propertyRepository.save(property);
     }

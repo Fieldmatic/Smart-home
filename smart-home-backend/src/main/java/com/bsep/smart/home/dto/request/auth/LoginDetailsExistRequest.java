@@ -13,10 +13,9 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginDetailsExistRequest {
-    @NotEmpty
     @Email
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "Password is mandatory!")
     private String password;
 }

@@ -5,14 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import static com.bsep.smart.home.util.ValidationPatterns.UUID_PATTERN;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreatePropertyRequest {
+    @NotEmpty(message = "Property name is missing")
     private String name;
+    @NotEmpty(message = "Property address is missing")
     private String address;
-    private UUID ownerId;
+    @Pattern(regexp = UUID_PATTERN, message = "Bad uuid format!")
+    private String ownerId;
 }

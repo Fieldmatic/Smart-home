@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class RemoveMember {
@@ -18,8 +20,8 @@ public class RemoveMember {
 
     @Transactional
     public Property execute(RemoveMemberRequest removeMemberRequest) {
-        Person user = getUserById.execute(removeMemberRequest.getUserId());
-        Property property = getPropertyById.execute(removeMemberRequest.getPropertyId());
+        Person user = getUserById.execute(UUID.fromString(removeMemberRequest.getUserId()));
+        Property property = getPropertyById.execute(UUID.fromString(removeMemberRequest.getPropertyId()));
         property.getMembers().remove(user);
         return propertyRepository.save(property);
     }

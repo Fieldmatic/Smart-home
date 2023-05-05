@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class CreateProperty {
 
     @Transactional
     public Property execute(CreatePropertyRequest createPropertyRequest) {
-        Person owner = getUserById.execute(createPropertyRequest.getOwnerId());
+        Person owner = getUserById.execute(UUID.fromString(createPropertyRequest.getOwnerId()));
         Property property = Property.builder()
                 .name(createPropertyRequest.getName())
                 .address(createPropertyRequest.getAddress())

@@ -5,15 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
+import javax.validation.constraints.Pattern;
+
+import static com.bsep.smart.home.util.ValidationPatterns.UUID_PATTERN;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RemoveMemberRequest {
-    @org.hibernate.validator.constraints.UUID(message = "User id not valid!")
-    private UUID userId;
-    @org.hibernate.validator.constraints.UUID(message = "Property id not valid!")
-    private UUID propertyId;
+    @Pattern(regexp = UUID_PATTERN, message = "Bad uuid format!")
+    private String userId;
+    @Pattern(regexp = UUID_PATTERN, message = "Bad uuid format!")
+    private String propertyId;
 }

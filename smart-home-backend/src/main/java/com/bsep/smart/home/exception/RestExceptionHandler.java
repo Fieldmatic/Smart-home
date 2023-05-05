@@ -4,6 +4,7 @@ import com.bsep.smart.home.translations.Translator;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -76,8 +77,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> errors = new ArrayList<>(ex.getBindingResult().getFieldErrors().stream().map((err) ->
-                err.getDefaultMessage()
+        List<String> errors = new ArrayList<>(ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage
         ).toList());
 
         errors.addAll(ex.getBindingResult().getGlobalErrors().stream().map((err) ->
