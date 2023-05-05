@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { map, Observable, take } from 'rxjs';
-import { User } from '../model/user.model';
+import { User } from '../../shared/model/user.model';
 import { Store } from '@ngrx/store';
 import { Actions, ofType } from '@ngrx/effects';
 import * as UsersActions from '../store/users.actions';

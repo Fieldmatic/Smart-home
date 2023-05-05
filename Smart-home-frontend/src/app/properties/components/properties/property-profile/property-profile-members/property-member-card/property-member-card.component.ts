@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { User } from '../../../../../../users/model/user.model';
+import { User } from '../../../../../../shared/model/user.model';
 import { Store } from '@ngrx/store';
 import { removePropertyMember } from '../../../../../store/properties.actions';
 

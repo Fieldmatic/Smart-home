@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { User } from '../../../model/user.model';
+import { User } from '../../../../shared/model/user.model';
 import { selectUserPage } from '../../../store/users.selectors';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getUsers } from '../../../store/users.actions';

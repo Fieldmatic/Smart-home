@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../../../model/user.model';
+import { User } from '../../../../shared/model/user.model';
 import { Store } from '@ngrx/store';
 import { selectUserById } from '../../../store/users.selectors';
 import { Subscription } from 'rxjs';

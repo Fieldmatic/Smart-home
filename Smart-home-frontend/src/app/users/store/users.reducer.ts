@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as UsersActions from './users.actions';
-import { User } from '../model/user.model';
+import { User } from '../../shared/model/user.model';
 import { PageResponse } from '../../shared/model/page-response';
 
 export interface State {

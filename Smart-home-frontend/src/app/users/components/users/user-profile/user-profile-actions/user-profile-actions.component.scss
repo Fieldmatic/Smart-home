@@ -1,10 +1,8 @@
 @import "src/app/users/components/users/users.component";
 
-.container {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .btn {
-  min-width: fit-content !important;
+  width: fit-content !important;
+  min-width: fit-content;
+  box-shadow: none;
+  font-size: 14px;
 }

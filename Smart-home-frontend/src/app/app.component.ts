@@ -83,6 +83,16 @@ export class AppComponent implements OnInit {
         '../assets/property/remove_member.svg'
       )
     );
+    matIconRegistry.addSvgIcon(
+      'my-property',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/my_property.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'visible-property',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/user/key.svg')
+    );
   }
 
   ngOnInit(): void {

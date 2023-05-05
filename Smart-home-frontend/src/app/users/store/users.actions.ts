@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { User } from '../model/user.model';
+import { User } from '../../shared/model/user.model';
 import { SortDirection } from '../../shared/model/sort-direction';
 import { PageResponse } from '../../shared/model/page-response';
 

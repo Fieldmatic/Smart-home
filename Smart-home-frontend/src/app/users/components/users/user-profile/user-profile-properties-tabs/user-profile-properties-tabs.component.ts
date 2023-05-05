@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Property } from '../../../../../shared/model/property';
-import { User } from '../../../../model/user.model';
+import { User } from '../../../../../shared/model/user.model';
 
 @Component({
   selector: 'app-user-profile-properties-tabs',

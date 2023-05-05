@@ -5,8 +5,10 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <span class="attribute-name">Role:</span>
-    <span class="attribute-value">{{member.role | titlecase}}</span>
+    <span class="attribute-container">
+      <span class="attribute-name">Role</span>
+      <span class="attribute-value">{{member.role | titlecase}}</span>
+    </span>
   </mat-card-content>
   <mat-card-actions *ngIf="!isOwner" align="end">
     <button mat-button color="warn" (click)="removeMember()">

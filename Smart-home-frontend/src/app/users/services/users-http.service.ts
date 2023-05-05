@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { APP_SERVICE_CONFIG, AppConfig } from '../../app-config/app-config';
-import { User } from '../model/user.model';
+import { User } from '../../shared/model/user.model';
 import { SortDirection } from '../../shared/model/sort-direction';
 import { PageResponse } from '../../shared/model/page-response';
 

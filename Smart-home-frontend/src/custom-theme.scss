@@ -138,16 +138,23 @@ table, .search-fields, mat-paginator {
   grid-gap: 1rem;
 }
 
+.attribute-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
 .attribute-name {
   font-size: 14px;
   color: $Smart-home-frontend-gray;
   font-weight: bolder;
+  grid-column: 1;
 }
 
 .attribute-value {
   margin-left: 1rem;
   margin-bottom: 0.5rem;
   word-wrap: break-word;
+  grid-column: 2;
 }
 
 .white-btn-icon {

@@ -1,13 +1,17 @@
 <mat-card>
   <mat-card-header>
     <mat-icon svgIcon="property-avatar"></mat-icon>
-    <mat-card-title>{{property.name}}</mat-card-title>
+    <mat-card-title>{{property.name | titlecase}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <span class="attribute-name">Address:</span>
-    <span class="attribute-value">{{property.address}}</span>
-    <span class="attribute-name">Owner:</span>
-    <span class="attribute-value">{{property.owner.email}}</span>
+    <span class="attribute-container">
+      <span class="attribute-name">Address</span>
+      <span class="attribute-value">{{property.address}}</span>
+    </span>
+    <span class="attribute-container">
+      <span class="attribute-name">Owner</span>
+      <span class="attribute-value">{{property.owner.email}}</span>
+    </span>
   </mat-card-content>
   <mat-card-actions *ngIf="isAdminLogged">
     <a mat-raised-button class="btn" [routerLink]="'/admin/properties/edit/' + property.uuid" color="primary">
