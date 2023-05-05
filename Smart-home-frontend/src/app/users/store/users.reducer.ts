@@ -19,6 +19,16 @@ const usersReducer = createReducer(
     ...state,
     userPage: userPage,
   })),
+  on(UsersActions.userChangeSuccess, (state, { id, role }) => {
+    const userPage = state.userPage;
+    if (userPage) {
+      const updatedUsers = userPage.items.map((user) =>
+        user.id === id ? { ...user, role } : user
+      );
+      return { ...state, userPage: { ...userPage, items: updatedUsers } };
+    }
+    return state;
+  }),
   on(UsersActions.setUserEmailsSearchResult, (state, { users }) => ({
     ...state,
     userEmailsSearchResult: users,

@@ -55,7 +55,14 @@ export class UsersEffects {
       switchMap((action) => {
         return this.httpService
           .changeUserRole(action.id, action.role)
-          .pipe(map(() => UsersActions.userChangeSuccess()));
+          .pipe(
+            map(() =>
+              UsersActions.userChangeSuccess({
+                id: action.id,
+                role: action.role,
+              })
+            )
+          );
       })
     );
   });
@@ -64,10 +71,10 @@ export class UsersEffects {
     () => {
       return this.actions$.pipe(
         ofType(UsersActions.userChangeSuccess.type),
-        map(() => {
+        map((action) => {
           const message = 'You have successfully updated user.';
           this.notifierService.notifySuccess(message);
-          this.router.navigate(['/admin/users/all']);
+          this.router.navigate(['/admin/users/user/' + action.id]);
         })
       );
     },

@@ -45,7 +45,11 @@ export class PropertiesEffects {
       switchMap((action) => {
         return this.httpService
           .createProperty(action.name, action.address, action.ownerId)
-          .pipe(map(() => PropertiesActions.createPropertySuccess()));
+          .pipe(
+            map((property) =>
+              PropertiesActions.createPropertySuccess({ property })
+            )
+          );
       })
     );
   });
@@ -54,9 +58,14 @@ export class PropertiesEffects {
     return this.actions$.pipe(
       ofType(PropertiesActions.deleteProperty.type),
       switchMap((action) => {
-        return this.httpService
-          .deleteProperty(action.id)
-          .pipe(map(() => PropertiesActions.deletePropertySuccess()));
+        return this.httpService.deleteProperty(action.id).pipe(
+          map(() =>
+            PropertiesActions.deletePropertySuccess({
+              propertyId: action.id,
+              ownerId: action.ownerId,
+            })
+          )
+        );
       })
     );
   });
@@ -67,7 +76,11 @@ export class PropertiesEffects {
       switchMap((action) => {
         return this.httpService
           .addPropertyMember(action.userId, action.propertyId)
-          .pipe(map(() => PropertiesActions.addPropertyMemberSuccess()));
+          .pipe(
+            map((property) =>
+              PropertiesActions.addPropertyMemberSuccess({ property })
+            )
+          );
       })
     );
   });
@@ -78,7 +91,11 @@ export class PropertiesEffects {
       switchMap((action) => {
         return this.httpService
           .removePropertyMember(action.userId, action.propertyId)
-          .pipe(map(() => PropertiesActions.removePropertyMemberSuccess()));
+          .pipe(
+            map((property) =>
+              PropertiesActions.removePropertyMemberSuccess({ property })
+            )
+          );
       })
     );
   });
@@ -87,10 +104,12 @@ export class PropertiesEffects {
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.createPropertySuccess.type),
-        map(() => {
+        map((action) => {
           const message = 'You have successfully created a property.';
           this.notifierService.notifySuccess(message);
-          this.router.navigate(['/admin/users/all']);
+          this.router.navigate([
+            '/admin/users/user/' + action.property.owner.id,
+          ]);
         })
       );
     },
@@ -101,10 +120,10 @@ export class PropertiesEffects {
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.deletePropertySuccess.type),
-        map(() => {
+        map((action) => {
           const message = 'You have successfully deleted the property.';
           this.notifierService.notifySuccess(message);
-          this.router.navigate(['/admin/users/all']);
+          this.router.navigate(['/admin/users/user/' + action.ownerId]);
         })
       );
     },
@@ -115,11 +134,10 @@ export class PropertiesEffects {
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.addPropertyMemberSuccess.type),
-        map(() => {
+        map((action) => {
           const message =
             'You have successfully added a member to the property.';
           this.notifierService.notifySuccess(message);
-          this.router.navigate(['/admin/users/all']);
         })
       );
     },
@@ -130,11 +148,10 @@ export class PropertiesEffects {
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.removePropertyMemberSuccess.type),
-        map(() => {
+        map((action) => {
           const message =
             'You have successfully removed a member from the property.';
           this.notifierService.notifySuccess(message);
-          this.router.navigate(['/admin/users/all']);
         })
       );
     },

@@ -21,16 +21,18 @@ export const createProperty = createAction(
 );
 
 export const createPropertySuccess = createAction(
-  '[Properties] Create Property Success'
+  '[Properties] Create Property Success',
+  props<{ property: Property }>()
 );
 
 export const deleteProperty = createAction(
   '[Properties] Delete Property',
-  props<{ id: string }>()
+  props<{ id: string; ownerId: string }>()
 );
 
 export const deletePropertySuccess = createAction(
-  '[Properties] Delete Property Success'
+  '[Properties] Delete Property Success',
+  props<{ propertyId: string; ownerId: string }>()
 );
 
 export const addPropertyMember = createAction(
@@ -39,7 +41,8 @@ export const addPropertyMember = createAction(
 );
 
 export const addPropertyMemberSuccess = createAction(
-  '[Properties] Add Property Success'
+  '[Properties] Add Property Success',
+  props<{ property: Property }>()
 );
 
 export const removePropertyMember = createAction(
@@ -48,7 +51,8 @@ export const removePropertyMember = createAction(
 );
 
 export const removePropertyMemberSuccess = createAction(
-  '[Properties] Remove Property Member Success'
+  '[Properties] Remove Property Member Success',
+  props<{ property: Property }>()
 );
 
 export const searchAddress = createAction(

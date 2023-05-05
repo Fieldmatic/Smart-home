@@ -37,7 +37,10 @@ export const changeUserRole = createAction(
   props<{ id: string; role: string }>()
 );
 
-export const userChangeSuccess = createAction('[Users] User Change Success');
+export const userChangeSuccess = createAction(
+  '[Users] User Change Success',
+  props<{ id: string; role: string }>()
+);
 
 export const deleteUserSuccess = createAction('[Users] Delete User Success');
 

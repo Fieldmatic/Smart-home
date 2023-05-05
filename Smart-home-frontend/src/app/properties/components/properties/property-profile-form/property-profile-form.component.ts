@@ -148,7 +148,9 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.store.dispatch(deleteProperty({ id: this.propertyId }));
+        this.store.dispatch(
+          deleteProperty({ id: this.propertyId, ownerId: this.ownerId })
+        );
       }
     });
 
