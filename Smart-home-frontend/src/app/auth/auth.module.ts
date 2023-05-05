@@ -4,7 +4,6 @@ import { SignupFormComponent } from './components/auth/signup-form/signup-form.c
 import { AuthComponent } from './components/auth/auth.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
-import { ForgotPasswordFormComponent } from './components/auth/forgot-password-form/forgot-password-form.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './store/auth.reducer';
 import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
@@ -16,7 +15,6 @@ import { TimerComponent } from './components/auth/login-pin-form/timer/timer.com
     LoginFormComponent,
     SignupFormComponent,
     AuthComponent,
-    ForgotPasswordFormComponent,
     EmailConfirmationComponent,
     LoginPinFormComponent,
     TimerComponent,

@@ -24,6 +24,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'password',
+    loadChildren: () =>
+      import('./password/password.module').then(
+        (module) => module.PasswordModule
+      ),
+  },
+  {
     path: 'admin/security',
     loadChildren: () =>
       import('./certificates-admin/certificates-admin.module').then(

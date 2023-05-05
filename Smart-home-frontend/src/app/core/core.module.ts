@@ -13,6 +13,7 @@ import { CertificatesAdminEffects } from '../certificates-admin/store/certificat
 import { ErrorInterceptor } from './error.interceptor';
 import { UsersEffects } from '../users/store/users.effects';
 import { PropertiesEffects } from '../properties/store/properties.effects';
+import { PasswordEffects } from '../password/store/password.effects';
 
 @NgModule({
   providers: [
@@ -39,6 +40,7 @@ import { PropertiesEffects } from '../properties/store/properties.effects';
       CertificatesAdminEffects,
       UsersEffects,
       PropertiesEffects,
+      PasswordEffects,
     ]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
