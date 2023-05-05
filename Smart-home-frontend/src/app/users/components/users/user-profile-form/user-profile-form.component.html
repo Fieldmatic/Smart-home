@@ -30,7 +30,7 @@
       </section>
 
       <div class="button-row">
-        <button mat-raised-button class="btn" [disabled]="!userChanged"
+        <button mat-raised-button class="btn" [disabled]="!userChanged && mode !== FormMode.NEW"
                 color="primary">{{mode === FormMode.NEW ? 'Create User' : 'Save Changes'}}</button>
       </div>
 
