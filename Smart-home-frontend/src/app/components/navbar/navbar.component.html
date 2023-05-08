@@ -1,11 +1,22 @@
-<nav>
+<div class="mat-elevation-z3" [ngClass]="welcomingPageIsActive ? 'image-container' : 'hide'">
+  <div class="glass-overlay"></div>
+  <div class="image-content">
+    <h2>Home comes with you</h2>
+    <h4>We will provide you service to keep track of your smart home and devices within it</h4>
+    <div class="row" style="justify-content: flex-start">
+      <a routerLink="/auth/login" class="btn" mat-flat-button color="accent">Login</a>
+      <a routerLink="/auth/sign-up" class="btn" mat-flat-button color="primary">Sign Up</a>
+    </div>
+  </div>
+</div>
+<nav [ngClass]="welcomingPageIsActive ? 'glass':null">
   <div class="container">
     <div class="row" style="justify-content: space-between;">
       <a id="logo" class="navbar-logo" routerLink="/">
-        <img src="../../../favicon.ico" alt="Smart Home">
-        <h1>Smart Home</h1>
+        <img src="../../../assets/logo-with-text.png" alt="Smart Home">
       </a>
-      <button class="toggle-button" [ngClass]="showMobileMenu ? 'active' : null" (click)="toggleMobileMenu()">
+      <button class="toggle-button" *ngIf="!welcomingPageIsActive" [ngClass]="showMobileMenu ? 'active' : null"
+              (click)="toggleMobileMenu()">
         <span></span>
         <span></span>
         <span></span>
@@ -13,9 +24,9 @@
     </div>
 
     <div class="row" style="justify-content: center">
-      <div class="menu" [ngClass]="showMobileMenu ? 'show' : null">
-        <a *ngIf="!userRole" routerLink="/auth/login">Login</a>
-        <a *ngIf="!userRole" routerLink="/auth/sign-up">Sign Up</a>
+      <div class="menu" [ngClass]="{'glass': welcomingPageIsActive , 'show': showMobileMenu}">
+        <a *ngIf="!userRole && !welcomingPageIsActive" routerLink="/auth/login">Login</a>
+        <a *ngIf="!userRole && !welcomingPageIsActive" routerLink="/auth/sign-up">Sign Up</a>
         <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/users/all">Users</a>
         <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/security/csr/pending">CSRs</a>
         <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/security/certificate/all">Certificates</a>

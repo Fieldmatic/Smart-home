@@ -105,6 +105,54 @@ export class AppComponent implements OnInit {
         '../assets/user/clear.svg'
       )
     );
+    matIconRegistry.addSvgIcon(
+      'light',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/light.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'network',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/network.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'notification',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/notification.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'security',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/security.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'temperature',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/temperature.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'camera',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/camera.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'linkedIn',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social media/linkedin.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'gitHub',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social media/github.svg'
+      )
+    );
   }
 
   ngOnInit(): void {

@@ -166,6 +166,12 @@ table, .search-fields, mat-paginator {
   }
 }
 
+.green-btn-icon {
+  path {
+    fill: $Smart-home-frontend-green;
+  }
+}
+
 .attribute-name, mat-label, th, {
   user-select: none;
   user-focus: none;
