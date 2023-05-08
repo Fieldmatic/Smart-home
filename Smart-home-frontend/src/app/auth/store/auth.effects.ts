@@ -103,6 +103,7 @@ export class AuthEffects {
         tap(() => {
           sessionStorage.clear();
           this.authService.clearLogoutTimer();
+          this.router.navigate(['/auth/login']);
         })
       );
     },
