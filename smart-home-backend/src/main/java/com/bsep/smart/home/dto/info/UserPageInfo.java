@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Builder
 public class UserPageInfo {
-    public final static String[] SORT_FIELDS = {Person.Fields.email};
+    public final static String[] SORT_FIELDS = {Person.Fields.email, Person.Fields.role};
 
     public final static String[] SEARCH_FIELDS = {Person.Fields.email};
 
