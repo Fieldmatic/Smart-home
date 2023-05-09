@@ -22,6 +22,7 @@ import {
 } from '../../../store/properties.selectors';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { textValidator } from '../../../../shared/validators/text.validator';
 
 @Component({
   selector: 'app-property-profile-form',
@@ -66,10 +67,7 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
         });
     }
     this.propertyProfileForm = new FormGroup({
-      name: new FormControl(name, [
-        Validators.required,
-        Validators.pattern(/^[A-Za-z\s]*$/),
-      ]),
+      name: new FormControl(name, [Validators.required, textValidator]),
       address: new FormControl(address, [Validators.required]),
       addressSelection: new FormControl(address, [Validators.required]),
     });

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormNavigationStep } from '../../../../shared/model/form-navigation-step.model';
 import { Store } from '@ngrx/store';
 import { createCSR } from '../../../store/certificates.actions';
+import { textValidator } from '../../../../shared/validators/text.validator';
 
 @Component({
   selector: 'app-new-csr-form',
@@ -30,19 +31,12 @@ export class NewCsrFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.newCSRForm = new FormGroup({
-      common_name: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^[A-Za-z\s]*$/),
-      ]),
-      organization: new FormControl(null, [
-        Validators.pattern(/^[A-Za-z\s]*$/),
-      ]),
-      organizational_unit: new FormControl(null, [
-        Validators.pattern(/^[A-Za-z\s]*$/),
-      ]),
-      city: new FormControl(null, [Validators.pattern(/^[A-Za-z\s]*$/)]),
-      state: new FormControl(null, [Validators.pattern(/^[A-Za-z\s]*$/)]),
-      country: new FormControl(null, [Validators.pattern(/^[A-Za-z\s]*$/)]),
+      common_name: new FormControl(null, [Validators.required, textValidator]),
+      organization: new FormControl(null, [textValidator]),
+      organizational_unit: new FormControl(null, [textValidator]),
+      city: new FormControl(null, [textValidator]),
+      state: new FormControl(null, [textValidator]),
+      country: new FormControl(null, [textValidator]),
       algorithm: new FormControl('RSA', [Validators.required]),
       key_size: new FormControl(null, [Validators.required]),
     });

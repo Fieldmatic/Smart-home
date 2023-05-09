@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { signUp } from '../../../store/auth.actions';
 import { Store } from '@ngrx/store';
+import { passwordValidator } from '../../../../shared/validators/password.validator';
+import { userTypeValidator } from '../../../../shared/validators/user-type.validator';
 
 @Component({
   selector: 'app-signup-form',
@@ -17,13 +19,8 @@ export class SignupFormComponent implements OnInit {
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{12,32}$/
-        ),
-      ]),
-      role: new FormControl('TENANT', [Validators.required]),
+      password: new FormControl(null, [Validators.required, passwordValidator]),
+      role: new FormControl('TENANT', [Validators.required, userTypeValidator]),
     });
   }
 

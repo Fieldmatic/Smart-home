@@ -13,7 +13,7 @@
             <input matInput placeholder="Enter name of property" formControlName="name">
             <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('required')">Name is a mandatory field
             </mat-error>
-            <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('pattern')">Name must contain only
+            <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('text')">Name must contain only
               words
             </mat-error>
           </mat-form-field>

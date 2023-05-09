@@ -4,6 +4,7 @@ import { passwordMatchValidator } from '../../../validators/password-match.valid
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { changePassword } from '../../../store/password.actions';
+import { passwordValidator } from '../../../../shared/validators/password.validator';
 
 @Component({
   selector: 'app-set-password-form',
@@ -21,12 +22,11 @@ export class SetPasswordFormComponent implements OnInit {
     this.passwordForm = new FormGroup({
       newPassword: new FormControl(null, [
         Validators.required,
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{12,32}$/
-        ),
+        passwordValidator,
       ]),
       newPasswordConfirmation: new FormControl(null, [
         Validators.required,
+        passwordValidator,
         passwordMatchValidator,
       ]),
     });

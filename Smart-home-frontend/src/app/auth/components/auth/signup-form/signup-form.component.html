@@ -41,7 +41,7 @@
             </mat-hint>
             <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">Password is a mandatory field
             </mat-error>
-            <mat-error *ngIf="signUpForm.controls['password'].hasError('pattern')">Password should have at least 1
+            <mat-error *ngIf="signUpForm.controls['password'].hasError('password')">Password should have at least 1
               uppercase letter, 1 lowercase letter, 1 number, 1 special character and be
               long at least 12 characters
             </mat-error>
