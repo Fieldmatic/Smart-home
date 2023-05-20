@@ -1,5 +1,6 @@
 package com.bsep.smart.home.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -21,6 +22,7 @@ public class Device extends BaseEntity {
     Boolean activated;
     Double value;
     @ManyToOne
+    @JsonIgnore
     Property property;
     Long readPeriod;
     LocalDateTime lastLogged;

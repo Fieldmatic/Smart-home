@@ -23,7 +23,7 @@ public class DeviceMessageCronJob {
     private final GetDeviceMessage getDeviceMessage;
     private final LogRepository logRepository;
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 60000)
     public void logMessagesForDevices() {
         for (Device device : deviceInfo.getReadPeriods().keySet()) {
             if (isReadPeriodElapsed(device) && Util.getRandomBoolean()) {
@@ -40,14 +40,19 @@ public class DeviceMessageCronJob {
 
     public void logMessageForDevice(Device device) {
         String message = getDeviceMessage.execute(device);
-        Log log = Log.builder()
-                .message(message)
-                .deviceId(String.valueOf(device.getId()))
-                .createdAt(LocalDateTime.now())
-                .build();
+        Log log = getLog(device, message);
         logRepository.save(log);
         device.setActivated(!device.getActivated());
         deviceRepository.save(device);
+    }
+
+    private static Log getLog(Device device, String message) {
+        return Log.builder()
+                .message(message)
+                .deviceId(String.valueOf(device.getId()))
+                .createdAt(LocalDateTime.now())
+                .propertyId(String.valueOf(device.getProperty().getId()))
+                .build();
     }
 
     public void resetLastLogTime(Device device) {

@@ -27,4 +27,5 @@ public class Log {
     LocalDateTime createdAt;
     String deviceId;
     String message;
+    String propertyId;
 }
