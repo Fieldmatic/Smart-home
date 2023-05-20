@@ -4,6 +4,10 @@ spring:
     username: postgres
     url: jdbc:postgresql://localhost:5432/smart-home
     driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: smart-home
   jpa:
     show-sql: true
     hibernate:

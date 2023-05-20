@@ -5,25 +5,26 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "property")
+@Table(name = "device")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @SuperBuilder
-public class Property extends BaseEntity {
+public class Device extends BaseEntity {
     String name;
-    String address;
+    Boolean activated;
+    Double value;
     @ManyToOne
-    Person owner;
-    @ManyToMany
-    List<Person> members;
-    @OneToMany(mappedBy = "property")
-    List<Device> devices;
-
+    Property property;
+    Long readPeriod;
+    LocalDateTime lastLogged;
+    String messageRegex;
+    @Enumerated(EnumType.STRING)
+    DeviceType deviceType;
 }

@@ -11,6 +11,12 @@ insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('ebc16e4e-64e1-4b35-
 insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('201ab15f-3b22-4659-b839-235b9e6a728e', CURRENT_TIMESTAMP, 'milicftn@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
 insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('0d6df743-a243-4e80-86a0-ef5710a57e4c', CURRENT_TIMESTAMP, 'istevanovic3112@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
 insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('83aebc30-729c-4923-8aa1-ef71bb1e5247', CURRENT_TIMESTAMP, 'prijovic.uros13@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
+insert into PERSON (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('e0e389ee-ac19-4ad7-97a9-4c956935bd15', CURRENT_TIMESTAMP, 'easypeasylemonsquezzzy@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', 'faf8829f-cb60-4365-b419-14f7b80afa4c', true);
+
+insert into PROPERTY (id, created_at, address, name, owner_id) values ('b838d2d8-35e7-4592-b3c8-fb99edc8a962', CURRENT_TIMESTAMP, 'Adresa', 'Vikendica', 'e0e389ee-ac19-4ad7-97a9-4c956935bd15');
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('60775bb4-fe74-49d6-8cc8-f12d489d5c1a', CURRENT_TIMESTAMP, 'Door', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, 'message_regex_value', 'DOOR');
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('f37989f3-c5dd-4783-822e-6281fd5db13f', CURRENT_TIMESTAMP, 'Light', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, 'message_regex_value', 'LIGHT');
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('abf80778-901c-42c7-87fd-db2149efaac6', CURRENT_TIMESTAMP, 'Camera', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, 'message_regex_value', 'CAMERA');
 
 insert into extension (id, CREATED_AT, name) values ('033eca81-61ee-43e3-bfbf-7463063976b1', CURRENT_TIMESTAMP, 'Key Usage');
 insert into extension (id, CREATED_AT, name) values ('5737e19b-0074-47b8-a3e1-52794895a24d', CURRENT_TIMESTAMP, 'Extended Key Usage');
