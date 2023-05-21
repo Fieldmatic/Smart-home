@@ -1,13 +1,16 @@
 package com.bsep.smart.home.services.message;
 
 
+import com.bsep.smart.home.dto.response.PageResponse;
+import com.bsep.smart.home.jpaspecification.PagingUtil;
 import com.bsep.smart.home.model.Log;
 import com.bsep.smart.home.mongorepository.LogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,9 +18,17 @@ import java.util.stream.Collectors;
 public class GetMessagesForProperty {
     private final LogRepository logRepository;
 
-    @Transactional
-    public List<String> execute(String propertyId) {
-        List<Log> logs = logRepository.getLogsByPropertyId(propertyId);
-        return logs.stream().map(Log::getMessage).collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public PageResponse<String> execute(String propertyId, int pageNumber, int pageSize) {
+        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize);
+        Page<Log> logPage = logRepository.getLogsByPropertyId(propertyId, pageable);
+        return PageResponse.<String>builder()
+                .pageNumber(pageNumber)
+                .pageSize(pageSize)
+                .items(logPage.getContent().stream().map(Log::getMessage).collect(Collectors.toList()))
+                .totalPages(logPage.getTotalPages())
+                .numberOfElements(logPage.getNumberOfElements())
+                .totalElements(logPage.getTotalElements())
+                .build();
     }
 }

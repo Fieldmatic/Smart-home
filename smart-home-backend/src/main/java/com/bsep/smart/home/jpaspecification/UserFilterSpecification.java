@@ -2,8 +2,6 @@ package com.bsep.smart.home.jpaspecification;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
@@ -42,9 +40,5 @@ public class UserFilterSpecification<T> implements Specification<T> {
         final List<Predicate> filterPredicates = filterRequests.stream().map(request -> request.getOperator().build(root, criteriaBuilder, request)).toList();
         final Predicate filterPredicate = criteriaBuilder.or(filterPredicates.toArray(Predicate[]::new));
         return criteriaBuilder.and(predicate, filterPredicate);
-    }
-
-    public static Pageable getPageable(final int page, final int size) {
-        return PageRequest.of(page, size);
     }
 }

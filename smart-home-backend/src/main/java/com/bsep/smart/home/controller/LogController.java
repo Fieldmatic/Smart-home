@@ -1,24 +1,34 @@
 package com.bsep.smart.home.controller;
 
+import com.bsep.smart.home.converter.LogConverter;
+import com.bsep.smart.home.dto.request.users.PageRequest;
+import com.bsep.smart.home.dto.response.PageResponse;
 import com.bsep.smart.home.model.Log;
 import com.bsep.smart.home.services.logs.GetAllLogsForProperty;
+import com.bsep.smart.home.services.logs.SearchLogs;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/log")
 public class LogController {
     private final GetAllLogsForProperty getAllLogsForProperty;
+    private final SearchLogs searchLogs;
 
     @GetMapping("/{propertyId}")
-    public List<Log> getAllLogsForProperty(@PathVariable String propertyId) {
-        return getAllLogsForProperty.execute(propertyId);
+    public PageResponse<Log> getLogsForProperty(@Valid final PageRequest pageRequest,
+                                                @PathVariable String propertyId) {
+        return getAllLogsForProperty.execute(propertyId, pageRequest.getPageNumber(), pageRequest.getPageSize());
+    }
+
+    @GetMapping
+    public PageResponse<Log> getLogs(@Valid final PageRequest pageRequest,
+                                     @RequestParam String search) {
+        return searchLogs.execute(LogConverter.toLogPageInfo(pageRequest.getPageNumber(), pageRequest.getPageSize(), search));
+
     }
 
 

@@ -49,3 +49,5 @@ server:
     key-password: Micomilic123!
     enabled: true
     key-alias: root
+  tomcat:
+    relaxed-query-chars: [ '{','}','^','[',']','|','<','>' ]

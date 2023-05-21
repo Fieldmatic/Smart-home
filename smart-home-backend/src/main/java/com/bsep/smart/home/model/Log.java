@@ -3,6 +3,7 @@ package com.bsep.smart.home.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Builder
 @Document("logs")
+@FieldNameConstants
 public class Log {
     @Id
     String id;
