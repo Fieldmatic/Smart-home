@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,11 +25,11 @@ public class LogController {
         return getAllLogsForProperty.execute(propertyId, pageRequest.getPageNumber(), pageRequest.getPageSize());
     }
 
-    @GetMapping
+    @GetMapping("/search/{propertyId}")
     public PageResponse<Log> getLogs(@Valid final PageRequest pageRequest,
-                                     @RequestParam String search) {
-        return searchLogs.execute(LogConverter.toLogPageInfo(pageRequest.getPageNumber(), pageRequest.getPageSize(), search));
-
+                                     @RequestParam String search,
+                                     @PathVariable UUID propertyId) {
+        return searchLogs.execute(LogConverter.toLogPageInfo(pageRequest.getPageNumber(), pageRequest.getPageSize(), search, propertyId));
     }
 
 

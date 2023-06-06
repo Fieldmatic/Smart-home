@@ -14,24 +14,24 @@ public class GetDeviceMessage {
         switch (device.getDeviceType()) {
             case DOOR -> {
                 if (device.getActivated()) {
-                    return device.getName() + " (" + deviceType + ") " + "has been closed!";
+                    return device.getName() + " of type " + deviceType + " has been closed!";
                 } else {
-                    return device.getName() + " (" + deviceType + ") " + "has been opened!";
+                    return device.getName() + " of type " + deviceType + " has been opened!";
                 }
             }
             case LIGHT -> {
                 if (device.getActivated()) {
-                    return device.getName() + " (" + deviceType + ") " + "went off";
+                    return device.getName() + " of type " + deviceType + " went off";
                 } else {
-                    return device.getName() + " (" + deviceType + ") " + "went on";
+                    return device.getName() + " of type " + deviceType + " went on";
                 }
 
             }
             case CAMERA -> {
                 if (device.getActivated()) {
-                    return device.getName() + " (" + deviceType + ") " + "has been activated!";
+                    return device.getName() + " of type " + deviceType + " has been activated!";
                 } else {
-                    return device.getName() + " (" + deviceType + ") " + "has been deactivated!";
+                    return device.getName() + " of type " + deviceType + " has been deactivated!";
                 }
 
             }

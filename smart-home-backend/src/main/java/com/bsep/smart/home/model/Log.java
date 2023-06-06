@@ -30,4 +30,5 @@ public class Log {
     String deviceId;
     String message;
     String propertyId;
+    Boolean processed;
 }

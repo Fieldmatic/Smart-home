@@ -4,6 +4,8 @@ import com.bsep.smart.home.model.Log;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Builder
 public class LogPageInfo {
@@ -14,5 +16,7 @@ public class LogPageInfo {
     private int size;
 
     private String search;
+
+    private UUID propertyId;
 
 }
