@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+    <mat-icon mat-card-avatar svgIcon='account-avatar'></mat-icon>
+    <mat-card-title>{{device.name}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <span class="attribute-container">
+      <span class="attribute-name">Activated</span>
+      <span class="attribute-value">{{device.activated.toString() | titlecase}}</span>
+    </span>
+  </mat-card-content>
+<!--  <mat-card-actions *ngIf="!isOwner" align="end">-->
+<!--    <button mat-button color="warn" (click)="removeMember()">-->
+<!--      <mat-icon class="red-btn-icon" svgIcon="remove-member"></mat-icon>-->
+<!--      <span>Remove</span>-->
+<!--    </button>-->
+<!--  </mat-card-actions>-->
+</mat-card>

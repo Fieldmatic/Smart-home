@@ -1,5 +1,6 @@
 package com.bsep.smart.home.dto.request.property;
 
+import com.bsep.smart.home.dto.response.DeviceResponse;
 import com.bsep.smart.home.dto.response.UserResponse;
 import lombok.*;
 
@@ -17,4 +18,6 @@ public class PropertyResponse {
     public UserResponse owner;
     public String address;
     public List<UserResponse> members;
+    public List<DeviceResponse> devices;
+
 }

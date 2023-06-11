@@ -78,7 +78,7 @@ export class AuthEffects {
         map((action) => {
           sessionStorage.setItem('token', action.token);
           this.authService.setLogoutTimer();
-          this.router.navigate(['/']);
+          this.router.navigate(['/admin/properties/devices']);
         })
       );
     },

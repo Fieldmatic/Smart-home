@@ -3,4 +3,5 @@
                              [isAdminLogged]="this.loggedInUsersRole === 'ADMIN'"></app-property-profile-info>
   <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
                                 [owner]="property.owner"></app-property-profile-members>
+  <app-propery-profile-devices [devices]="property.devices"></app-propery-profile-devices>
 </div>

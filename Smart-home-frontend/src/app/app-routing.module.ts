@@ -50,7 +50,7 @@ const routes: Routes = [
       import('./properties/properties.module').then(
         (module) => module.PropertiesModule
       ),
-    canActivate: [AuthGuard, AdminGuard],
+    // canActivate: [AuthGuard, AdminGuard],
   },
 ];
 

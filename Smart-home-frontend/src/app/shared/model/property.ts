@@ -1,4 +1,5 @@
 import { User } from './user.model';
+import {Device} from "./device.model";
 
 export class Property {
   constructor(
@@ -6,6 +7,7 @@ export class Property {
     public name: string,
     public owner: User,
     public address: string,
-    public members: User[]
+    public members: User[],
+    public devices: Device[]
   ) {}
 }

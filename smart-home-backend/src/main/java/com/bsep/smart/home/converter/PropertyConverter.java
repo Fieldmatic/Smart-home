@@ -13,6 +13,7 @@ public class PropertyConverter {
                 .name(property.getName())
                 .owner(UserConverter.toUserResponse(property.getOwner()))
                 .members(UserConverter.toUsersResponse(property.getMembers()))
+                .devices(DeviceConverter.toDevicesResponse(property.getDevices()))
                 .build();
     }
 
