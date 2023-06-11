@@ -10,7 +10,8 @@ public class DeviceConverter {
     public static DeviceResponse toDeviceResponse(final Device device) {
         return DeviceResponse.builder()
                 .name(device.getName())
-                .activated(device.getActivated())
+                .deviceType(device.getDeviceType())
+                .messageRegex(device.getMessageRegex())
                 .build();
     }
 

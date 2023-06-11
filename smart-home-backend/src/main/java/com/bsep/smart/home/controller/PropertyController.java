@@ -1,12 +1,10 @@
 package com.bsep.smart.home.controller;
 
 import com.bsep.smart.home.converter.PropertyConverter;
-import com.bsep.smart.home.dto.request.property.AddMemberRequest;
-import com.bsep.smart.home.dto.request.property.CreatePropertyRequest;
-import com.bsep.smart.home.dto.request.property.PropertyResponse;
-import com.bsep.smart.home.dto.request.property.RemoveMemberRequest;
+import com.bsep.smart.home.dto.request.property.*;
 import com.bsep.smart.home.model.Permission;
 import com.bsep.smart.home.security.HasAnyPermission;
+import com.bsep.smart.home.services.device.AddDevice;
 import com.bsep.smart.home.services.property.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +23,7 @@ public class PropertyController {
     private final GetAccessibleProperties getAccessibleProperties;
     private final RemoveMember removeMember;
     private final DeleteProperty deleteProperty;
+    private final AddDevice addDevice;
 
     @PostMapping
     @HasAnyPermission({Permission.PROPERTY_MANIPULATION})
@@ -59,5 +58,11 @@ public class PropertyController {
     @GetMapping("/accessible")
     public List<PropertyResponse> getAccessibleProperties() {
         return PropertyConverter.toPropertiesResponse(getAccessibleProperties.execute());
+    }
+
+    @PutMapping("/add-device")
+    @HasAnyPermission({Permission.PROPERTY_MANIPULATION})
+    public PropertyResponse addDevice(@Valid @RequestBody AddDeviceRequest addDeviceRequest) {
+        return PropertyConverter.toPropertyResponse(addDevice.execute(addDeviceRequest));
     }
 }

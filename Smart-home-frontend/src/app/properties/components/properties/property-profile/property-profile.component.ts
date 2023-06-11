@@ -25,7 +25,7 @@ export class PropertyProfileComponent implements OnInit, OnDestroy {
       .select(selectPropertyWithId(id))
       .subscribe((property) => {
         this.property = property;
-        console.log("Properti " + this.property.devices[0].name)
+        console.log("Properti " + property.devices[0].deviceType)
       });
     this.authStoreSubscription = this.store
       .select(selectRole)

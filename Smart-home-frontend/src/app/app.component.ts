@@ -84,6 +84,12 @@ export class AppComponent implements OnInit {
       )
     );
     matIconRegistry.addSvgIcon(
+      'add-device',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/new_device.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
       'my-property',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/my_property.svg'

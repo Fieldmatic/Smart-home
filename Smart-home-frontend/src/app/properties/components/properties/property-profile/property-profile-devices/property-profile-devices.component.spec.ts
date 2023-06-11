@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProperyProfileDevicesComponent } from './propery-profile-devices.component';
+import { PropertyProfileDevicesComponent } from './property-profile-devices.component';
 
 describe('ProperyProfileDevicesComponent', () => {
-  let component: ProperyProfileDevicesComponent;
-  let fixture: ComponentFixture<ProperyProfileDevicesComponent>;
+  let component: PropertyProfileDevicesComponent;
+  let fixture: ComponentFixture<PropertyProfileDevicesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProperyProfileDevicesComponent ]
+      declarations: [ PropertyProfileDevicesComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProperyProfileDevicesComponent);
+    fixture = TestBed.createComponent(PropertyProfileDevicesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

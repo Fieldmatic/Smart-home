@@ -4,8 +4,8 @@ import { PropertiesComponent } from './components/properties/properties.componen
 import { PropertyProfileComponent } from './components/properties/property-profile/property-profile.component';
 import { PropertyProfileFormComponent } from './components/properties/property-profile-form/property-profile-form.component';
 import {
-  ProperyProfileDevicesComponent
-} from "./components/properties/property-profile/propery-profile-devices/propery-profile-devices.component";
+  PropertyProfileDevicesComponent
+} from "./components/properties/property-profile/property-profile-devices/property-profile-devices.component";
 
 const routes: Routes = [
   {
@@ -24,10 +24,6 @@ const routes: Routes = [
         path: 'edit/:id',
         component: PropertyProfileFormComponent,
       },
-      {
-        path: 'devices',
-        component: ProperyProfileDevicesComponent,
-      }
     ],
   },
 ];

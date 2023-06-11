@@ -1,5 +1,6 @@
 package com.bsep.smart.home.dto.response;
 
+import com.bsep.smart.home.model.DeviceType;
 import lombok.*;
 
 @Getter
@@ -9,5 +10,6 @@ import lombok.*;
 @Builder
 public class DeviceResponse {
     String name;
-    Boolean activated;
+    DeviceType deviceType;
+    String messageRegex;
 }
