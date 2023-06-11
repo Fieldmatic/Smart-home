@@ -23,7 +23,7 @@ public class Property extends BaseEntity {
     Person owner;
     @ManyToMany
     List<Person> members;
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     List<Device> devices;
 
 }

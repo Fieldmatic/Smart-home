@@ -7,22 +7,18 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   templateUrl: './add-property-dialog.component.html',
   styleUrls: ['./add-property-dialog.component.scss']
 })
-export class AddPropertyDialogComponent implements OnInit {
+export class AddPropertyDialogComponent {
   dialogForm: FormGroup;
-  options: string[] = ['Opcija 1', 'Opcija 2', 'Opcija 3'];
+  options: string[] = ['DOOR', 'CAMERA', 'THERMOMETER', 'LIGHT'];
   constructor(
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA)
     public data: { name: string; title: string; text: string }
   ) {
     this.dialogForm = this.formBuilder.group({
-      selectedOption: ['', Validators.required],
-      firstInput: ['', Validators.required],
-      secondInput: ['', Validators.required]
+      deviceType: ['', Validators.required],
+      readPeriod: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      messageRegex: ['', Validators.required]
     });
-  }
-
-  ngOnInit() {
-    console.log()
   }
 }

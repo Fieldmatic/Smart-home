@@ -1,5 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 import { Property } from '../../shared/model/property';
+import {DeviceType} from "../../shared/model/device-type";
 
 export const getUserProperties = createAction(
   '[Properties] Get User Properties',
@@ -40,9 +41,9 @@ export const addPropertyMember = createAction(
   props<{ propertyId: string; userId: string }>()
 );
 
-export const addPropertyMemberSuccess = createAction(
-  '[Properties] Add Property Success',
-  props<{ property: Property }>()
+export const updatePropertySuccess = createAction(
+  '[Properties] Update Property Success',
+  props<{ property: Property, message: string }>()
 );
 
 export const removePropertyMember = createAction(
@@ -65,6 +66,12 @@ export const setSearchAddressResult = createAction(
   props<{ searchAddressResults: string[] }>()
 );
 
+export const addPropertyDevice = createAction(
+  '[Properties] Add Property Device',
+  props<{ propertyId: string; name: string, deviceType: DeviceType, readPeriod: number, messageRegex: string }>()
+);
+
+
 const all = union({
   getUserProperties,
   getSelfProperties,
@@ -74,11 +81,12 @@ const all = union({
   deleteProperty,
   deletePropertySuccess,
   addPropertyMember,
-  addPropertyMemberSuccess,
+  addPropertyMemberSuccess: updatePropertySuccess,
   removePropertyMember,
   removePropertyMemberSuccess,
   searchAddress,
   setSearchAddressResult,
+  addPropertyDevice,
 });
 
 export type PropertiesActionsUnion = typeof all;

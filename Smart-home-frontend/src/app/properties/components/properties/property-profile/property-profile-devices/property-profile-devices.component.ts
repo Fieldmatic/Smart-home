@@ -2,11 +2,9 @@ import {Component, Input} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {MatDialog} from "@angular/material/dialog";
 import {Device} from "../../../../../shared/model/device.model";
-import { FormControl, FormGroup } from "@angular/forms";
-import {
-  ConfirmationDialogComponent
-} from "../../../../../shared/components/confirmation-dialog/confirmation-dialog.component";
-import { AddPropertyDialogComponent } from "./add-property-dialog/add-property-dialog.component";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { addPropertyDevice } from '../../../../store/properties.actions';
+import { AddPropertyDialogComponent } from "./add-property-device-dialog/add-property-dialog.component";
 
 @Component({
   selector: 'app-propery-profile-devices',
@@ -15,8 +13,10 @@ import { AddPropertyDialogComponent } from "./add-property-dialog/add-property-d
 })
 export class PropertyProfileDevicesComponent {
   @Input() devices!: Device[];
+  @Input() propertyId!: string;
+
   newDeviceForm = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', Validators.required),
   });
 
   constructor(private store: Store, private dialog: MatDialog) {
@@ -28,17 +28,17 @@ export class PropertyProfileDevicesComponent {
       const dialogRef = this.dialog.open(AddPropertyDialogComponent, {
         data: {
           title: 'New Property Device',
-          name: this.newDeviceForm.controls.name.value,
-          text: `Are you sure you want to add a new device to the property?`,
+          name: name,
+          text: `Please enter the required information about the device`,
         },
       });
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          // this.store.dispatch(
-          //   addPropertyMember({ propertyId: this.propertyId, userId: id })
-          // );
           console.log(result)
+          this.store.dispatch(
+            addPropertyDevice({ propertyId: this.propertyId, name: name || '',  deviceType: result.deviceType, readPeriod: result.readPeriod, messageRegex: result.messageRegex})
+          );
         }
       });
     }

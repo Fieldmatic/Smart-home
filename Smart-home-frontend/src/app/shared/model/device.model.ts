@@ -1,5 +1,5 @@
 import { DeviceType } from "./device-type";
 
 export class Device {
-  constructor(public name: string, public deviceType: DeviceType, public messageRegex: string) {}
+  constructor(public name: string, public deviceType: DeviceType, public messageRegex: string, public readPeriod: number) {}
 }

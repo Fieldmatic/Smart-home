@@ -84,6 +84,12 @@ export class AppComponent implements OnInit {
       )
     );
     matIconRegistry.addSvgIcon(
+      'devices',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/devices.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
       'add-device',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/new_device.svg'
@@ -157,6 +163,30 @@ export class AppComponent implements OnInit {
       'gitHub',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/social media/github.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'camera',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/cam.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'light',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/light.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'door',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/door.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'thermostat',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/thermostat.svg'
       )
     );
   }

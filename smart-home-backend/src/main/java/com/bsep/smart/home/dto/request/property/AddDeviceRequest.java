@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.Pattern;
 
-import static com.bsep.smart.home.util.ValidationPatterns.NUMBERS_PATTERN;
 import static com.bsep.smart.home.util.ValidationPatterns.UUID_PATTERN;
 
 @Getter
@@ -20,7 +19,6 @@ public class AddDeviceRequest {
     @Pattern(regexp = UUID_PATTERN, message = "Bad uuid format!")
     private String propertyId;
     private DeviceType deviceType;
-    @Pattern(regexp = NUMBERS_PATTERN, message = "Only numbers allowed!")
     private Long readPeriod;
     private String messageRegex;
 }

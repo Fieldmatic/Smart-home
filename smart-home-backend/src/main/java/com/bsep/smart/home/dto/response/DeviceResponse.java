@@ -12,4 +12,5 @@ public class DeviceResponse {
     String name;
     DeviceType deviceType;
     String messageRegex;
+    Long readPeriod;
 }

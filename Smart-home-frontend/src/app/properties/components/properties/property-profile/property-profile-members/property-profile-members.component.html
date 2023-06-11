@@ -1,33 +1,25 @@
-<mat-tab-group class="property-tabs" mat-stretch-tabs="true" mat-align-tabs="center">
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon svgIcon="members"></mat-icon>
-      Members
-    </ng-template>
-    <div class="input-row" [formGroup]="userIdGroup">
-      <mat-form-field appearance="fill">
-        <mat-label>New Member</mat-label>
-        <input
-          matInput
-          formControlName="email"
-          [matAutocomplete]="users"
-        />
-        <button matTooltip="Add Member" type="button" matSuffix mat-icon-button (click)="addMember()">
-          <mat-icon svgIcon="add-member"></mat-icon>
-        </button>
-        <mat-autocomplete #users="matAutocomplete">
-          <mat-option
-            *ngFor="let user of users$ | async"
-            [value]="user.email"
-            (onSelectionChange)="userIdGroup.get('id')?.setValue(user.id)"
-          >
-            {{ user.email }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-    <app-property-member-card [propertyId]="propertyId" *ngFor="let member of members" [member]="member"
-                              [isOwner]="member.id===owner.id">
-    </app-property-member-card>
-  </mat-tab>
-</mat-tab-group>
+<div class="input-row" [formGroup]="userIdGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>New Member</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      [matAutocomplete]="users"
+    />
+    <button matTooltip="Add Member" type="button" matSuffix mat-icon-button (click)="addMember()">
+      <mat-icon svgIcon="add-member"></mat-icon>
+    </button>
+    <mat-autocomplete #users="matAutocomplete">
+      <mat-option
+        *ngFor="let user of users$ | async"
+        [value]="user.email"
+        (onSelectionChange)="userIdGroup.get('id')?.setValue(user.id)"
+      >
+        {{ user.email }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<app-property-member-card [propertyId]="propertyId" *ngFor="let member of members" [member]="member"
+                          [isOwner]="member.id===owner.id">
+</app-property-member-card>

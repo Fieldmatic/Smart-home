@@ -77,8 +77,10 @@ export class PropertiesEffects {
         return this.httpService
           .addPropertyMember(action.userId, action.propertyId)
           .pipe(
-            map((property) =>
-              PropertiesActions.addPropertyMemberSuccess({ property })
+            map((property) => {
+                const message = 'You have successfully added a member to the property.';
+                return PropertiesActions.updatePropertySuccess({property, message})
+              }
             )
           );
       })
@@ -130,14 +132,12 @@ export class PropertiesEffects {
     { dispatch: false }
   );
 
-  addPropertyMemberSuccess = createEffect(
+  updatePropertyMemberSuccess = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(PropertiesActions.addPropertyMemberSuccess.type),
-        map(() => {
-          const message =
-            'You have successfully added a member to the property.';
-          this.notifierService.notifySuccess(message);
+        ofType(PropertiesActions.updatePropertySuccess.type),
+        map((action) => {
+          this.notifierService.notifySuccess(action.message);
         })
       );
     },
@@ -177,6 +177,23 @@ export class PropertiesEffects {
       })
     )
   );
+
+  addPropertyDevice = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PropertiesActions.addPropertyDevice.type),
+      switchMap((action) => {
+        return this.httpService
+          .addPropertyDevice(action.propertyId, action.name, action.deviceType, action.readPeriod, action.messageRegex)
+          .pipe(
+            map((property) => {
+              const message = 'You have successfully added a device to the property.';
+              return PropertiesActions.updatePropertySuccess({property, message})
+              }
+            )
+          );
+      })
+    );
+  });
 
   constructor(
     private notifierService: NotifierService,

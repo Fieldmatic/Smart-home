@@ -12,6 +12,7 @@ public class DeviceConverter {
                 .name(device.getName())
                 .deviceType(device.getDeviceType())
                 .messageRegex(device.getMessageRegex())
+                .readPeriod(device.getReadPeriod())
                 .build();
     }
 

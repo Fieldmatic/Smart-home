@@ -35,7 +35,7 @@ const propertiesReducer = createReducer(
     return { ...state, userProperties: updatedUserProperties };
   }),
   on(
-    PropertiesActions.addPropertyMemberSuccess,
+    PropertiesActions.updatePropertySuccess,
     PropertiesActions.removePropertyMemberSuccess,
     (state, { property }) => {
       const updatedUserProperties = state.userProperties.map((p) =>

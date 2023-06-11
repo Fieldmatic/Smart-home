@@ -1,7 +1,20 @@
 <div class="container">
   <app-property-profile-info [property]="property"
                              [isAdminLogged]="this.loggedInUsersRole === 'ADMIN'"></app-property-profile-info>
-  <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
-                                [owner]="property.owner"></app-property-profile-members>
-  <app-propery-profile-devices [devices]="property.devices"></app-propery-profile-devices>
+  <mat-tab-group class="property-tabs" mat-stretch-tabs="true" mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="members"></mat-icon>
+        Members
+      </ng-template>
+      <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
+                                            [owner]="property.owner"></app-property-profile-members></mat-tab>
+   <mat-tab>
+     <ng-template mat-tab-label>
+       <mat-icon svgIcon="devices"></mat-icon>
+       Devices
+     </ng-template>
+     <app-propery-profile-devices [propertyId]="property.uuid" [devices]="property.devices"></app-propery-profile-devices>
+   </mat-tab>
+  </mat-tab-group>
 </div>

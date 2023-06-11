@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { APP_SERVICE_CONFIG, AppConfig } from '../../app-config/app-config';
 import { HttpClient } from '@angular/common/http';
 import { Property } from '../../shared/model/property';
+import {DeviceType} from "../../shared/model/device-type";
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class PropertiesHttpService {
   DELETE_PROPERTY = 'property/';
   ADD_PROPERTY_MEMBER = 'property/add-member';
   REMOVE_PROPERTY_MEMBER = 'property/remove-member';
+  ADD_PROPERTY_DEVICE = 'property/add-device';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
@@ -64,6 +66,19 @@ export class PropertiesHttpService {
       {
         userId,
         propertyId,
+      }
+    );
+  }
+
+  addPropertyDevice(propertyId: string, name: string, deviceType: DeviceType, readPeriod: number, messageRegex: string) {
+    return this.http.put<Property>(
+      this.config.apiEndpoint + this.ADD_PROPERTY_DEVICE,
+      {
+        name,
+        propertyId,
+        deviceType,
+        readPeriod,
+        messageRegex
       }
     );
   }

@@ -1,6 +1,6 @@
 export enum DeviceType {
-  DOOR,
-  CAMERA,
-  THERMOMETER,
-  LIGHT
+  DOOR = 'DOOR',
+  CAMERA = 'CAMERA',
+  THERMOMETER = 'THERMOMETER',
+  LIGHT = 'LIGHT'
 }

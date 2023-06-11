@@ -24,7 +24,8 @@ public class AddDevice {
         Property property = getPropertyById.execute(UUID.fromString(addDeviceRequest.getPropertyId()));
         Device device = Device.builder().name(addDeviceRequest.getName()).readPeriod(addDeviceRequest.getReadPeriod())
                 .deviceType(addDeviceRequest.getDeviceType())
-                .messageRegex(addDeviceRequest.getMessageRegex()).build();
+                .messageRegex(addDeviceRequest.getMessageRegex())
+                .property(property).build();
         property.getDevices().add(device);
         return propertyRepository.save(property);
     }
