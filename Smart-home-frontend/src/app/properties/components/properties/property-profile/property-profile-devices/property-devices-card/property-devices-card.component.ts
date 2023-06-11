@@ -12,16 +12,17 @@ export class PropertyDevicesCardComponent {
   @Input() device!: Device;
 
   getDeviceIcon(): string {
-    if (this.device.deviceType === DeviceType.THERMOMETER) {
-      return 'thermostat';
-    } else if (this.device.deviceType == DeviceType.DOOR) {
-      return 'door';
-    } else if (this.device.deviceType == DeviceType.CAMERA) {
-      return 'camera';
-    } else if (this.device.deviceType == DeviceType.LIGHT) {
-      return 'light';
-    } else {
-      return 'devices';
+    switch (this.device.deviceType) {
+      case DeviceType.THERMOMETER:
+        return 'thermostat';
+      case DeviceType.DOOR:
+        return 'door';
+      case DeviceType.CAMERA:
+        return 'camera';
+      case DeviceType.LIGHT:
+        return 'light';
+      default:
+        return 'devices';
     }
   }
 }
