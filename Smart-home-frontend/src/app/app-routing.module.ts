@@ -52,6 +52,14 @@ const routes: Routes = [
       ),
     // canActivate: [AuthGuard, AdminGuard],
   },
+  {
+    path: 'properties',
+    loadChildren: () =>
+      import('./user-properties/user-properties.module').then(
+        (module) => module.UserPropertiesModule
+      ),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

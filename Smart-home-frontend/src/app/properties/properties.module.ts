@@ -13,6 +13,8 @@ import { PropertyMemberCardComponent } from './components/properties/property-pr
 import { PropertyProfileDevicesComponent } from './components/properties/property-profile/property-profile-devices/property-profile-devices.component';
 import { PropertyDevicesCardComponent } from './components/properties/property-profile/property-profile-devices/property-devices-card/property-devices-card.component';
 import { AddPropertyDialogComponent } from './components/properties/property-profile/property-profile-devices/add-property-device-dialog/add-property-dialog.component';
+import { EffectsModule } from '@ngrx/effects';
+import { PropertiesEffects } from './store/properties.effects';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { AddPropertyDialogComponent } from './components/properties/property-pro
   imports: [
     SharedModule,
     StoreModule.forFeature('properties', fromProperties.reducer),
+    EffectsModule.forFeature([PropertiesEffects]),
     PropertiesRoutingModule,
   ],
 })
