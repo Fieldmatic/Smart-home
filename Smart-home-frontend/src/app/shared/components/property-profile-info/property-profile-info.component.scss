@@ -1,4 +1,4 @@
-@import "src/app/properties/components/properties/properties.component";
+@import "src/custom-theme";
 
 .btn {
   min-width: 100% !important;
@@ -47,4 +47,8 @@ mat-card-actions {
   display: flex;
   justify-content: center;
   margin-top: 30px;
+}
+
+a {
+  text-decoration: none;
 }

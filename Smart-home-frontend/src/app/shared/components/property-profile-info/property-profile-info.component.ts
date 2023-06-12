@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Property } from '../../../../../shared/model/property';
+import { Property } from '../../model/property';
 
 @Component({
   selector: 'app-property-profile-info',
