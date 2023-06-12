@@ -7,7 +7,7 @@ export const passwordValidator: ValidatorFn = (
   const textRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{12,32}$/;
 
-  if (textRegex.test(input)) {
+  if (!textRegex.test(input)) {
     return { password: true };
   }
   return null;

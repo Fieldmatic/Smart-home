@@ -6,7 +6,7 @@ export const textValidator: ValidatorFn = (
   const input = control.value;
   const textRegex = /^[A-Za-z\s]*$/;
 
-  if (textRegex.test(input)) {
+  if (!textRegex.test(input)) {
     return { text: true };
   }
   return null;

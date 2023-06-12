@@ -36,13 +36,13 @@ const routes: Routes = [
       import('./certificates-admin/certificates-admin.module').then(
         (module) => module.CertificatesAdminModule
       ),
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'admin/users',
     loadChildren: () =>
       import('./users/users.module').then((module) => module.UsersModule),
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'admin/properties',
