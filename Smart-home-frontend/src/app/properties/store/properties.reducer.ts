@@ -7,13 +7,13 @@ import { LogResponse } from "../model/log-response";
 export interface State {
   userProperties: Property[];
   addressSearchResults: string[];
-  logPage: PageResponse<LogResponse> | void;
+  logPage: PageResponse<LogResponse>;
 }
 
 const initialState: State = {
   userProperties: [],
   addressSearchResults: [],
-  logPage: undefined,
+  logPage: null,
 };
 
 const propertiesReducer = createReducer(

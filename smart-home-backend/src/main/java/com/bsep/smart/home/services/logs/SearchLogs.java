@@ -15,10 +15,12 @@ import com.bsep.smart.home.services.auth.GetLoggedInUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service
@@ -35,7 +37,7 @@ public class SearchLogs {
         if (!property.getMembers().contains(loggedUser) && !loggedUser.getRole().getName().equals("ADMIN")) {
             throw new UnauthorizedException();
         }
-        final Pageable pageable = PagingUtil.getPageable(logPageInfo.getPage(), logPageInfo.getSize());
+        final Pageable pageable = PagingUtil.getPageable(logPageInfo.getPage(), logPageInfo.getSize(), Optional.of(Sort.by(Sort.Direction.DESC, "createdAt")));
         Page<Log> logPage = logRepository.searchLogsByRegexAndPropertyIdAndProcessed(Pattern.compile(logPageInfo.getSearch()), String.valueOf(logPageInfo.getPropertyId()), pageable);
         List<LogResponse> logResponses = LogConverter.toLogResponseList(logPage.getContent());
         return PageResponse.<LogResponse>builder()

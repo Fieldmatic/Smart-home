@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: 'property/:id',
         component: PropertyProfileComponent,
-        // resolve: [LogsResolver]
+        resolve: [LogsResolver]
       },
       {
         path: 'new/:id',

@@ -11,10 +11,12 @@ import com.bsep.smart.home.services.auth.GetLoggedInUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,7 +32,7 @@ public class GetAllLogsForProperty {
         if (!property.getMembers().contains(getLoggedInUser.execute()) && !getLoggedInUser.execute().getRole().getName().equals("ADMIN")) {
             throw new UnauthorizedException();
         }
-        final Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize);
+        final Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize, Optional.of(Sort.by(Sort.Direction.DESC, "createdAt")));
         final Page<Log> logPage = logRepository.getLogsByPropertyId(propertyId, pageable);
         return PageResponse.<Log>builder()
                 .pageNumber(pageNumber)

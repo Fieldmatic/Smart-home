@@ -28,7 +28,7 @@ public class LogController {
 
     @GetMapping("/search/{propertyId}")
     public PageResponse<LogResponse> getLogs(@Valid final PageRequest pageRequest,
-                                             @RequestParam String search,
+                                             @RequestParam(required = false) String search,
                                              @PathVariable UUID propertyId) {
         return searchLogs.execute(LogConverter.toLogPageInfo(pageRequest.getPageNumber(), pageRequest.getPageSize(), search, propertyId));
     }

@@ -8,7 +8,8 @@
         Members
       </ng-template>
       <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
-                                            [owner]="property.owner"></app-property-profile-members></mat-tab>
+                                            [owner]="property.owner"></app-property-profile-members>
+    </mat-tab>
    <mat-tab>
      <ng-template mat-tab-label>
        <mat-icon svgIcon="devices"></mat-icon>
@@ -20,8 +21,11 @@
     <ng-template mat-tab-label>
       <mat-icon svgIcon="log"></mat-icon>
       Logs
-      <app-property-profile-logs></app-property-profile-logs>
     </ng-template>
+     <app-property-profile-logs
+       [propertyId]="property.uuid"
+       [logPage]="propertyLogsPage | async">
+     </app-property-profile-logs>
    </mat-tab>
   </mat-tab-group>
 </div>

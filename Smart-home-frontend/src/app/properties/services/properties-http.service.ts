@@ -19,7 +19,7 @@ export class PropertiesHttpService {
   ADD_PROPERTY_MEMBER = 'property/add-member';
   REMOVE_PROPERTY_MEMBER = 'property/remove-member';
   ADD_PROPERTY_DEVICE = 'property/add-device';
-  GET_LOGS = 'property/search/'
+  GET_LOGS = 'log/search/'
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,

@@ -8,9 +8,11 @@ import com.bsep.smart.home.mongorepository.LogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,7 +22,7 @@ public class GetMessagesForProperty {
 
     @Transactional(readOnly = true)
     public PageResponse<String> execute(String propertyId, int pageNumber, int pageSize) {
-        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize);
+        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize, Optional.of(Sort.by(Sort.Direction.DESC, "createdAt")));
         Page<Log> logPage = logRepository.getLogsByPropertyId(propertyId, pageable);
         return PageResponse.<String>builder()
                 .pageNumber(pageNumber)

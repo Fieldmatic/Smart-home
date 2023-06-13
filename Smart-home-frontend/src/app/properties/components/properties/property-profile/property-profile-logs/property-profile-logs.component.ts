@@ -1,28 +1,31 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
-import { User } from "../../../../../shared/model/user.model";
-import { Subscription } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
-import { MatPaginator } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { Store } from "@ngrx/store";
-import { selectUserPage } from "../../../../../users/store/users.selectors";
 import { LogResponse } from "../../../../model/log-response";
+import { PageResponse } from "../../../../../shared/model/page-response";
+import { getLogsForProperty } from "../../../../store/properties.actions";
 
 @Component({
   selector: 'app-property-profile-logs',
   templateUrl: './property-profile-logs.component.html',
   styleUrls: ['./property-profile-logs.component.scss']
 })
-export class PropertyProfileLogsComponent  implements OnInit{
-  displayedColumns = ['message', 'createdAt'];
-  dataSource!: MatTableDataSource<LogResponse>;
-  storeSubscription!: Subscription;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+export class PropertyProfileLogsComponent  implements OnInit, OnChanges{
+  @Input() logPage!: PageResponse<LogResponse>;
+  @Input() propertyId: string;
+
   searchForm!: FormGroup<{
     search: FormControl;
   }>;
+
+  displayedColumns = ['message', 'createdAt'];
+  dataSource!: MatTableDataSource<LogResponse>;
   totalElements = 0;
   pageSize = 10;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private store: Store) {}
 
@@ -30,34 +33,36 @@ export class PropertyProfileLogsComponent  implements OnInit{
     this.searchForm = new FormGroup({
       search: new FormControl(null),
     });
-    // this.storeSubscription = this.store
-    //   .select(selectUserPage)
-    //   .subscribe((userPage) => {
-    //     let users: User[] = [];
-    //     if (userPage) {
-    //       users = userPage.items;
-    //       this.totalElements = userPage.totalElements;
-    //       this.pageSize = userPage.pageSize;
-    //       if (this.paginator) {
-    //         this.paginator.pageIndex = userPage.pageNumber;
-    //       }
-    //     }
-    //     this.dataSource = new MatTableDataSource(users);
-    //   });
   }
 
-  ngOnDestroy(): void {
-    this.storeSubscription.unsubscribe();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.logPage) {
+      this.totalElements = this.logPage.totalElements;
+      this.pageSize = this.logPage.pageSize;
+      if (this.paginator) {
+        this.paginator.pageIndex = this.logPage.pageNumber;
+      }
+    }
+    this.dataSource = new MatTableDataSource(this.logPage.items);
   }
 
-  preventClose($event: MouseEvent) {
-    $event.stopPropagation();
+  searchLogs($event?: PageEvent) {
+    const search = this.searchForm.controls.search.value;
+    const pageSize = $event ? $event.pageSize : this.pageSize;
+    const pageNumber = $event ? $event.pageIndex : 0;
+    const id = this.propertyId;
+    this.store.dispatch(
+      getLogsForProperty({
+        id,
+        pageSize,
+        pageNumber,
+        search,
+      })
+    );
   }
 
   clearFilters() {
     this.searchForm.controls.search.setValue(null);
- //   this.searchUsers();
+    this.searchLogs();
   }
-
-
 }

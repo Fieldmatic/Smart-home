@@ -16,7 +16,7 @@ import { PageResponse } from "../../../../shared/model/page-response";
 export class PropertyProfileComponent implements OnInit, OnDestroy {
   property!: Property;
   propertyStoreSubscription!: Subscription;
-  propertyLogsPage!: Observable<PageResponse<LogResponse> | void>;
+  propertyLogsPage!: Observable<PageResponse<LogResponse>>;
   authStoreSubscription!: Subscription;
   loggedInUsersRole: string | null | undefined;
 
@@ -28,7 +28,6 @@ export class PropertyProfileComponent implements OnInit, OnDestroy {
       .select(selectPropertyWithId(id))
       .subscribe((property) => {
         this.property = property;
-        console.log("Properti " + property.devices[0].deviceType)
       });
     this.authStoreSubscription = this.store
       .select(selectRole)
