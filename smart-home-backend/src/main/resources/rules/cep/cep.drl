@@ -45,3 +45,10 @@ rule "If an error type log appears, error alarm is generated"
        System.out.println("An error appeared with the message " + $message);
        insert(new Alarm(AlarmType.ERROR, $message));
 end
+
+rule "If an alarm appears, send alarm message to admin"
+    when
+        $alarm: Alarm($message: message, $type: alarmType)
+    then
+       System.out.println("An alarm of type " + $type + " appeared.");
+end

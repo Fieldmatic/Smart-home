@@ -1,5 +1,7 @@
 package com.bsep.smart.home.services;
 
+import com.bsep.smart.home.services.alarm.AlarmEventListener;
+import com.bsep.smart.home.services.alarm.NotifyAdminAboutAlarm;
 import lombok.RequiredArgsConstructor;
 import org.drools.core.BeliefSystemType;
 import org.drools.core.SessionConfiguration;
@@ -29,8 +31,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoadKieSession {
 
+    private final NotifyAdminAboutAlarm notifyAdminAboutAlarm;
+
     public KieSession execute() throws IOException {
         KieSession kSession = createKieSessionFromDRL();
+        kSession.addEventListener(new AlarmEventListener(notifyAdminAboutAlarm));
         printDrl(kSession);
         return kSession;
     }

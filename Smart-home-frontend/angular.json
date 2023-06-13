@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "sockjs-client"
+            ],
             "outputPath": "dist/smart-home-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -99,8 +102,7 @@
             ],
             "styles": [
               "src/styles.scss"
-            ],
-            "scripts": []
+            ]
           }
         },
         "lint": {
