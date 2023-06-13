@@ -5,17 +5,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginFailedAlarm {
+public class Alarm {
     private String userEmail;
     private String message;
     private AlarmType alarmType;
 
-    public LoginFailedAlarm(String userEmail, AlarmType alarmType) {
+    public Alarm(String userEmail, AlarmType alarmType) {
         this.userEmail = userEmail;
         this.alarmType = alarmType;
     }
 
-    public LoginFailedAlarm(AlarmType alarmType, String message) {
+    public Alarm(AlarmType alarmType, String message) {
         this.message = message;
         this.alarmType = alarmType;
     }

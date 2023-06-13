@@ -1,5 +1,6 @@
 package com.bsep.smart.home.interceptor;
 
+import com.bsep.smart.home.exception.UnauthorizedException;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.events.RequestEvent;
 import com.bsep.smart.home.services.auth.GetLoggedInUser;
@@ -25,12 +26,18 @@ public class RequestInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        Person loggedInUser = getLoggedInUser.execute();
-        if (loggedInUser != null) {
-            RequestEvent requestEvent = new RequestEvent(loggedInUser.getEmail());
-            kieSession.insert(requestEvent);
-            kieSession.fireAllRules();
+        try {
+            Person loggedInUser = getLoggedInUser.execute();
+            System.out.println("prodje");
+            if (loggedInUser != null) {
+                System.out.println("uslo");
+                RequestEvent requestEvent = new RequestEvent(loggedInUser.getEmail());
+                kieSession.insert(requestEvent);
+                kieSession.fireAllRules();
+            }
+            return true;
+        } catch (UnauthorizedException e) {
+            return true;
         }
-        return true;
     }
 }
