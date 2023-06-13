@@ -16,5 +16,12 @@
      </ng-template>
      <app-propery-profile-devices [propertyId]="property.uuid" [devices]="property.devices"></app-propery-profile-devices>
    </mat-tab>
+   <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon svgIcon="log"></mat-icon>
+      Logs
+      <app-property-profile-logs></app-property-profile-logs>
+    </ng-template>
+   </mat-tab>
   </mat-tab-group>
 </div>

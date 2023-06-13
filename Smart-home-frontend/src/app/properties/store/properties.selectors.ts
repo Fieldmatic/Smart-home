@@ -18,3 +18,7 @@ export const selectAddressSearchResults = createSelector(
   selectPropertiesState,
   (state) => state.addressSearchResults
 );
+
+export const selectLogsPage = createSelector(
+  selectPropertiesState, (state) => state.logPage
+);

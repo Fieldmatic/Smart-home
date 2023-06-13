@@ -1,6 +1,10 @@
 import { createAction, props, union } from '@ngrx/store';
 import { Property } from '../../shared/model/property';
 import {DeviceType} from "../../shared/model/device-type";
+import { SortDirection } from "../../shared/model/sort-direction";
+import { PageResponse } from "../../shared/model/page-response";
+import { User } from "../../shared/model/user.model";
+import { LogResponse } from "../model/log-response";
 
 export const getUserProperties = createAction(
   '[Properties] Get User Properties',
@@ -69,6 +73,19 @@ export const setSearchAddressResult = createAction(
 export const addPropertyDevice = createAction(
   '[Properties] Add Property Device',
   props<{ propertyId: string; name: string, deviceType: DeviceType, readPeriod: number, messageRegex: string }>()
+)
+
+export const getLogsForProperty = createAction(
+  '[Properties] Get Logs',
+  props<{ id: string,
+          pageSize?: number;
+          pageNumber?: number;
+          search?: string; }>()
+);
+
+export const setLogs = createAction(
+  '[Properties] Set Logs',
+  props<{ logPage: PageResponse<LogResponse> }>()
 );
 
 
@@ -87,6 +104,8 @@ const all = union({
   searchAddress,
   setSearchAddressResult,
   addPropertyDevice,
+  getLogsForProperty,
+  setLogs,
 });
 
 export type PropertiesActionsUnion = typeof all;

@@ -42,7 +42,7 @@ public class DeviceMessageCronJob {
         }
     }
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 80000)
     public void logMessagesForDevices() {
         for (Device device : deviceInfo.getReadPeriods().keySet()) {
             if (Util.getRandomBoolean()) {
@@ -53,7 +53,7 @@ public class DeviceMessageCronJob {
 
     @Transactional
     public void processMessages(Device device) {
-        List<Log> logs = logRepository.getLogsByRegexAndPropertyIdAndDeviceId(Pattern.compile(device.getMessageRegex()), String.valueOf(device.getProperty().getId()), String.valueOf(device.getId()));
+        List<Log> logs = logRepository.getLogsByRegexAndPropertyIdAndDeviceIdAndNotProcessed(Pattern.compile(device.getMessageRegex()), String.valueOf(device.getProperty().getId()), String.valueOf(device.getId()));
         logs.forEach(log -> {
             //obrada alarma
             logger.info("Log with message { " + log.getMessage() + " } has been processed");
