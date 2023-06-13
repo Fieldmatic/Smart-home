@@ -21,6 +21,7 @@ public class LoginDetailsExist {
     private final SendMail sendMail;
     private final AccountLockService accountLockService;
     private final CustomProperties customProperties;
+    private final FireLoginFailedRule fireLoginFailedRule;
 
     public int execute(String email, String password) {
         if (accountLockService.isLocked(email)) throw new LockedAccountException();
@@ -29,6 +30,7 @@ public class LoginDetailsExist {
                     new UsernamePasswordAuthenticationToken(email, password)
             );
         } catch (final Exception e) {
+            fireLoginFailedRule.execute(email);
             accountLockService.increaseFailedAttempts(email);
             throw new BadCredentialsException("Bad login credentials");
         }

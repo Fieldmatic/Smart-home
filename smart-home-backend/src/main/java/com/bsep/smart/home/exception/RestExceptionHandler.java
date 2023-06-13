@@ -1,7 +1,10 @@
 package com.bsep.smart.home.exception;
 
+import com.bsep.smart.home.model.events.ErrorEvent;
 import com.bsep.smart.home.translations.Translator;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
+import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -25,8 +28,10 @@ import java.util.List;
 
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@RequiredArgsConstructor
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private final KieSession kieSession;
 
     @ExceptionHandler({
             UserAlreadyExistsException.class,
@@ -91,6 +96,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     protected ResponseEntity<?> defaultExceptionHandler(Throwable t) {
+        ErrorEvent errorEvent = new ErrorEvent(t.getMessage());
+        kieSession.insert(errorEvent);
+        kieSession.fireAllRules();
         logger.error("Unhandled exception: " + Strings.join(Arrays.asList(t.getStackTrace()), '\n'));
         return buildResponseEntity(new ApiException("Unhandled exception", HttpStatus.INTERNAL_SERVER_ERROR));
     }
