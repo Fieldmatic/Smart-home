@@ -27,7 +27,7 @@ public class CheckDeviceRules {
         Device device = getDeviceById.execute(UUID.fromString(deviceId));
         List<DeviceRule> deviceRules = deviceRuleRepository.findAll();
         for (DeviceRule rule : deviceRules) {
-            if (rule.getDeviceType().equals(device.getDeviceType())) {
+            if (rule.getDevice().getDeviceType().equals(device.getDeviceType())) {
                 if (device.getValue() > rule.getMaxValue() || device.getValue() < rule.getMinValue()) {
                     Alarm alarmFact = Alarm.builder().deviceId(deviceId).build();
                     if (device.getDeviceType().equals(DeviceType.THERMOMETER)) {

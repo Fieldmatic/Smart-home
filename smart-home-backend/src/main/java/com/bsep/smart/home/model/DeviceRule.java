@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 @Getter
 @Setter
@@ -16,7 +17,8 @@ import javax.persistence.InheritanceType;
 @Builder
 @Entity
 public class DeviceRule extends BaseEntity {
-    DeviceType deviceType;
+    @OneToOne
+    Device device;
     double maxValue;
     double minValue;
 }

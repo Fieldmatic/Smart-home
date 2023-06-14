@@ -1,11 +1,12 @@
 package com.bsep.smart.home.services;
 
-import com.bsep.smart.home.model.DeviceType;
+import com.bsep.smart.home.model.Device;
 import com.bsep.smart.home.rules.CreateDeviceRule;
 import com.bsep.smart.home.services.alarm.AlarmEventListener;
 import com.bsep.smart.home.services.alarm.NotifyAdminAboutAlarm;
 import com.bsep.smart.home.services.alarm.NotifyUserAboutAlarm;
 import com.bsep.smart.home.services.alarm.SaveAlarm;
+import com.bsep.smart.home.services.device.GetDeviceById;
 import lombok.RequiredArgsConstructor;
 import org.drools.core.BeliefSystemType;
 import org.drools.core.SessionConfiguration;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -39,12 +41,15 @@ public class LoadKieSession {
     private final NotifyUserAboutAlarm notifyUserAboutAlarm;
     private final CreateDeviceRule createDeviceRule;
     private final SaveAlarm saveAlarm;
+    private final GetDeviceById getDeviceById;
 
     public KieSession execute() throws IOException {
         KieSession kSession = createKieSessionFromDRL();
         kSession.addEventListener(new AlarmEventListener(notifyAdminAboutAlarm, notifyUserAboutAlarm, saveAlarm));
-        createDeviceRule.execute(DeviceType.BAROMETER, 0.9, 0.8);
-        createDeviceRule.execute(DeviceType.THERMOMETER, 21, 20);
+        Device barometer = getDeviceById.execute(UUID.fromString("7b3e7182-d732-474a-9ffe-8cebaca697ae"));
+        Device thermometer = getDeviceById.execute(UUID.fromString("666ed3a7-277b-403d-8d7b-4c4f7c427260"));
+        createDeviceRule.execute(barometer, 0.9, 0.8);
+        createDeviceRule.execute(thermometer, 21, 20);
         printDrl(kSession);
         return kSession;
     }
