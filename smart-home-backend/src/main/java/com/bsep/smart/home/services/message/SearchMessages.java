@@ -30,7 +30,6 @@ public class SearchMessages {
             List<String> filters = Arrays.stream(filter.split(" ")).distinct().collect(Collectors.toList());
             filters.remove("");
             String regex = "(?=.*" + String.join(")(?=.*", filters) + ")";
-            System.out.println(regex);
             Pattern filterPattern = Pattern.compile(regex);
             logPage = logRepository.getLogsByPropertyIdAndMessageContainsFilters(propertyId, filterPattern, pageable);
         } else {
