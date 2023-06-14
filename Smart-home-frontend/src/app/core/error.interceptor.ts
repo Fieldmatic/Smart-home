@@ -21,7 +21,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
         if (error.error?.message === "User fingerprint hash doesn't match!") {
           this.store.dispatch(logoutSuccess());
         }

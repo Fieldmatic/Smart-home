@@ -194,6 +194,12 @@ export class AppComponent implements OnInit {
         '../assets/property/log.svg'
       )
     );
+    matIconRegistry.addSvgIcon(
+      'message',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/message.svg'
+      )
+    );
   }
 
   ngOnInit(): void {

@@ -9,6 +9,8 @@ import * as fromAuth from './store/auth.reducer';
 import { EmailConfirmationComponent } from './components/auth/email-confirmation/email-confirmation.component';
 import { LoginPinFormComponent } from './components/auth/login-pin-form/login-pin-form.component';
 import { TimerComponent } from './components/auth/login-pin-form/timer/timer.component';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { TimerComponent } from './components/auth/login-pin-form/timer/timer.com
     AuthRoutingModule,
     SharedModule,
     StoreModule.forFeature('auth', fromAuth.reducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
 })
 export class AuthModule {}
