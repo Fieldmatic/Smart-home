@@ -81,7 +81,7 @@
           "options": {
             "ssl": true,
             "sslKey": "src/assets/ssl/key.pem",
-            "sslCert": "src/assets/ssl/root.crt"
+            "sslCert": "src/assets/ssl/certificate.crt"
           }
         },
         "extract-i18n": {
