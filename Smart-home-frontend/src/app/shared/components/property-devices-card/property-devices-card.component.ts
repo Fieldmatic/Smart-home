@@ -1,15 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../../../../../shared/model/user.model";
-import {Device} from "../../../../../../shared/model/device.model";
-import {DeviceType} from "../../../../../../shared/model/device-type";
+import { Component, Input } from '@angular/core';
+import { Device } from '../../model/device.model';
+import { DeviceType } from '../../model/device-type';
 
 @Component({
   selector: 'app-property-devices-card',
   templateUrl: './property-devices-card.component.html',
-  styleUrls: ['./property-devices-card.component.scss']
+  styleUrls: ['./property-devices-card.component.scss'],
 })
 export class PropertyDevicesCardComponent {
   @Input() device!: Device;
+  @Input() isAdmin!: boolean;
 
   getDeviceIcon(): string {
     switch (this.device.deviceType) {
