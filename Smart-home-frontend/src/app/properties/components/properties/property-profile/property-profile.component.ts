@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Property } from '../../../../shared/model/property';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from "rxjs";
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectPropertyWithId } from '../../../store/properties.selectors';
+import { selectLogsPage, selectPropertyWithId } from "../../../store/properties.selectors";
 import { selectRole } from '../../../../auth/store/auth.selectors';
+import { LogResponse } from "../../../model/log-response";
+import { PageResponse } from "../../../../shared/model/page-response";
 
 @Component({
   selector: 'app-property-profile',
@@ -14,6 +16,7 @@ import { selectRole } from '../../../../auth/store/auth.selectors';
 export class PropertyProfileComponent implements OnInit, OnDestroy {
   property!: Property;
   propertyStoreSubscription!: Subscription;
+  propertyLogsPage!: Observable<PageResponse<LogResponse>>;
   authStoreSubscription!: Subscription;
   loggedInUsersRole: string | null | undefined;
 
@@ -25,13 +28,14 @@ export class PropertyProfileComponent implements OnInit, OnDestroy {
       .select(selectPropertyWithId(id))
       .subscribe((property) => {
         this.property = property;
-        console.log("Properti " + property.devices[0].deviceType)
       });
     this.authStoreSubscription = this.store
       .select(selectRole)
       .subscribe((role) => {
         this.loggedInUsersRole = role;
       });
+    this.propertyLogsPage = this.store
+      .select(selectLogsPage);
   }
 
   ngOnDestroy() {

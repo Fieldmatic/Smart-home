@@ -13,6 +13,7 @@ import { PropertyMemberCardComponent } from './components/properties/property-pr
 import { PropertyProfileDevicesComponent } from './components/properties/property-profile/property-profile-devices/property-profile-devices.component';
 import { PropertyDevicesCardComponent } from './components/properties/property-profile/property-profile-devices/property-devices-card/property-devices-card.component';
 import { AddPropertyDialogComponent } from './components/properties/property-profile/property-profile-devices/add-property-device-dialog/add-property-dialog.component';
+import { PropertyProfileLogsComponent } from './components/properties/property-profile/property-profile-logs/property-profile-logs.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AddPropertyDialogComponent } from './components/properties/property-pro
     PropertyProfileDevicesComponent,
     PropertyDevicesCardComponent,
     AddPropertyDialogComponent,
+    PropertyProfileLogsComponent,
   ],
   imports: [
     SharedModule,

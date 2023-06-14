@@ -13,7 +13,7 @@
     margin-top: 5%;
   }
 
-  app-property-profile-info, app-property-profile-members, app-property-profile-actions, app-property-profile-devices {
+  app-property-profile-info, app-property-profile-members, app-property-profile-actions, app-property-profile-devices, app-property-profile-logs {
     grid-column: 1;
   }
 }
@@ -38,6 +38,10 @@
   app-property-profile-devices {
     grid-column: 3;
   }
+
+  app-property-profile-logs {
+    grid-column: 3;
+  }
 }
 
 @media screen and (min-width: 1008px) {
@@ -58,6 +62,9 @@
   }
 
   app-property-profile-devices {
+    grid-column: 3;
+  }
+  app-property-profile-logs{
     grid-column: 3;
   }
 }

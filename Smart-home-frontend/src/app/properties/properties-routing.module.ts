@@ -6,6 +6,7 @@ import { PropertyProfileFormComponent } from './components/properties/property-p
 import {
   PropertyProfileDevicesComponent
 } from "./components/properties/property-profile/property-profile-devices/property-profile-devices.component";
+import { LogsResolver } from "./resolvers/logs.resolver";
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       {
         path: 'property/:id',
         component: PropertyProfileComponent,
+        resolve: [LogsResolver]
       },
       {
         path: 'new/:id',

@@ -11,9 +11,11 @@ import com.bsep.smart.home.services.auth.GetLoggedInUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,7 +28,7 @@ public class GetDevicesByPropertyId {
 
     @Transactional
     public PageResponse<Device> execute(UUID propertyId, int pageNumber, int pageSize) {
-        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize);
+        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize, Optional.of(Sort.by(Sort.Direction.DESC, "createdAt")));
         Property property = propertyRepository.findById(propertyId).get();
         if (!property.getMembers().contains(getLoggedInUser.execute()) && !getLoggedInUser.execute().getRole().getName().equals("ADMIN")) {
             throw new UnauthorizedException();

@@ -1,15 +1,19 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Property } from '../../shared/model/property';
 import * as PropertiesActions from '../store/properties.actions';
+import { PageResponse } from "../../shared/model/page-response";
+import { LogResponse } from "../model/log-response";
 
 export interface State {
   userProperties: Property[];
   addressSearchResults: string[];
+  logPage: PageResponse<LogResponse>;
 }
 
 const initialState: State = {
   userProperties: [],
   addressSearchResults: [],
+  logPage: null,
 };
 
 const propertiesReducer = createReducer(
@@ -43,7 +47,11 @@ const propertiesReducer = createReducer(
       );
       return { ...state, userProperties: updatedUserProperties };
     }
-  )
+  ),
+  on(PropertiesActions.setLogs, (state, { logPage }) => ({
+    ...state,
+    logPage: logPage,
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

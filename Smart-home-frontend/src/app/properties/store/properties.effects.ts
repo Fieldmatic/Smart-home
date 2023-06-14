@@ -145,9 +145,9 @@ export class PropertiesEffects {
   );
 
   removePropertyMemberSuccess = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(PropertiesActions.removePropertyMemberSuccess.type),
+          () => {
+            return this.actions$.pipe(
+              ofType(PropertiesActions.removePropertyMemberSuccess.type),
         map(() => {
           const message =
             'You have successfully removed a member from the property.';
@@ -188,7 +188,22 @@ export class PropertiesEffects {
             map((property) => {
               const message = 'You have successfully added a device to the property.';
               return PropertiesActions.updatePropertySuccess({property, message})
-              }
+              })
+      )}
+      )
+    )
+    })
+
+            
+  getLogsForProperty = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PropertiesActions.getLogsForProperty.type),
+      switchMap((action) => {
+        return this.httpService
+          .getLogs(action.id, action.pageSize, action.pageNumber, action.search)
+          .pipe(
+            map((logPage) =>
+              PropertiesActions.setLogs({ logPage: logPage })
             )
           );
       })

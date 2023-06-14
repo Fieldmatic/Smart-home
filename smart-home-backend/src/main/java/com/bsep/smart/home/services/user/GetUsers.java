@@ -38,7 +38,7 @@ public class GetUsers {
 
         final UserFilterSpecification<Person> specification = new UserFilterSpecification<>(searchRequest, userPageInfo.getUserRoleFilters());
 
-        final Pageable pageable = PagingUtil.getPageable(searchRequest.getPage(), searchRequest.getSize());
+        final Pageable pageable = PagingUtil.getPageable(searchRequest.getPage(), searchRequest.getSize(), Optional.empty());
 
         final Page<Person> usersPage = personRepository.findAll(specification, pageable);
 

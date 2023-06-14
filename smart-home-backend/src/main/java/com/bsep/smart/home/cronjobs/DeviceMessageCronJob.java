@@ -56,7 +56,7 @@ public class DeviceMessageCronJob {
 
     @Transactional
     public void processMessages(Device device) {
-        List<Log> logs = logRepository.getLogsByRegexAndPropertyIdAndDeviceId(Pattern.compile(device.getMessageRegex()), String.valueOf(device.getProperty().getId()), String.valueOf(device.getId()));
+        List<Log> logs = logRepository.getLogsByRegexAndPropertyIdAndDeviceIdAndNotProcessed(Pattern.compile(device.getMessageRegex()), String.valueOf(device.getProperty().getId()), String.valueOf(device.getId()));
         logs.forEach(log -> {
             if (device.getDeviceType().equals(DeviceType.THERMOMETER) || device.getDeviceType().equals(DeviceType.BAROMETER))
                 checkDeviceRules.execute(log.getDeviceId());
