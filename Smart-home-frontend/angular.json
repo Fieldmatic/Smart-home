@@ -77,7 +77,12 @@
               "browserTarget": "Smart-home-frontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "ssl": true,
+            "sslKey": "src/assets/ssl/key.pem",
+            "sslCert": "src/assets/ssl/root.crt"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
