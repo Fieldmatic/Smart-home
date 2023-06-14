@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class SearchMessages {
 
     @Transactional(readOnly = true)
     public PageResponse<String> execute(String propertyId, String filter, int pageNumber, int pageSize) {
-        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize);
+        Pageable pageable = PagingUtil.getPageable(pageNumber, pageSize, Optional.empty());
         Page<Log> logPage;
         if (!Objects.equals(filter, "") && !Objects.equals(filter, " ")) {
             List<String> filters = Arrays.stream(filter.split(" ")).distinct().collect(Collectors.toList());
