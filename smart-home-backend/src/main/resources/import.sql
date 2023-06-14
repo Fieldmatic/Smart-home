@@ -19,6 +19,10 @@ insert into device (id, created_at, name, activated, value, property_id, read_pe
 insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('abf80778-901c-42c7-87fd-db2149efaac6', CURRENT_TIMESTAMP, 'Dvoriste', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.deactivated', 'CAMERA');
 insert into property_members (property_id, members_id) values ('b838d2d8-35e7-4592-b3c8-fb99edc8a962', 'e0e389ee-ac19-4ad7-97a9-4c956935bd15');
 
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('666ed3a7-277b-403d-8d7b-4c4f7c427260', CURRENT_TIMESTAMP, 'Klima', null, 0, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'THERMOMETER');
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('7b3e7182-d732-474a-9ffe-8cebaca697ae', CURRENT_TIMESTAMP, 'Bojler', null, 0, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'BAROMETER');
+
+
 insert into extension (id, CREATED_AT, name) values ('033eca81-61ee-43e3-bfbf-7463063976b1', CURRENT_TIMESTAMP, 'Key Usage');
 insert into extension (id, CREATED_AT, name) values ('5737e19b-0074-47b8-a3e1-52794895a24d', CURRENT_TIMESTAMP, 'Extended Key Usage');
 insert into capabilities (id, CREATED_AT, name, extension_id) values ('16c83a6a-c56c-4e62-9543-dbebfd3bea0c', CURRENT_TIMESTAMP, 'Signature', '033eca81-61ee-43e3-bfbf-7463063976b1');

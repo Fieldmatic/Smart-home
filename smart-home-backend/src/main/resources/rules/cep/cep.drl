@@ -5,7 +5,7 @@ import com.bsep.smart.home.model.events.RequestEvent;
 import com.bsep.smart.home.model.events.ErrorEvent;
 
 import com.bsep.smart.home.model.facts.Alarm;
-import com.bsep.smart.home.model.facts.AlarmType;
+import com.bsep.smart.home.model.AlarmType;
 
 
 rule "If the user tries to log in unsuccessfully 3 times, an alarm for failed login is generated"
@@ -48,7 +48,7 @@ end
 
 rule "If an alarm appears, send alarm message to admin"
     when
-        $alarm: Alarm($message: message, $type: alarmType)
+        $alarmFact: Alarm($message: errorMessage, $type: alarmType)
     then
        System.out.println("An alarm of type " + $type + " appeared.");
 end

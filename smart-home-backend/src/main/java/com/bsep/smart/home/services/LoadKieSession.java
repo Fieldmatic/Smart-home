@@ -1,7 +1,11 @@
 package com.bsep.smart.home.services;
 
+import com.bsep.smart.home.model.DeviceType;
+import com.bsep.smart.home.rules.CreateDeviceRule;
 import com.bsep.smart.home.services.alarm.AlarmEventListener;
 import com.bsep.smart.home.services.alarm.NotifyAdminAboutAlarm;
+import com.bsep.smart.home.services.alarm.NotifyUserAboutAlarm;
+import com.bsep.smart.home.services.alarm.SaveAlarm;
 import lombok.RequiredArgsConstructor;
 import org.drools.core.BeliefSystemType;
 import org.drools.core.SessionConfiguration;
@@ -32,10 +36,15 @@ import java.util.List;
 public class LoadKieSession {
 
     private final NotifyAdminAboutAlarm notifyAdminAboutAlarm;
+    private final NotifyUserAboutAlarm notifyUserAboutAlarm;
+    private final CreateDeviceRule createDeviceRule;
+    private final SaveAlarm saveAlarm;
 
     public KieSession execute() throws IOException {
         KieSession kSession = createKieSessionFromDRL();
-        kSession.addEventListener(new AlarmEventListener(notifyAdminAboutAlarm));
+        kSession.addEventListener(new AlarmEventListener(notifyAdminAboutAlarm, notifyUserAboutAlarm, saveAlarm));
+        createDeviceRule.execute(DeviceType.BAROMETER, 0.9, 0.8);
+        createDeviceRule.execute(DeviceType.THERMOMETER, 21, 20);
         printDrl(kSession);
         return kSession;
     }
@@ -74,6 +83,7 @@ public class LoadKieSession {
                     ResourceType.DRL);
         }
     }
+
 
     public void printDrl(KieSession kSession) {
         KieBase kieBase = kSession.getKieBase();

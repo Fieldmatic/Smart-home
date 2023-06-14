@@ -10,21 +10,30 @@ import org.springframework.stereotype.Component;
 public class AlarmEventListener extends DefaultAgendaEventListener {
 
     private final NotifyAdminAboutAlarm notifyAdminAboutAlarm;
+    private final NotifyUserAboutAlarm notifyUserAboutAlarm;
+    private final SaveAlarm saveAlarm;
 
     @Autowired
-    public AlarmEventListener(final NotifyAdminAboutAlarm notifyAdminAboutAlarm) {
+    public AlarmEventListener(final NotifyAdminAboutAlarm notifyAdminAboutAlarm, final NotifyUserAboutAlarm notifyUserAboutAlarm, final SaveAlarm saveAlarm) {
         this.notifyAdminAboutAlarm = notifyAdminAboutAlarm;
+        this.notifyUserAboutAlarm = notifyUserAboutAlarm;
+        this.saveAlarm = saveAlarm;
     }
 
     @Override
     public void afterMatchFired(final AfterMatchFiredEvent event) {
         final Object matchedObject = event.getMatch().getObjects().get(0);
-        if (matchedObject instanceof Alarm alarm) {
+        if (matchedObject instanceof Alarm alarmFact) {
             System.out.println("Alarm Listener");
-            switch (alarm.getAlarmType()) {
-                case LOGIN_FAILED -> notifyAdminAboutAlarm.execute("Korisnik pokusao da se uloguje tri puta");
-                case ERROR -> notifyAdminAboutAlarm.execute("Korisnik izazvao ERROR");
-                case TOO_MANY_REQUEST -> notifyAdminAboutAlarm.execute("Korisnik napravio previse poziva");
+            saveAlarm.execute(alarmFact);
+            switch (alarmFact.getAlarmType()) {
+                case LOGIN_FAILED -> notifyAdminAboutAlarm.execute("The user tried to log in 3 times.");
+                case ERROR -> notifyAdminAboutAlarm.execute("An error occurred.");
+                case TOO_MANY_REQUEST -> notifyAdminAboutAlarm.execute("The user made too many requests.");
+                case DEGREES -> notifyUserAboutAlarm.execute("High temperature on the thermometer.");
+                case PRESSURE -> notifyAdminAboutAlarm.execute("High pressure on the barometer.");
+                default -> {
+                }
             }
         }
     }

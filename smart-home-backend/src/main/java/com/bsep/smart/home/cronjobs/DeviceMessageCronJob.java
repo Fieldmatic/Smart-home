@@ -2,9 +2,11 @@ package com.bsep.smart.home.cronjobs;
 
 import com.bsep.smart.home.beans.DeviceInfo;
 import com.bsep.smart.home.model.Device;
+import com.bsep.smart.home.model.DeviceType;
 import com.bsep.smart.home.model.Log;
 import com.bsep.smart.home.mongorepository.LogRepository;
 import com.bsep.smart.home.repository.DeviceRepository;
+import com.bsep.smart.home.rules.CheckDeviceRules;
 import com.bsep.smart.home.services.device.GetDeviceMessage;
 import com.bsep.smart.home.util.Util;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class DeviceMessageCronJob {
     private final DeviceRepository deviceRepository;
     private final GetDeviceMessage getDeviceMessage;
     private final LogRepository logRepository;
+    private final CheckDeviceRules checkDeviceRules;
     Logger logger = LoggerFactory.getLogger(DeviceMessageCronJob.class);
 
 
@@ -42,7 +45,7 @@ public class DeviceMessageCronJob {
         }
     }
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 80000)
     public void logMessagesForDevices() {
         for (Device device : deviceInfo.getReadPeriods().keySet()) {
             if (Util.getRandomBoolean()) {
@@ -55,7 +58,8 @@ public class DeviceMessageCronJob {
     public void processMessages(Device device) {
         List<Log> logs = logRepository.getLogsByRegexAndPropertyIdAndDeviceId(Pattern.compile(device.getMessageRegex()), String.valueOf(device.getProperty().getId()), String.valueOf(device.getId()));
         logs.forEach(log -> {
-            //obrada alarma
+            if (device.getDeviceType().equals(DeviceType.THERMOMETER) || device.getDeviceType().equals(DeviceType.BAROMETER))
+                checkDeviceRules.execute(log.getDeviceId());
             logger.info("Log with message { " + log.getMessage() + " } has been processed");
             log.setProcessed(true);
         });
@@ -72,7 +76,6 @@ public class DeviceMessageCronJob {
         logger.info(message);
         Log log = getLog(device, message);
         logRepository.save(log);
-        device.setActivated(!device.getActivated());
         deviceRepository.save(device);
     }
 
