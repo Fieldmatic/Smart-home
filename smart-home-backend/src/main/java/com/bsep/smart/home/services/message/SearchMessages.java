@@ -28,7 +28,8 @@ public class SearchMessages {
         if (!Objects.equals(filter, "") && !Objects.equals(filter, " ")) {
             List<String> filters = Arrays.stream(filter.split(" ")).distinct().collect(Collectors.toList());
             filters.remove("");
-            String regex = "\\b(?=.*\\b" + String.join("\\b)(?=.*\\b", filters) + "\\b)*";
+            String regex = "(?=.*" + String.join(")(?=.*", filters) + ")";
+            System.out.println(regex);
             Pattern filterPattern = Pattern.compile(regex);
             logPage = logRepository.getLogsByPropertyIdAndMessageContainsFilters(propertyId, filterPattern, pageable);
         } else {
