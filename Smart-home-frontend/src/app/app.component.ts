@@ -189,6 +189,12 @@ export class AppComponent implements OnInit {
         '../assets/property/thermostat.svg'
       )
     );
+    matIconRegistry.addSvgIcon(
+      'message',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/message.svg'
+      )
+    );
   }
 
   ngOnInit(): void {

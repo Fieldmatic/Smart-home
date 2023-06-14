@@ -4,6 +4,7 @@ import { UserPropertiesComponent } from './components/user-properties/user-prope
 import { AllUserPropertiesComponent } from './components/user-properties/all-user-properties/all-user-properties.component';
 import { UserPropertyProfileComponent } from './components/user-properties/user-property-profile/user-property-profile.component';
 import { AccessiblePropertiesResolver } from './resolvers/accessible-properties.resolver';
+import { PropertyMessagesResolver } from './resolvers/property-messages.resolver';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: UserPropertyProfileComponent,
+        resolve: [PropertyMessagesResolver],
       },
     ],
   },

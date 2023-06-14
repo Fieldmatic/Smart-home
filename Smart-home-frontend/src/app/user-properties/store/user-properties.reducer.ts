@@ -1,15 +1,16 @@
 import { Property } from '../../shared/model/property';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as UserPropertiesActions from './user-properties.actions';
+import { PageResponse } from '../../shared/model/page-response';
 
 export interface State {
   accessibleProperties: Property[];
-  propertyMessages: string[];
+  propertyMessages: PageResponse<string> | void;
 }
 
 const initialState: State = {
   accessibleProperties: [],
-  propertyMessages: [],
+  propertyMessages: undefined,
 };
 
 const userPropertiesReducer = createReducer(

@@ -9,12 +9,16 @@ import { SharedModule } from '../shared/shared.module';
 import * as fromUserProperties from './store/user-properties.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserPropertiesEffects } from './store/user-properties.effects';
+import { UserPropertyProfileDevicesComponent } from './components/user-properties/user-property-profile/user-property-profile-devices/user-property-profile-devices.component';
+import { UserPropertyProfileMessagesComponent } from './components/user-properties/user-property-profile/user-property-profile-messages/user-property-profile-messages.component';
 
 @NgModule({
   declarations: [
     UserPropertiesComponent,
     AllUserPropertiesComponent,
     UserPropertyProfileComponent,
+    UserPropertyProfileDevicesComponent,
+    UserPropertyProfileMessagesComponent,
   ],
   imports: [
     SharedModule,

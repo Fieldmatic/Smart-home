@@ -6,12 +6,12 @@
     <mat-card-subtitle>{{device.deviceType.toString() | titlecase}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <div class="attributes-container">
+    <div class="attributes-container" *ngIf="isAdmin">
        <span class="attribute-container" style="width: 55%">
         <span class="attribute-name">Message Regex:</span>
         <span class="attribute-value">[{{device.messageRegex}}]</span>
        </span>
-      <span class="attribute-container">
+      <span class="attribute-container" *ngIf="isAdmin">
         <span class="attribute-name">Read Period:</span>
         <span class="attribute-value">{{device.readPeriod}} min</span>
     </span>

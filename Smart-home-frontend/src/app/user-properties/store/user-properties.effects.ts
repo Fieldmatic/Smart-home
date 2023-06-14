@@ -38,6 +38,26 @@ export class UserPropertiesEffects {
     )
   );
 
+  searchPropertyMessages = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserPropertiesActions.searchPropertyMessages.type),
+      switchMap((action) =>
+        this.httpService
+          .searchPropertyMessages(
+            action.propertyId,
+            action.filter,
+            action.pageNumber,
+            action.pageSize
+          )
+          .pipe(
+            map((propertyMessages) =>
+              UserPropertiesActions.setPropertyMessages({ propertyMessages })
+            )
+          )
+      )
+    )
+  );
+
   constructor(
     private notifierService: NotifierService,
     private router: Router,
