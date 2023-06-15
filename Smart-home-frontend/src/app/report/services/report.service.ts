@@ -10,7 +10,10 @@ export class ReportService {
 
   getReport(id: string, start: Date, end: Date) {
     this.httpService.getReport(id, start, end).subscribe((report) => {
-      saveAs(report, 'Report.pdf');
+      saveAs(
+        report,
+        id + '-' + start.toString() + '-' + end.toString() + '.pdf'
+      );
     });
   }
 }

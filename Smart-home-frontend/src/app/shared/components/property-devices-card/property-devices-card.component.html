@@ -19,7 +19,8 @@
     </span>
     </div>
   </mat-card-content>
-  <mat-card-actions align="end" *ngIf="device.deviceType === DeviceType.THERMOMETER || device.deviceType === DeviceType.BAROMETER">
+  <mat-card-actions align="end"
+                    *ngIf="(device.deviceType === DeviceType.THERMOMETER || device.deviceType === DeviceType.BAROMETER) && isAdmin">
     <button mat-button color="accent" (click)="openRuleDialog()">
       <mat-icon class="green-btn-icon" svgIcon="rule"></mat-icon>
       <span>Rule</span>
