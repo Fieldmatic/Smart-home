@@ -7,6 +7,7 @@ import { selectUserPage } from '../../../store/users.selectors';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getUsers } from '../../../store/users.actions';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { textValidator } from '../../../../shared/validators/text.validator';
 
 @Component({
   selector: 'app-all-users-table',
@@ -31,7 +32,7 @@ export class AllUsersTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.filterAndSortForm = new FormGroup({
-      searchContent: new FormControl(null),
+      searchContent: new FormControl(null, textValidator),
       userRoleFilter: new FormControl(null),
       byFieldSort: new FormControl(null),
       sortOrder: new FormControl(null),
