@@ -7,6 +7,8 @@ import { AllAlarmsTableComponent } from './components/alarms/all-alarms-table/al
 import {SharedModule} from "../shared/shared.module";
 import {StoreModule} from "@ngrx/store";
 import * as fromAlarms from "../alarms/store/alarms.reducer";
+import {EffectsModule} from "@ngrx/effects";
+import {AlarmsEffects} from './store/alarms.effects';
 
 
 @NgModule({
@@ -15,9 +17,9 @@ import * as fromAlarms from "../alarms/store/alarms.reducer";
     AllAlarmsTableComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
     StoreModule.forFeature('alarms', fromAlarms.reducer),
+    EffectsModule.forFeature([AlarmsEffects]),
     AlarmsRoutingModule
   ]
 })
