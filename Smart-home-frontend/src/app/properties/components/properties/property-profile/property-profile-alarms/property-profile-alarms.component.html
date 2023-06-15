@@ -1,0 +1,3 @@
+<ng-container *ngFor="let device of devices" style="margin-top: 2%">
+  <app-property-alarms-card *ngFor="let alarm of device.alarms" [device]="device" [alarm]="alarm"></app-property-alarms-card>
+</ng-container>

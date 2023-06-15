@@ -3,6 +3,8 @@ package com.bsep.smart.home.dto.response;
 import com.bsep.smart.home.model.DeviceType;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,4 +15,6 @@ public class DeviceResponse {
     DeviceType deviceType;
     String messageRegex;
     Long readPeriod;
+    List<AlarmResponse> alarms;
+    DeviceRuleResponse deviceRule;
 }

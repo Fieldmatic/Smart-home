@@ -14,6 +14,9 @@ import { PropertyProfileDevicesComponent } from './components/properties/propert
 import { PropertyDevicesCardComponent } from './components/properties/property-profile/property-profile-devices/property-devices-card/property-devices-card.component';
 import { AddPropertyDialogComponent } from './components/properties/property-profile/property-profile-devices/add-property-device-dialog/add-property-dialog.component';
 import { PropertyProfileLogsComponent } from './components/properties/property-profile/property-profile-logs/property-profile-logs.component';
+import { PropertyProfileAlarmsComponent } from './components/properties/property-profile/property-profile-alarms/property-profile-alarms.component';
+import { PropertyAlarmsCardComponent } from './components/properties/property-profile/property-profile-alarms/property-alarms-card/property-alarms-card.component';
+import { AddDeviceRuleDialogComponent } from './components/properties/property-profile/property-profile-devices/add-device-rule-dialog/add-device-rule-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { PropertyProfileLogsComponent } from './components/properties/property-p
     PropertyDevicesCardComponent,
     AddPropertyDialogComponent,
     PropertyProfileLogsComponent,
+    PropertyProfileAlarmsComponent,
+    PropertyAlarmsCardComponent,
+    AddDeviceRuleDialogComponent,
   ],
   imports: [
     SharedModule,

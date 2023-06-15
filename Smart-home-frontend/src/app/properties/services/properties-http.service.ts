@@ -7,6 +7,7 @@ import { LogResponse } from "../model/log-response";
 import { SortDirection } from "../../shared/model/sort-direction";
 import { PageResponse } from "../../shared/model/page-response";
 import { User } from "../../shared/model/user.model";
+import {Device} from "../../shared/model/device.model";
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class PropertiesHttpService {
   ADD_PROPERTY_MEMBER = 'property/add-member';
   REMOVE_PROPERTY_MEMBER = 'property/remove-member';
   ADD_PROPERTY_DEVICE = 'property/add-device';
+  ADD_DEVICE_RULE = 'device/add-device-rule';
   GET_LOGS = 'log/search/'
 
   constructor(
@@ -87,6 +89,18 @@ export class PropertiesHttpService {
       }
     );
   }
+
+  addDeviceRule(deviceId: string, minValue: number, maxValue: number) {
+    return this.http.put<Device>(
+      this.config.apiEndpoint + this.ADD_DEVICE_RULE,
+      {
+        deviceId,
+        minValue,
+        maxValue
+      }
+    );
+  }
+
   getLogs(
     id: string,
     pageSize?: number,

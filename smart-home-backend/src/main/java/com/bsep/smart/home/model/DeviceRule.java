@@ -3,10 +3,7 @@ package com.bsep.smart.home.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -16,8 +13,9 @@ import javax.persistence.OneToOne;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Builder
 @Entity
+@Table(name = "device_rule")
 public class DeviceRule extends BaseEntity {
-    @OneToOne
+    @OneToOne(mappedBy = "rule")
     Device device;
     double maxValue;
     double minValue;

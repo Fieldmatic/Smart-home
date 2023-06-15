@@ -27,5 +27,14 @@
        [logPage]="propertyLogsPage | async">
      </app-property-profile-logs>
    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="alarm"></mat-icon>
+        Alarms
+      </ng-template>
+      <app-property-profile-alarms
+        [devices]="property.devices">
+      </app-property-profile-alarms>
+    </mat-tab>
   </mat-tab-group>
 </div>

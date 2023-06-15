@@ -12,6 +12,7 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,17 +29,28 @@ public class CheckDeviceRules {
         List<DeviceRule> deviceRules = deviceRuleRepository.findAll();
         for (DeviceRule rule : deviceRules) {
             if (rule.getDevice().getDeviceType().equals(device.getDeviceType())) {
-                if (device.getValue() > rule.getMaxValue() || device.getValue() < rule.getMinValue()) {
-                    Alarm alarmFact = Alarm.builder().deviceId(deviceId).build();
-                    if (device.getDeviceType().equals(DeviceType.THERMOMETER)) {
-                        alarmFact.setAlarmType(AlarmType.DEGREES);
-                    } else {
-                        alarmFact.setAlarmType(AlarmType.PRESSURE);
-                    }
-                    kieSession.insert(alarmFact);
-                    kieSession.fireAllRules();
+                Alarm alarmFact = Alarm.builder().device(device)
+                        .value(device.getValue())
+                        .time(LocalDateTime.now()).build();
+                if (device.getValue() > rule.getMaxValue()) {
+                    setAlarmType(alarmFact, device.getDeviceType(), false);
+                } else if (device.getValue() < rule.getMinValue()) {
+                    setAlarmType(alarmFact, device.getDeviceType(), true);
                 }
+
             }
         }
+    }
+
+    private void setAlarmType(Alarm alarmFact, DeviceType deviceType, boolean low) {
+        if (deviceType.equals(DeviceType.THERMOMETER)) {
+            if (low) alarmFact.setAlarmType(AlarmType.LOW_TEMPERATURE);
+            else alarmFact.setAlarmType(AlarmType.HIGH_TEMPERATURE);
+        } else {
+            if (low) alarmFact.setAlarmType(AlarmType.LOW_PRESSURE);
+            else alarmFact.setAlarmType(AlarmType.HIGH_PRESSURE);
+        }
+        kieSession.insert(alarmFact);
+        kieSession.fireAllRules();
     }
 }

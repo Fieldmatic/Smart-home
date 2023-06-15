@@ -2,12 +2,15 @@ package com.bsep.smart.home.model.facts;
 
 import com.bsep.smart.home.model.AlarmType;
 import com.bsep.smart.home.model.BaseEntity;
+import com.bsep.smart.home.model.Device;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,10 +24,15 @@ public class Alarm extends BaseEntity {
     AlarmType alarmType;
     String userEmail;
     String errorMessage;
-    String deviceId;
+    double value;
+    LocalDateTime time;
+    @ManyToOne
+    Device device;
 
-    public Alarm(AlarmType alarmType) {
+    public Alarm(AlarmType alarmType, double value, LocalDateTime time) {
         this.alarmType = alarmType;
+        this.value = value;
+        this.time = time;
     }
 
     public Alarm(String userEmail, AlarmType alarmType) {

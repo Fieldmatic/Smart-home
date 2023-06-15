@@ -1,5 +1,6 @@
 package com.bsep.smart.home.model;
 
+import com.bsep.smart.home.model.facts.Alarm;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -7,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +31,9 @@ public class Device extends BaseEntity {
     String messageRegex;
     @Enumerated(EnumType.STRING)
     DeviceType deviceType;
+    @OneToMany(mappedBy = "device", cascade = CascadeType.ALL)
+    List<Alarm> alarms;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rule_id", referencedColumnName = "id")
+    DeviceRule rule;
 }

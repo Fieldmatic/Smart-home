@@ -96,6 +96,23 @@ export class AppComponent implements OnInit {
       )
     );
     matIconRegistry.addSvgIcon(
+      'alarm',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/alarm.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'pressure',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/pressure.svg'
+      )
+    );matIconRegistry.addSvgIcon(
+      'rule',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/rule.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
       'my-property',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/my_property.svg'

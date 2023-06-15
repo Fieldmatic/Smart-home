@@ -1,6 +1,6 @@
 package com.bsep.smart.home.services;
 
-import com.bsep.smart.home.model.Device;
+import com.bsep.smart.home.dto.request.property.AddDeviceRuleRequest;
 import com.bsep.smart.home.rules.CreateDeviceRule;
 import com.bsep.smart.home.services.alarm.AlarmEventListener;
 import com.bsep.smart.home.services.alarm.NotifyAdminAboutAlarm;
@@ -31,7 +31,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -46,10 +45,12 @@ public class LoadKieSession {
     public KieSession execute() throws IOException {
         KieSession kSession = createKieSessionFromDRL();
         kSession.addEventListener(new AlarmEventListener(notifyAdminAboutAlarm, notifyUserAboutAlarm, saveAlarm));
-        Device barometer = getDeviceById.execute(UUID.fromString("7b3e7182-d732-474a-9ffe-8cebaca697ae"));
-        Device thermometer = getDeviceById.execute(UUID.fromString("666ed3a7-277b-403d-8d7b-4c4f7c427260"));
-        createDeviceRule.execute(barometer, 0.9, 0.8);
-        createDeviceRule.execute(thermometer, 21, 20);
+        String barometerId = "7b3e7182-d732-474a-9ffe-8cebaca697ae";
+        String thermometerId = "666ed3a7-277b-403d-8d7b-4c4f7c427260";
+        AddDeviceRuleRequest addDeviceRuleRequest1 = new AddDeviceRuleRequest(barometerId, 0.8, 0.9);
+        AddDeviceRuleRequest addDeviceRuleRequest2 = new AddDeviceRuleRequest(thermometerId, 20, 21);
+        createDeviceRule.execute(addDeviceRuleRequest1);
+        createDeviceRule.execute(addDeviceRuleRequest2);
         printDrl(kSession);
         return kSession;
     }
