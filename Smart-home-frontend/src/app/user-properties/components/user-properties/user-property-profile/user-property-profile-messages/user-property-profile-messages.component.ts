@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { selectPropertyMessages } from '../../../../store/user-properties.selectors';
 import { searchPropertyMessages } from '../../../../store/user-properties.actions';
+import { textValidator } from '../../../../../shared/validators/text.validator';
 
 @Component({
   selector: 'app-user-property-profile-messages',
@@ -20,7 +21,7 @@ export class UserPropertyProfileMessagesComponent implements OnInit, OnDestroy {
     searchContent: FormControl;
     deviceTypeFilter: FormControl;
   }> = new FormGroup({
-    searchContent: new FormControl(null),
+    searchContent: new FormControl(null, textValidator),
     deviceTypeFilter: new FormControl(null),
   });
   @ViewChild(MatPaginator) paginator!: MatPaginator;

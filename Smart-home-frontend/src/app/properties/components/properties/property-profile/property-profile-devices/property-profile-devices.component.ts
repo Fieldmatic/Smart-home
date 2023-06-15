@@ -5,6 +5,7 @@ import { Device } from '../../../../../shared/model/device.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addPropertyDevice } from '../../../../store/properties.actions';
 import { AddPropertyDialogComponent } from './add-property-device-dialog/add-property-dialog.component';
+import { textValidator } from '../../../../../shared/validators/text.validator';
 
 @Component({
   selector: 'app-propery-profile-devices',
@@ -16,7 +17,7 @@ export class PropertyProfileDevicesComponent {
   @Input() propertyId!: string;
 
   newDeviceForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required, textValidator]),
   });
 
   constructor(private store: Store, private dialog: MatDialog) {}
