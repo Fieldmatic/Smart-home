@@ -135,7 +135,7 @@ export class PropertiesEffects {
   updatePropertyMemberSuccess = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(PropertiesActions.updatePropertySuccess.type),
+        ofType(PropertiesActions.updatePropertySuccess.type || PropertiesActions.updatePropertyDeviceSuccess),
         map((action) => {
           this.notifierService.notifySuccess(action.message);
         })
@@ -194,7 +194,24 @@ export class PropertiesEffects {
     )
     })
 
-            
+  addDeviceRule = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(PropertiesActions.addDeviceRule.type),
+      switchMap((action) => {
+        const propertyId = action.propertyId;
+        return this.httpService
+          .addDeviceRule(action.deviceId, action.minValue, action.maxValue)
+          .pipe(
+            map((device) => {
+              const message = 'You have successfully added a rule to the device.';
+              return PropertiesActions.updatePropertyDeviceSuccess({propertyId, device, message})
+            })
+          )}
+      )
+    )
+  })
+
+
   getLogsForProperty = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.getLogsForProperty.type),

@@ -4,5 +4,6 @@ public enum DeviceType {
     DOOR,
     CAMERA,
     THERMOMETER,
-    LIGHT
+    LIGHT,
+    BAROMETER,
 }

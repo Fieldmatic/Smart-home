@@ -19,6 +19,8 @@ public interface LogRepository extends MongoRepository<Log, UUID> {
     @Query("{$or:[{'createdAt':{$regex:?0}}, {'message':{$regex:?0}}, {'propertyId':  {$regex: ?0}}, {'deviceId': {$regex:  ?0}}], 'propertyId': ?1, 'processed':  true}")
     Page<Log> searchLogsByRegexAndPropertyIdAndProcessed(Pattern regex, String id, Pageable pageable);
 
+    List<Log> getLogsByPropertyId(String id);
+
     @Query("{$or:[{'createdAt':{$regex:?0}}, {'message':{$regex:?0}}, {'propertyId':  {$regex: ?0}}, {'deviceId': {$regex:  ?0}}], 'propertyId': ?1, 'deviceId':  ?2, 'processed':  false}")
     List<Log> getLogsByRegexAndPropertyIdAndDeviceIdAndNotProcessed(Pattern regex, String propertyId, String deviceId);
 }

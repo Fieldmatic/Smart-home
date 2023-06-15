@@ -44,7 +44,7 @@ public class LogInUser {
     private final GenerateFingerprint generateFingerprint;
     private final MFACacheService mfaCacheService;
     private final AccountLockService accountLockService;
-
+    private final FireLoginFailedRule fireLoginFailedRule;
 
     public ResponseEntity<AuthTokenResponse> execute(final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
@@ -54,9 +54,11 @@ public class LogInUser {
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
         } catch (final Exception e) {
+            fireLoginFailedRule.execute(loginRequest.getEmail());
             accountLockService.increaseFailedAttempts(loginRequest.getEmail());
             throw new BadCredentialsException("Bad login credentials");
         }
+
         String pin = mfaCacheService.getUserPin(loginRequest.getEmail());
         if (Objects.isNull(pin) || !pin.equals(loginRequest.getPin())) {
             accountLockService.increaseFailedAttempts(loginRequest.getEmail());

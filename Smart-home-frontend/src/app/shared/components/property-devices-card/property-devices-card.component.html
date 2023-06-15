@@ -1,9 +1,11 @@
 <mat-card>
   <mat-card-header>
-    <mat-icon mat-card-avatar [svgIcon]="getDeviceIcon()"></mat-icon>
+    <mat-icon mat-card-avatar [svgIcon]="getDeviceIcon(this.device)"></mat-icon>
     <mat-card-title>{{device.name}}
     </mat-card-title>
-    <mat-card-subtitle>{{device.deviceType.toString() | titlecase}}</mat-card-subtitle>
+    <mat-card-subtitle>
+      {{device.deviceType.toString() | titlecase}}
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div class="attributes-container" *ngIf="isAdmin">
@@ -17,4 +19,10 @@
     </span>
     </div>
   </mat-card-content>
+  <mat-card-actions align="end" *ngIf="device.deviceType === DeviceType.THERMOMETER || device.deviceType === DeviceType.BAROMETER">
+    <button mat-button color="accent" (click)="openRuleDialog()">
+      <mat-icon class="green-btn-icon" svgIcon="rule"></mat-icon>
+      <span>Rule</span>
+    </button>
+  </mat-card-actions>
 </mat-card>

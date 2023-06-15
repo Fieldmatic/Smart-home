@@ -14,6 +14,9 @@ import { AddPropertyDialogComponent } from './components/properties/property-pro
 import { PropertyProfileLogsComponent } from './components/properties/property-profile/property-profile-logs/property-profile-logs.component';
 import { EffectsModule } from '@ngrx/effects';
 import { PropertiesEffects } from './store/properties.effects';
+import { PropertyProfileAlarmsComponent } from './components/properties/property-profile/property-profile-alarms/property-profile-alarms.component';
+import { PropertyAlarmsCardComponent } from './components/properties/property-profile/property-profile-alarms/property-alarms-card/property-alarms-card.component';
+import { AddDeviceRuleDialogComponent } from './components/properties/property-profile/property-profile-devices/add-device-rule-dialog/add-device-rule-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { PropertiesEffects } from './store/properties.effects';
     PropertyProfileDevicesComponent,
     AddPropertyDialogComponent,
     PropertyProfileLogsComponent,
+    PropertyProfileAlarmsComponent,
+    PropertyAlarmsCardComponent,
+    AddDeviceRuleDialogComponent,
   ],
   imports: [
     SharedModule,

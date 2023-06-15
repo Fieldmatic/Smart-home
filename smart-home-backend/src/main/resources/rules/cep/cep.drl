@@ -1,0 +1,54 @@
+package cep;
+
+import com.bsep.smart.home.model.events.LoginFailedEvent;
+import com.bsep.smart.home.model.events.RequestEvent;
+import com.bsep.smart.home.model.events.ErrorEvent;
+
+import com.bsep.smart.home.model.facts.Alarm;
+import com.bsep.smart.home.model.AlarmType;
+
+
+rule "If the user tries to log in unsuccessfully 3 times, an alarm for failed login is generated"
+    when
+        $loginFailed1: LoginFailedEvent($email: userEmail)
+        $loginFailsNumber: Number(intValue >= 2) from accumulate(
+        		    $loginFailed2: LoginFailedEvent(
+        		        this != $loginFailed1,
+        		        userEmail == $email),
+        		    count($loginFailed2)
+        		)
+        not(Alarm(userEmail == $email, alarmType == AlarmType.LOGIN_FAILED))
+    then
+       System.out.println("Login Failed 3 Times");
+       insert(new Alarm($email, AlarmType.LOGIN_FAILED));
+end
+
+rule "If the user makes 100 requests within 10 seconds, an alarm for too many requests is generated"
+    when
+        $request1: RequestEvent($email: userEmail)
+        $requestsNumber: Number(intValue >= 5) from accumulate(
+        		    $request2: RequestEvent(
+        		        this != $request1,
+        		        userEmail == $email) over window: time(10s),
+        		    count($request2)
+        		)
+        not(Alarm(userEmail == $email, alarmType == AlarmType.TOO_MANY_REQUEST))
+    then
+       System.out.println("The user with email " + $email + " made " + $requestsNumber + " requests in 10 seconds.");
+       insert(new Alarm($email, AlarmType.TOO_MANY_REQUEST));
+end
+
+rule "If an error type log appears, error alarm is generated"
+    when
+        $errorEvent: ErrorEvent($message: message)
+    then
+       System.out.println("An error appeared with the message " + $message);
+       insert(new Alarm(AlarmType.ERROR, $message));
+end
+
+rule "If an alarm appears, send alarm message to admin"
+    when
+        $alarmFact: Alarm($message: errorMessage, $type: alarmType)
+    then
+       System.out.println("An alarm of type " + $type + " appeared.");
+end
