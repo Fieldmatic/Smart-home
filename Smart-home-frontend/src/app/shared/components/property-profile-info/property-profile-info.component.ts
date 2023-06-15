@@ -9,4 +9,5 @@ import { Property } from '../../model/property';
 export class PropertyProfileInfoComponent {
   @Input() property!: Property;
   @Input() isAdminLogged!: boolean;
+  @Input() viewReport = false;
 }

@@ -13,10 +13,15 @@
       <span class="attribute-value">{{property.owner.email}}</span>
     </span>
   </mat-card-content>
-  <mat-card-actions *ngIf="isAdminLogged">
-    <a mat-raised-button class="btn" [routerLink]="'/admin/properties/edit/' + property.uuid" color="primary">
+  <mat-card-actions>
+    <a *ngIf="isAdminLogged" mat-raised-button class="btn" [routerLink]="'/admin/properties/edit/' + property.uuid"
+       color="primary">
       <mat-icon svgIcon="edit" class="white-btn-icon"></mat-icon>
       <span>Edit</span>
+    </a>
+    <a *ngIf="viewReport" mat-raised-button class="btn" color="accent" [routerLink]="'/report/'+property.uuid">
+      <mat-icon svgIcon="report"></mat-icon>
+      <span>Generate Report</span>
     </a>
   </mat-card-actions>
 </mat-card>

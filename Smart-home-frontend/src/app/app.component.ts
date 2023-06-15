@@ -189,7 +189,8 @@ export class AppComponent implements OnInit {
         '../assets/property/thermostat.svg'
       )
     );
-    matIconRegistry.addSvgIcon('log',
+    matIconRegistry.addSvgIcon(
+      'log',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/log.svg'
       )
@@ -198,6 +199,12 @@ export class AppComponent implements OnInit {
       'message',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/message.svg'
+      )
+    );
+    matIconRegistry.addSvgIcon(
+      'report',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/report/report.svg'
       )
     );
   }

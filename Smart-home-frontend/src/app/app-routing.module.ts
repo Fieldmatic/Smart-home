@@ -50,7 +50,13 @@ const routes: Routes = [
       import('./properties/properties.module').then(
         (module) => module.PropertiesModule
       ),
-    // canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'report',
+    loadChildren: () =>
+      import('./report/report.module').then((module) => module.ReportModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'properties',
