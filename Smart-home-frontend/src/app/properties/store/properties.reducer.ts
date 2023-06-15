@@ -55,11 +55,18 @@ const propertiesReducer = createReducer(
   on(
     PropertiesActions.updatePropertyDeviceSuccess,
     (state, { propertyId, device }) => {
-      const updatedUserProperties = state.userProperties.map((p) =>
-        propertyId === p.uuid
-          ? { ...p, devices: [...p.devices, device] }
-          : p
-      );
+      const updatedUserProperties = state.userProperties.map((p) => {
+        if (propertyId === p.uuid) {
+          const updatedDevices = p.devices.map((d) => {
+            if (d.uuid === device.uuid) {
+              return { ...d, ...device };
+            }
+            return d;
+          });
+          return { ...p, devices: updatedDevices };
+        }
+        return p;
+      });
       return { ...state, userProperties: updatedUserProperties };
     }
   ),

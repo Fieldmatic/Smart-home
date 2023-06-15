@@ -1,7 +1,17 @@
 <h1 mat-dialog-title>Rule for device {{data.device?.name}}</h1>
 <div mat-dialog-content style="margin-top: 5%" [formGroup]="dialogForm">
-  <ng-container *ngIf="data.device.rule">
-    <p [innerHTML]="data.device.rule.maxValue"></p>
+  <ng-container *ngIf="data.device.deviceRule">
+    <span>Defined rule</span>
+    <div class="attributes-container">
+      <span class="attribute-container" style="width: 50%">
+         <span [innerHTML]="data.device.deviceType === DeviceType.THERMOMETER? 'Min Temperature:': 'Min Pressure:'"></span>
+          <span [innerHTML]="data.device.deviceRule.minValue"></span>
+      </span>
+      <span class="attribute-container">
+        <span [innerHTML]="data.device.deviceType === DeviceType.THERMOMETER? 'Max Temperature:': 'Max Pressure:'"></span>
+        <span [innerHTML]="data.device.deviceRule.maxValue"></span>
+      </span>
+    </div>
   </ng-container>
   <p>Define New Rule</p>
   <div class="form-row">

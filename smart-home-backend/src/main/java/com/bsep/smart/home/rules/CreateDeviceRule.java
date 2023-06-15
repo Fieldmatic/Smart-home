@@ -22,6 +22,7 @@ public class CreateDeviceRule {
     @Transactional
     public Device execute(AddDeviceRuleRequest addDeviceRuleRequest) {
         Device device = getDeviceById.execute(UUID.fromString(addDeviceRuleRequest.getDeviceId()));
+        if (device.getRule() != null) deviceRuleRepository.delete(device.getRule());
         DeviceRule deviceRule = DeviceRule.builder().
                 maxValue(addDeviceRuleRequest.getMaxValue())
                 .minValue(addDeviceRuleRequest.getMinValue())

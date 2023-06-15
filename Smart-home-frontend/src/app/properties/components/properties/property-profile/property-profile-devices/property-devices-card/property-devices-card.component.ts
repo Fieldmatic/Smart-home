@@ -22,7 +22,7 @@ export class PropertyDevicesCardComponent {
   }
 
   openRuleDialog() {
-      const dialogRef = this.dialog.open(AddDeviceRuleDialogComponent, {
+    const dialogRef = this.dialog.open(AddDeviceRuleDialogComponent, {
         data: {
           device: this.device
         },
@@ -30,7 +30,6 @@ export class PropertyDevicesCardComponent {
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          console.log(result)
           this.store.dispatch(
             addDeviceRule({ propertyId: this.propertyId, deviceId: this.device.uuid, minValue: result.minValue, maxValue: result.maxValue})
           );

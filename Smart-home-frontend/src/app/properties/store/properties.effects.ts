@@ -135,7 +135,7 @@ export class PropertiesEffects {
   updatePropertyMemberSuccess = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(PropertiesActions.updatePropertySuccess.type || PropertiesActions.updatePropertyDeviceSuccess),
+        ofType(PropertiesActions.updatePropertySuccess.type),
         map((action) => {
           this.notifierService.notifySuccess(action.message);
         })
@@ -204,6 +204,7 @@ export class PropertiesEffects {
           .pipe(
             map((device) => {
               const message = 'You have successfully added a rule to the device.';
+              this.notifierService.notifySuccess(message);
               return PropertiesActions.updatePropertyDeviceSuccess({propertyId, device, message})
             })
           )}
