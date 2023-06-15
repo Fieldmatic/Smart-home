@@ -1,26 +1,26 @@
-import {Component, Input} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {MatDialog} from "@angular/material/dialog";
-import {Device} from "../../../../../shared/model/device.model";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { Device } from '../../../../../shared/model/device.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addPropertyDevice } from '../../../../store/properties.actions';
-import { AddPropertyDialogComponent } from "./add-property-device-dialog/add-property-dialog.component";
+import { AddPropertyDialogComponent } from './add-property-device-dialog/add-property-dialog.component';
+import { textValidator } from '../../../../../shared/validators/text.validator';
 
 @Component({
-  selector: 'app-propery-profile-devices',
+  selector: 'app-property-profile-devices',
   templateUrl: './property-profile-devices.component.html',
-  styleUrls: ['./property-profile-devices.component.scss']
+  styleUrls: ['./property-profile-devices.component.scss'],
 })
 export class PropertyProfileDevicesComponent {
   @Input() devices!: Device[];
   @Input() propertyId!: string;
 
   newDeviceForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required, textValidator]),
   });
 
-  constructor(private store: Store, private dialog: MatDialog) {
-  }
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   addDevice() {
     const name = this.newDeviceForm.controls['name'].value;
@@ -35,9 +35,14 @@ export class PropertyProfileDevicesComponent {
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          console.log(result)
           this.store.dispatch(
-            addPropertyDevice({ propertyId: this.propertyId, name: name || '',  deviceType: result.deviceType, readPeriod: result.readPeriod, messageRegex: result.messageRegex})
+            addPropertyDevice({
+              propertyId: this.propertyId,
+              name: name || '',
+              deviceType: result.deviceType,
+              readPeriod: result.readPeriod,
+              messageRegex: result.messageRegex,
+            })
           );
         }
       });

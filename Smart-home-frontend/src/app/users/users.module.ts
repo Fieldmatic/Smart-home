@@ -11,6 +11,8 @@ import { UserProfileInfoComponent } from './components/users/user-profile/user-p
 import { UserPropertyCardComponent } from './components/users/user-profile/user-profile-properties-tabs/user-property-card/user-property-card.component';
 import { UserProfileActionsComponent } from './components/users/user-profile/user-profile-actions/user-profile-actions.component';
 import { UserProfilePropertiesTabsComponent } from './components/users/user-profile/user-profile-properties-tabs/user-profile-properties-tabs.component';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from './store/users.effects';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { UserProfilePropertiesTabsComponent } from './components/users/user-prof
   imports: [
     SharedModule,
     StoreModule.forFeature('users', fromUsers.reducer),
+    EffectsModule.forFeature([UsersEffects]),
     UsersRoutingModule,
   ],
 })

@@ -9,7 +9,7 @@
         <div class="input-row">
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
-            <input matInput placeholder="Enter your email" formControlName="email">
+            <input autocomplete="email" matInput placeholder="Enter your email" formControlName="email">
             <mat-error *ngIf="loginForm.controls['email'].hasError('required')">Email is a mandatory field</mat-error>
             <mat-error *ngIf="loginForm.controls['email'].hasError('email')">Email is invalid</mat-error>
           </mat-form-field>
@@ -18,7 +18,8 @@
         <div class="input-row">
           <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Enter your password"
+            <input autocomplete="password" matInput [type]="hidePassword ? 'password' : 'text'"
+                   placeholder="Enter your password"
                    formControlName="password">
             <button mat-icon-button matSuffix
                     [matTooltip]="hidePassword ? 'Show password' : 'Hide password'"

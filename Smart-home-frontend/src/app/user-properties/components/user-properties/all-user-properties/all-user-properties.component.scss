@@ -1,0 +1,31 @@
+app-property-profile-info {
+  cursor: pointer;
+}
+
+.container {
+  justify-self: center;
+  margin-top: max(2rem);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 15px;
+  justify-items: center;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1007px) and (min-width: 641px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1008px) {
+  .container {
+    width: 60%;
+  }
+}

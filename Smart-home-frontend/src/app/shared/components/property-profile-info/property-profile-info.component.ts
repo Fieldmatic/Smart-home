@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Property } from '../../../../../shared/model/property';
+import { Property } from '../../model/property';
 
 @Component({
   selector: 'app-property-profile-info',
@@ -9,4 +9,5 @@ import { Property } from '../../../../../shared/model/property';
 export class PropertyProfileInfoComponent {
   @Input() property!: Property;
   @Input() isAdminLogged!: boolean;
+  @Input() viewReport = false;
 }

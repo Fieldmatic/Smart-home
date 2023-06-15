@@ -44,10 +44,10 @@ server:
     contextPath: /api
   port: '8081'
   ssl:
-    key-store: src/main/resources/keystore/keystore.jks
+    key-store: src/main/resources/ssl/keystore.jks
     key-store-password: Micomilic123!
     key-password: Micomilic123!
     enabled: true
-    key-alias: root
+    key-alias: 1
   tomcat:
     relaxed-query-chars: [ '{','}','^','[',']','|','<','>' ]

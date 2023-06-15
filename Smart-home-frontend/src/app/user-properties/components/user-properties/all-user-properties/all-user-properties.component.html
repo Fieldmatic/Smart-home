@@ -1,0 +1,5 @@
+<div class="container">
+  <app-property-profile-info [routerLink]="'/properties/' + property.uuid" *ngFor="let property of properties"
+                             [property]="property"
+                             [isAdminLogged]="false"></app-property-profile-info>
+</div>

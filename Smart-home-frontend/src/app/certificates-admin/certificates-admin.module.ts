@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCertificatesAdmin from './store/certificates-admin.reducer';
 import { NewCertificateFormComponent } from './components/certificates-admin/new-certificate-form/new-certificate-form.component';
 import { AllCertificatesTableComponent } from './components/certificates-admin/all-certificates-table/all-certificates-table.component';
+import { EffectsModule } from '@ngrx/effects';
+import { CertificatesAdminEffects } from './store/certificates-admin.effects';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { AllCertificatesTableComponent } from './components/certificates-admin/a
     CertificatesAdminRoutingModule,
     SharedModule,
     StoreModule.forFeature('security_admin', fromCertificatesAdmin.reducer),
+    EffectsModule.forFeature([CertificatesAdminEffects]),
   ],
 })
 export class CertificatesAdminModule {}
