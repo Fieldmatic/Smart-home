@@ -35,13 +35,16 @@ public class Alarm extends BaseEntity {
         this.time = time;
     }
 
-    public Alarm(String userEmail, AlarmType alarmType) {
+    public Alarm(String userEmail, AlarmType alarmType, String errorMessage) {
         this.userEmail = userEmail;
         this.alarmType = alarmType;
+        this.errorMessage = errorMessage;
+        this.time = LocalDateTime.now();
     }
 
     public Alarm(AlarmType alarmType, String errorMessage) {
         this.errorMessage = errorMessage;
         this.alarmType = alarmType;
+        this.time = LocalDateTime.now();
     }
 }

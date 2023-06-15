@@ -28,6 +28,7 @@
         <a *ngIf="!userRole && !welcomingPageIsActive" routerLink="/auth/login">Login</a>
         <a *ngIf="!userRole && !welcomingPageIsActive" routerLink="/auth/sign-up">Sign Up</a>
         <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/users/all">Users</a>
+        <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/alarms/all">Alarms</a>
         <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/security/csr/pending">CSRs</a>
         <a *ngIf="userRole === 'ADMIN'" routerLink="/admin/security/certificate/all">Certificates</a>
         <a *ngIf="userRole" routerLink="/auth/login" (click)="logout()">Log Out</a>

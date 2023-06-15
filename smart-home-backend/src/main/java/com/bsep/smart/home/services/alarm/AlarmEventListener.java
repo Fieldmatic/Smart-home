@@ -29,7 +29,7 @@ public class AlarmEventListener extends DefaultAgendaEventListener {
             switch (alarmFact.getAlarmType()) {
                 case LOGIN_FAILED -> notifyAdminAboutAlarm.execute("The user tried to log in 3 times.");
                 case ERROR -> notifyAdminAboutAlarm.execute("An error occurred.");
-                case TOO_MANY_REQUEST -> notifyAdminAboutAlarm.execute("The user made too many requests.");
+                case TOO_MANY_REQUESTS -> notifyAdminAboutAlarm.execute("The user made too many requests.");
                 case LOW_TEMPERATURE -> notifyUserAboutAlarm.execute("Low temperature on the thermometer.");
                 case HIGH_TEMPERATURE -> notifyUserAboutAlarm.execute("High temperature on the thermometer.");
                 case LOW_PRESSURE -> notifyAdminAboutAlarm.execute("Low pressure on the barometer.");

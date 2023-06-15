@@ -52,6 +52,12 @@ const routes: Routes = [
       ),
     // canActivate: [AuthGuard, AdminGuard],
   },
+  {
+    path: 'admin/alarms',
+    loadChildren: () =>
+      import('./alarms/alarms.module').then((module) => module.AlarmsModule),
+    canActivate: [AdminGuard],
+  },
 ];
 
 @NgModule({

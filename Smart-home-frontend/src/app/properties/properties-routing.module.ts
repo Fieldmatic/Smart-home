@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { PropertiesComponent } from './components/properties/properties.component';
 import { PropertyProfileComponent } from './components/properties/property-profile/property-profile.component';
 import { PropertyProfileFormComponent } from './components/properties/property-profile-form/property-profile-form.component';
-import {
-  PropertyProfileDevicesComponent
-} from "./components/properties/property-profile/property-profile-devices/property-profile-devices.component";
 import { LogsResolver } from "./resolvers/logs.resolver";
 
 const routes: Routes = [

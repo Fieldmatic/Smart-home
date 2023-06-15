@@ -14,6 +14,7 @@ import { ErrorInterceptor } from './error.interceptor';
 import { UsersEffects } from '../users/store/users.effects';
 import { PropertiesEffects } from '../properties/store/properties.effects';
 import { PasswordEffects } from '../password/store/password.effects';
+import {AlarmsEffects} from '../alarms/store/alarms.effects'
 
 @NgModule({
   providers: [
@@ -41,6 +42,7 @@ import { PasswordEffects } from '../password/store/password.effects';
       UsersEffects,
       PropertiesEffects,
       PasswordEffects,
+      AlarmsEffects
     ]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
