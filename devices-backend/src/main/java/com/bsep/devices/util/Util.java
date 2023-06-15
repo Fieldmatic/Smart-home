@@ -1,4 +1,4 @@
-package com.bsep.smart.home.util;
+package com.bsep.devices.util;
 
 import java.util.Random;
 
