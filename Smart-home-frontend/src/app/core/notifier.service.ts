@@ -23,4 +23,8 @@ export class NotifierService {
   public notifySuccess(message: string) {
     this.toast.success(message, '');
   }
+
+  public notifyWarn(message: string) {
+    this.toast.warning(message, '');
+  }
 }

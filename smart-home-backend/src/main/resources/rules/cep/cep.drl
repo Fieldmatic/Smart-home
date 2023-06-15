@@ -16,7 +16,7 @@ rule "If the user tries to log in unsuccessfully 3 times, an alarm for failed lo
         		        this != $loginFailed1),
         		    count($loginFailed2)
         		)
-        not(Alarm(alarmType == AlarmType.LOGIN_FAILED))
+        not(Alarm(alarmType == AlarmType.LOGIN_FAILED, userEmail == $email))
     then
        String message = "Login Failed 3 Times";
        System.out.println(message);
