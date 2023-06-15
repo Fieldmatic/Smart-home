@@ -9,6 +9,7 @@ public class DeviceConverter {
 
     public static DeviceResponse toDeviceResponse(final Device device) {
         DeviceResponse deviceResponse = DeviceResponse.builder()
+                .uuid(device.getId())
                 .name(device.getName())
                 .deviceType(device.getDeviceType())
                 .messageRegex(device.getMessageRegex())

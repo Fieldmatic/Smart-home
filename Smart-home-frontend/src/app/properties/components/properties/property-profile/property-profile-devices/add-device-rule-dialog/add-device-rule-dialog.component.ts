@@ -19,7 +19,7 @@ export class AddDeviceRuleDialogComponent {
   ) {
     this.dialogForm = this.formBuilder.group({
       minValue: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      maxValue: ['', Validators.required, Validators.pattern('^[0-9]+$')]
+      maxValue: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     });
   }
 

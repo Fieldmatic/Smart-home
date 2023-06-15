@@ -4,6 +4,7 @@ import com.bsep.smart.home.model.DeviceType;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class DeviceResponse {
+    UUID uuid;
     String name;
     DeviceType deviceType;
     String messageRegex;
