@@ -8,8 +8,8 @@ import { saveAs } from 'file-saver';
 export class ReportService {
   constructor(private httpService: ReportHttpService) {}
 
-  getReport(start: Date, end: Date) {
-    this.httpService.getReport(start, end).subscribe((report) => {
+  getReport(id: string, start: Date, end: Date) {
+    this.httpService.getReport(id, start, end).subscribe((report) => {
       saveAs(report, 'Report.pdf');
     });
   }

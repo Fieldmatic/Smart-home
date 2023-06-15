@@ -8,25 +8,26 @@
         Members
       </ng-template>
       <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
-                                            [owner]="property.owner"></app-property-profile-members>
+                                    [owner]="property.owner"></app-property-profile-members>
     </mat-tab>
-   <mat-tab>
-     <ng-template mat-tab-label>
-       <mat-icon svgIcon="devices"></mat-icon>
-       Devices
-     </ng-template>
-     <app-propery-profile-devices [propertyId]="property.uuid" [devices]="property.devices"></app-propery-profile-devices>
-   </mat-tab>
-   <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon svgIcon="log"></mat-icon>
-      Logs
-    </ng-template>
-     <app-property-profile-logs
-       [propertyId]="property.uuid"
-       [logPage]="propertyLogsPage | async">
-     </app-property-profile-logs>
-   </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="devices"></mat-icon>
+        Devices
+      </ng-template>
+      <app-property-profile-devices [propertyId]="property.uuid"
+                                    [devices]="property.devices"></app-property-profile-devices>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="log"></mat-icon>
+        Logs
+      </ng-template>
+      <app-property-profile-logs
+        [propertyId]="property.uuid"
+        [logPage]="propertyLogsPage | async">
+      </app-property-profile-logs>
+    </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon svgIcon="alarm"></mat-icon>

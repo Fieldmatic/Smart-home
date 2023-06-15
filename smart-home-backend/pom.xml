@@ -144,6 +144,7 @@
             <groupId>com.itextpdf</groupId>
             <artifactId>hyph</artifactId>
             <version>7.1.18</version>
+        </dependency>
 
         <dependency>
             <groupId>org.kie</groupId>

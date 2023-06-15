@@ -13,13 +13,13 @@ export class ReportHttpService {
     private http: HttpClient
   ) {}
 
-  getReport(start: Date, end: Date) {
+  getReport(id: string, start: Date, end: Date) {
     const formattedStart = start.toISOString().split('T')[0];
     const formattedEnd = end.toISOString().split('T')[0];
     const params = new HttpParams()
       .append('start', formattedStart)
       .append('end', formattedEnd);
-    return this.http.get(this.config.apiEndpoint + this.GET_REPORT, {
+    return this.http.get(this.config.apiEndpoint + this.GET_REPORT + id, {
       params,
       responseType: 'blob',
     });

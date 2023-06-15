@@ -8,7 +8,7 @@ import { AddPropertyDialogComponent } from './add-property-device-dialog/add-pro
 import { textValidator } from '../../../../../shared/validators/text.validator';
 
 @Component({
-  selector: 'app-propery-profile-devices',
+  selector: 'app-property-profile-devices',
   templateUrl: './property-profile-devices.component.html',
   styleUrls: ['./property-profile-devices.component.scss'],
 })
