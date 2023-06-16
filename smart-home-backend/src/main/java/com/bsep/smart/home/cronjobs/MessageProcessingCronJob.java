@@ -2,7 +2,6 @@ package com.bsep.smart.home.cronjobs;
 
 import com.bsep.smart.home.beans.DeviceInfo;
 import com.bsep.smart.home.model.Device;
-import com.bsep.smart.home.model.DeviceType;
 import com.bsep.smart.home.model.Log;
 import com.bsep.smart.home.mongorepository.LogRepository;
 import com.bsep.smart.home.repository.DeviceRepository;
@@ -19,6 +18,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 @Component
@@ -34,20 +34,33 @@ public class MessageProcessingCronJob {
 
     @Scheduled(fixedRate = 10000)
     public void processMessagesForDevices() {
-        for (Device device : deviceInfo.getReadPeriods().keySet()) {
-            if (isReadPeriodElapsed(device)) {
-                processMessages(device);
-                resetLastProcessTime(device);
-            }
+        for (UUID deviceId : deviceInfo.getReadPeriods().keySet()) {
+            Device device = deviceRepository.findById(deviceId).get();
+            processDevicesMessages(device, !device.isAttack());
         }
     }
 
+    @Scheduled(fixedRate = 1000)
+    public void processMessagesForDevicesUnderAttack() {
+        for (UUID deviceId : deviceInfo.getReadPeriods().keySet()) {
+            Device device = deviceRepository.findById(deviceId).get();
+            processDevicesMessages(device, device.isAttack());
+        }
+    }
+
+    private void processDevicesMessages(Device device, boolean underAttack) {
+            if (underAttack && isReadPeriodElapsed(device)) {
+                processDeviceMessages(device);
+                resetLastProcessTime(device);
+        }
+    }
+
+
     @Transactional
-    public void processMessages(Device device) {
+    public void processDeviceMessages(Device device) {
         List<Log> logs = logRepository.getLogsByRegexAndPropertyIdAndDeviceIdAndNotProcessed(Pattern.compile(device.getMessageRegex()), String.valueOf(device.getProperty().getId()), String.valueOf(device.getId()));
         logs.forEach(log -> {
-            if (device.getDeviceType().equals(DeviceType.THERMOMETER) || device.getDeviceType().equals(DeviceType.BAROMETER))
-                checkDeviceRules.execute(log.getDeviceId());
+            checkDeviceRules.execute(device);
             logger.info("Log with message { " + log.getMessage() + " } has been processed");
             log.setProcessed(true);
         });
@@ -55,7 +68,7 @@ public class MessageProcessingCronJob {
     }
 
     private boolean isReadPeriodElapsed(Device device) {
-        long readPeriod = deviceInfo.getReadPeriods().get(device);
+        long readPeriod = deviceInfo.getReadPeriods().get(device.getId());
         return Objects.isNull(device.getLastLogged()) || Duration.between(device.getLastLogged(), LocalDateTime.now()).toMinutes() >= readPeriod;
     }
 

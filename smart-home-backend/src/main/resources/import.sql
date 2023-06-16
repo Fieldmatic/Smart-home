@@ -14,13 +14,13 @@ insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIE
 insert into PERSON (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('e0e389ee-ac19-4ad7-97a9-4c956935bd15', CURRENT_TIMESTAMP, 'easypeasylemonsquezzzy@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', 'faf8829f-cb60-4365-b419-14f7b80afa4c', true);
 
 insert into PROPERTY (id, created_at, address, name, owner_id) values ('b838d2d8-35e7-4592-b3c8-fb99edc8a962', CURRENT_TIMESTAMP, 'Adresa', 'Vikendica', 'e0e389ee-ac19-4ad7-97a9-4c956935bd15');
-insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('60775bb4-fe74-49d6-8cc8-f12d489d5c1a', CURRENT_TIMESTAMP, 'Ulaz', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.opened', 'DOOR');
-insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('f37989f3-c5dd-4783-822e-6281fd5db13f', CURRENT_TIMESTAMP, 'Dnevna soba', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*', 'LIGHT');
-insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('abf80778-901c-42c7-87fd-db2149efaac6', CURRENT_TIMESTAMP, 'Dvoriste', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.deactivated', 'CAMERA');
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type, attack) values ('60775bb4-fe74-49d6-8cc8-f12d489d5c1a', CURRENT_TIMESTAMP, 'Ulaz', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.opened', 'DOOR', false);
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type, attack) values ('f37989f3-c5dd-4783-822e-6281fd5db13f', CURRENT_TIMESTAMP, 'Dnevna soba', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*', 'LIGHT', false);
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type, attack) values ('abf80778-901c-42c7-87fd-db2149efaac6', CURRENT_TIMESTAMP, 'Dvoriste', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'CAMERA', false);
 insert into property_members (property_id, members_id) values ('b838d2d8-35e7-4592-b3c8-fb99edc8a962', 'e0e389ee-ac19-4ad7-97a9-4c956935bd15');
 
-insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('666ed3a7-277b-403d-8d7b-4c4f7c427260', CURRENT_TIMESTAMP, 'Klima', null, 0, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'THERMOMETER');
-insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type) values ('7b3e7182-d732-474a-9ffe-8cebaca697ae', CURRENT_TIMESTAMP, 'Bojler', null, 0, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'BAROMETER');
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type, attack) values ('666ed3a7-277b-403d-8d7b-4c4f7c427260', CURRENT_TIMESTAMP, 'Klima', null, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'THERMOMETER', false);
+insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type, attack) values ('7b3e7182-d732-474a-9ffe-8cebaca697ae', CURRENT_TIMESTAMP, 'Bojler', null, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.', 'BAROMETER', false);
 
 
 insert into extension (id, CREATED_AT, name) values ('033eca81-61ee-43e3-bfbf-7463063976b1', CURRENT_TIMESTAMP, 'Key Usage');

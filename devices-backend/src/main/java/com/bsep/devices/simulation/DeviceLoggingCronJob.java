@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -28,14 +29,15 @@ public class DeviceLoggingCronJob {
 
     @Scheduled(fixedRate = 80000)
     public void logMessagesForDevices() {
-        for (Device device : deviceInfo.getReadPeriods().keySet()) {
+        for (UUID deviceId : deviceInfo.getReadPeriods().keySet()) {
             if (Util.getRandomBoolean()) {
-                logMessageForDevice(device);
+                logMessageForDevice(deviceId);
             }
         }
     }
 
-    public void logMessageForDevice(Device device) {
+    public void logMessageForDevice(UUID deviceId) {
+        Device device = deviceRepository.findById(deviceId).get();
         String message = getDeviceMessage.execute(device);
         logger.info(message);
         Log log = getLog(device, message);

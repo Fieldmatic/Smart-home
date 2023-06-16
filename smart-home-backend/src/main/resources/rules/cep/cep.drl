@@ -3,6 +3,7 @@ package cep;
 import com.bsep.smart.home.model.events.LoginFailedEvent;
 import com.bsep.smart.home.model.events.RequestEvent;
 import com.bsep.smart.home.model.events.ErrorEvent;
+import com.bsep.smart.home.model.events.DeviceAttackEvent;
 
 import com.bsep.smart.home.model.facts.Alarm;
 import com.bsep.smart.home.model.AlarmType;
@@ -44,6 +45,14 @@ rule "If an error type log appears, error alarm is generated"
     then
        System.out.println("An error appeared with the message " + $message);
        insert(new Alarm(AlarmType.ERROR, $message));
+end
+
+rule "If an attacked device appeared, attack alarm is generated"
+    when
+        $attackEvent: DeviceAttackEvent($message: message, $device: device)
+    then
+       System.out.println("Device of type " + $device.getDeviceType() + " is under attack.");
+       insert(new Alarm(AlarmType.ATTACK, $message, $device));
 end
 
 rule "If an alarm appears, send alarm message to admin"

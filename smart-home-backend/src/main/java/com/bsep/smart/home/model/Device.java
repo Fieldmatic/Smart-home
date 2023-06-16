@@ -36,4 +36,5 @@ public class Device extends BaseEntity {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rule_id", referencedColumnName = "id")
     DeviceRule rule;
+    boolean attack;
 }
