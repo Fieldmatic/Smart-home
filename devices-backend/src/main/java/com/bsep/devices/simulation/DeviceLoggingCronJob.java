@@ -40,7 +40,6 @@ public class DeviceLoggingCronJob {
         logger.info(message);
         Log log = getLog(device, message);
         logRepository.save(log);
-        device.setActivated(!device.getActivated());
         deviceRepository.save(device);
     }
 

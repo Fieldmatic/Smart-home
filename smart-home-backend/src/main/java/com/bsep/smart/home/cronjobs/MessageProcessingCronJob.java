@@ -7,8 +7,6 @@ import com.bsep.smart.home.model.Log;
 import com.bsep.smart.home.mongorepository.LogRepository;
 import com.bsep.smart.home.repository.DeviceRepository;
 import com.bsep.smart.home.rules.CheckDeviceRules;
-import com.bsep.smart.home.services.device.GetDeviceMessage;
-import com.bsep.smart.home.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

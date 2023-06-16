@@ -16,7 +16,6 @@
         <java.version>17</java.version>
         <drools.version>7.49.0.Final</drools.version>
     </properties>
-    <artifactId>smarthome</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
