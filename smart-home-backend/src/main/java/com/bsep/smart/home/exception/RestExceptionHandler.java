@@ -84,10 +84,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = new ArrayList<>(ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage
         ).toList());
-
         errors.addAll(ex.getBindingResult().getGlobalErrors().stream().map((err) ->
                 err.getObjectName() + " " + err.getDefaultMessage()
         ).toList());
+
+        errors.forEach(error -> {
+            logger.error("Validation error: {}", error);
+        });
 
         String errorMessage = String.join(", ", errors);
 

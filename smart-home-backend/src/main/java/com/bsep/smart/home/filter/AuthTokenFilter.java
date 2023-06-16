@@ -6,6 +6,9 @@ import com.bsep.smart.home.services.jwt.JwtValidateWithFingerprintAndGetUsername
 import com.bsep.smart.home.services.user.GetUserByEmail;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +25,13 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
     private final JwtValidateWithFingerprintAndGetUsername jwtValidateWithFingerprintAndGetUsername;
     private final GetUserByEmail getUserByEmail;
     private final GetFingerprintFromCookie getFingerprintFromCookie;
+    private final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws
