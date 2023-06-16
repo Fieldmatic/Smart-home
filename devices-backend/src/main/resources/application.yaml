@@ -10,8 +10,6 @@ spring:
       database: smart-home
   jpa:
     show-sql: false
-    hibernate:
-      ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: smtp.gmail.com
@@ -28,26 +26,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-custom:
-  jwtSecret: superepiksecret
-  clientUrl: https://localhost:4200
-  authTokenExpirationMilliseconds: 86400000
-  jwtActivateEmailTokenExpiration: 86400000
-  jwtForgotPasswordExpiration: 3600000
-  createUserTokenExpirationMilliseconds: 2592000000
-  messageSource: messages
-  defaultLocale: en
-  senderEmail: milicftn@gmail.com
-  pinLength: 120
 server:
   servlet:
     contextPath: /api
-  port: '8081'
-  ssl:
-    key-store: smart-home-backend/src/main/resources/ssl/keystore.jks
-    key-store-password: Micomilic123!
-    key-password: Micomilic123!
-    enabled: true
-    key-alias: 1
-  tomcat:
-    relaxed-query-chars: [ '{','}','^','[',']','|','<','>' ]
+  port: '8082'
