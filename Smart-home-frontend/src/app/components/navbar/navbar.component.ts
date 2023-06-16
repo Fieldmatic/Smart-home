@@ -45,12 +45,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store
       .select(selectDecodedToken)
       .subscribe((jwt) => {
-        this.userEmail = jwt.sub;
-        this.userRole = jwt.role;
-        if (this.userRole === 'ADMIN') {
-          this.subscribeOnWebSocket('admin');
+        if (jwt) {
+          this.userEmail = jwt.sub;
+          this.userRole = jwt.role;
+          if (this.userRole === 'ADMIN') {
+            this.subscribeOnWebSocket('admin');
+          } else {
+            this.subscribeOnWebSocket('user/' + this.userEmail);
+          }
         } else {
-          this.subscribeOnWebSocket('user/' + this.userEmail);
+          this.userRole = null;
+          this.userEmail = null;
         }
       });
   }
