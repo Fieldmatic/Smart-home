@@ -28,6 +28,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         try {
+            System.out.println(request.getRemoteAddr());
             Person loggedInUser = getLoggedInUser.execute();
             if (loggedInUser != null) {
                 if (!Objects.equals(loggedInUser.getRole().getName(), "ADMIN")) {

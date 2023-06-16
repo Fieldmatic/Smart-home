@@ -8,4 +8,5 @@ public enum AlarmType {
     HIGH_TEMPERATURE,
     LOW_PRESSURE,
     HIGH_PRESSURE,
+    ATTACK,
 }

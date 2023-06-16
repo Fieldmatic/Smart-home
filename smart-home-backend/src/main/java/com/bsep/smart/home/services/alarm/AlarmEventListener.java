@@ -24,7 +24,6 @@ public class AlarmEventListener extends DefaultAgendaEventListener {
     public void afterMatchFired(final AfterMatchFiredEvent event) {
         final Object matchedObject = event.getMatch().getObjects().get(0);
         if (matchedObject instanceof Alarm alarmFact) {
-            System.out.println("Alarm Listener");
             saveAlarm.execute(alarmFact);
             switch (alarmFact.getAlarmType()) {
                 case LOGIN_FAILED ->
@@ -40,6 +39,8 @@ public class AlarmEventListener extends DefaultAgendaEventListener {
                         notifyUserAboutAlarm.execute(alarmFact.getDevice(), "Low pressure on the barometer " + alarmFact.getDevice().getName() + ".");
                 case HIGH_PRESSURE ->
                         notifyUserAboutAlarm.execute(alarmFact.getDevice(), "High pressure on the barometer " + alarmFact.getDevice().getName() + ".");
+                case ATTACK ->
+                        notifyUserAboutAlarm.execute(alarmFact.getDevice(), alarmFact.getErrorMessage());
                 default -> {
                 }
             }

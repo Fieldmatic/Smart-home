@@ -6,7 +6,6 @@ import com.bsep.smart.home.model.DeviceRule;
 import com.bsep.smart.home.model.DeviceType;
 import com.bsep.smart.home.model.facts.Alarm;
 import com.bsep.smart.home.repository.DeviceRuleRepository;
-import com.bsep.smart.home.services.device.GetDeviceById;
 import lombok.RequiredArgsConstructor;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
@@ -14,18 +13,24 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CheckDeviceRules {
     private final DeviceRuleRepository deviceRuleRepository;
-    private final GetDeviceById getDeviceById;
     private final KieSession kieSession;
 
     @Transactional
-    public void execute(String deviceId) {
-        Device device = getDeviceById.execute(UUID.fromString(deviceId));
+    public void execute(Device device) {
+        if ((device.getDeviceType().equals(DeviceType.THERMOMETER) || device.getDeviceType().equals(DeviceType.BAROMETER)) && device.getValue() != null) {
+            checkDevicesWithValues(device);
+        }
+        else {
+            checkDevices(device);
+        }
+    }
+
+    private void checkDevicesWithValues(Device device) {
         List<DeviceRule> deviceRules = deviceRuleRepository.findAll();
         for (DeviceRule rule : deviceRules) {
             if (rule.getDevice().getDeviceType().equals(device.getDeviceType())) {
@@ -37,8 +42,15 @@ public class CheckDeviceRules {
                 } else if (device.getValue() < rule.getMinValue()) {
                     setAlarmType(alarmFact, device.getDeviceType(), true);
                 }
-
             }
+        }
+    }
+
+    private void checkDevices(Device device) {
+        if (device.isAttack()) {
+            Alarm alarm = new Alarm(AlarmType.ATTACK, getDeviceMessage(device.getDeviceType()), device);
+            kieSession.insert(alarm);
+            kieSession.fireAllRules();
         }
     }
 
@@ -52,5 +64,16 @@ public class CheckDeviceRules {
         }
         kieSession.insert(alarmFact);
         kieSession.fireAllRules();
+    }
+
+    private String getDeviceMessage(DeviceType deviceType) {
+        if (deviceType.equals(DeviceType.DOOR)) {
+            return "The door was forced shut.";
+        } else if (deviceType.equals(DeviceType.CAMERA)) {
+            return "An unknown object was spotted on the camera.";
+        } else {
+            //light type
+            return "The power went out.";
+        }
     }
 }
