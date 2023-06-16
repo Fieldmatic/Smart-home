@@ -9,7 +9,7 @@ import { SortDirection } from '../../shared/model/sort-direction';
 
 @Injectable()
 export class UsersEffects {
-  getUsers = createEffect(() => {
+  getUsers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UsersActions.getUsers.type),
       switchMap((action) => {
@@ -27,7 +27,7 @@ export class UsersEffects {
     );
   });
 
-  createUser = createEffect(() => {
+  createUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UsersActions.createUser.type),
       switchMap((action) => {
@@ -38,7 +38,7 @@ export class UsersEffects {
     );
   });
 
-  deleteUser = createEffect(() => {
+  deleteUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UsersActions.deleteUser.type),
       switchMap((action) => {
@@ -49,25 +49,23 @@ export class UsersEffects {
     );
   });
 
-  changeUserRole = createEffect(() => {
+  changeUserRole$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UsersActions.changeUserRole.type),
       switchMap((action) => {
-        return this.httpService
-          .changeUserRole(action.id, action.role)
-          .pipe(
-            map(() =>
-              UsersActions.userChangeSuccess({
-                id: action.id,
-                role: action.role,
-              })
-            )
-          );
+        return this.httpService.changeUserRole(action.id, action.role).pipe(
+          map(() =>
+            UsersActions.userChangeSuccess({
+              id: action.id,
+              role: action.role,
+            })
+          )
+        );
       })
     );
   });
 
-  userChangedSuccess = createEffect(
+  userChangedSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(UsersActions.userChangeSuccess.type),
@@ -81,7 +79,7 @@ export class UsersEffects {
     { dispatch: false }
   );
 
-  deleteUserSuccess = createEffect(
+  deleteUserSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(UsersActions.deleteUserSuccess.type),
@@ -95,7 +93,7 @@ export class UsersEffects {
     { dispatch: false }
   );
 
-  createUserSuccess = createEffect(
+  createUserSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(UsersActions.createUserSuccess.type),
@@ -109,7 +107,7 @@ export class UsersEffects {
     { dispatch: false }
   );
 
-  searchUserEmails = createEffect(() => {
+  searchUserEmails$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UsersActions.searchUserEmails.type),
       switchMap((action) => {

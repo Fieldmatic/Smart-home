@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthEffects {
-  loginFirstStep = createEffect(() => {
+  loginFirstStep$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.loginFirstStep.type),
       switchMap((action) => {
@@ -29,7 +29,7 @@ export class AuthEffects {
     );
   });
 
-  loginFirstStepSuccess = createEffect(
+  loginFirstStepSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.loginFirstStepSuccess.type),
@@ -41,7 +41,7 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  loginSecondStep = createEffect(() => {
+  loginSecondStep$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.loginSecondStep.type),
       switchMap((action) => {
@@ -58,7 +58,7 @@ export class AuthEffects {
     );
   });
 
-  autoLogin = createEffect(() =>
+  autoLogin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.autoLogin.type),
       map(() => {
@@ -71,7 +71,7 @@ export class AuthEffects {
     )
   );
 
-  login_success = createEffect(
+  loginSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.loginSuccess.type),
@@ -85,7 +85,7 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  logout = createEffect(() => {
+  logout$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.logout.type),
       switchMap(() => {
@@ -96,7 +96,7 @@ export class AuthEffects {
     );
   });
 
-  logout_success = createEffect(
+  logoutSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.logoutSuccess.type),
@@ -110,7 +110,7 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  sign_up = createEffect(() => {
+  signUp$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.signUp.type),
       switchMap((action) => {
@@ -121,7 +121,7 @@ export class AuthEffects {
     );
   });
 
-  sign_up_success = createEffect(
+  signUpSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.signUpSuccess.type),
@@ -135,7 +135,7 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  confirm_email = createEffect(() => {
+  confirmEmail$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.confirmEmail.type),
       switchMap((action) => {
@@ -146,7 +146,7 @@ export class AuthEffects {
     );
   });
 
-  confirm_email_success = createEffect(
+  confirmEmailSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.confirmEmailSuccess.type),

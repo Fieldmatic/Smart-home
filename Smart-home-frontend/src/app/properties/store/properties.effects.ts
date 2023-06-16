@@ -9,7 +9,7 @@ import { AddressHttpService } from '../services/address-http.service';
 
 @Injectable()
 export class PropertiesEffects {
-  getUserProperties = createEffect(() => {
+  getUserProperties$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.getUserProperties.type),
       switchMap((action) => {
@@ -24,7 +24,7 @@ export class PropertiesEffects {
     );
   });
 
-  getSelfProperties = createEffect(() => {
+  getSelfProperties$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.getSelfProperties.type),
       switchMap(() => {
@@ -39,7 +39,7 @@ export class PropertiesEffects {
     );
   });
 
-  createProperty = createEffect(() => {
+  createProperty$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.createProperty.type),
       switchMap((action) => {
@@ -54,7 +54,7 @@ export class PropertiesEffects {
     );
   });
 
-  deleteProperty = createEffect(() => {
+  deleteProperty$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.deleteProperty.type),
       switchMap((action) => {
@@ -70,7 +70,7 @@ export class PropertiesEffects {
     );
   });
 
-  addPropertyMember = createEffect(() => {
+  addPropertyMember$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.addPropertyMember.type),
       switchMap((action) => {
@@ -78,16 +78,19 @@ export class PropertiesEffects {
           .addPropertyMember(action.userId, action.propertyId)
           .pipe(
             map((property) => {
-                const message = 'You have successfully added a member to the property.';
-                return PropertiesActions.updatePropertySuccess({property, message})
-              }
-            )
+              const message =
+                'You have successfully added a member to the property.';
+              return PropertiesActions.updatePropertySuccess({
+                property,
+                message,
+              });
+            })
           );
       })
     );
   });
 
-  removePropertyMember = createEffect(() => {
+  removePropertyMember$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.removePropertyMember.type),
       switchMap((action) => {
@@ -102,7 +105,7 @@ export class PropertiesEffects {
     );
   });
 
-  createPropertySuccess = createEffect(
+  createPropertySuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.createPropertySuccess.type),
@@ -118,7 +121,7 @@ export class PropertiesEffects {
     { dispatch: false }
   );
 
-  deletePropertySuccess = createEffect(
+  deletePropertySuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.deletePropertySuccess.type),
@@ -132,7 +135,7 @@ export class PropertiesEffects {
     { dispatch: false }
   );
 
-  updatePropertyMemberSuccess = createEffect(
+  updatePropertyMemberSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(PropertiesActions.updatePropertySuccess.type),
@@ -144,10 +147,10 @@ export class PropertiesEffects {
     { dispatch: false }
   );
 
-  removePropertyMemberSuccess = createEffect(
-          () => {
-            return this.actions$.pipe(
-              ofType(PropertiesActions.removePropertyMemberSuccess.type),
+  removePropertyMemberSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(PropertiesActions.removePropertyMemberSuccess.type),
         map(() => {
           const message =
             'You have successfully removed a member from the property.';
@@ -158,7 +161,7 @@ export class PropertiesEffects {
     { dispatch: false }
   );
 
-  loadDestinationAutocompleteResults = createEffect(() =>
+  loadDestinationAutocompleteResults$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PropertiesActions.searchAddress.type),
       switchMap((action) => {
@@ -178,23 +181,33 @@ export class PropertiesEffects {
     )
   );
 
-  addPropertyDevice = createEffect(() => {
+  addPropertyDevice$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.addPropertyDevice.type),
       switchMap((action) => {
         return this.httpService
-          .addPropertyDevice(action.propertyId, action.name, action.deviceType, action.readPeriod, action.messageRegex)
+          .addPropertyDevice(
+            action.propertyId,
+            action.name,
+            action.deviceType,
+            action.readPeriod,
+            action.messageRegex
+          )
           .pipe(
             map((property) => {
-              const message = 'You have successfully added a device to the property.';
-              return PropertiesActions.updatePropertySuccess({property, message})
-              })
-      )}
-      )
-    )
-    })
+              const message =
+                'You have successfully added a device to the property.';
+              return PropertiesActions.updatePropertySuccess({
+                property,
+                message,
+              });
+            })
+          );
+      })
+    );
+  });
 
-  addDeviceRule = createEffect(() => {
+  addDeviceRule$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.addDeviceRule.type),
       switchMap((action) => {
@@ -203,26 +216,28 @@ export class PropertiesEffects {
           .addDeviceRule(action.deviceId, action.minValue, action.maxValue)
           .pipe(
             map((device) => {
-              const message = 'You have successfully added a rule to the device.';
+              const message =
+                'You have successfully added a rule to the device.';
               this.notifierService.notifySuccess(message);
-              return PropertiesActions.updatePropertyDeviceSuccess({propertyId, device, message})
+              return PropertiesActions.updatePropertyDeviceSuccess({
+                propertyId,
+                device,
+                message,
+              });
             })
-          )}
-      )
-    )
-  })
+          );
+      })
+    );
+  });
 
-
-  getLogsForProperty = createEffect(() => {
+  getLogsForProperty$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PropertiesActions.getLogsForProperty.type),
       switchMap((action) => {
         return this.httpService
           .getLogs(action.id, action.pageSize, action.pageNumber, action.search)
           .pipe(
-            map((logPage) =>
-              PropertiesActions.setLogs({ logPage: logPage })
-            )
+            map((logPage) => PropertiesActions.setLogs({ logPage: logPage }))
           );
       })
     );

@@ -7,11 +7,11 @@ import { APP_SERVICE_CONFIG, AppConfig } from '../../app-config/app-config';
   providedIn: 'root',
 })
 export class AuthHttpService {
-  LOGIN_FIRST_STEP = 'auth/login-details-exist';
-  LOGIN_SECOND_STEP = 'auth/login';
-  LOGOUT = 'auth/logout';
-  SIGN_UP = 'auth/register';
-  EMAIL_CONFIRMATION = 'auth/activateEmail/';
+  private LOGIN_FIRST_STEP = 'auth/login-details-exist';
+  private LOGIN_SECOND_STEP = 'auth/login';
+  private LOGOUT = 'auth/logout';
+  private SIGN_UP = 'auth/register';
+  private EMAIL_CONFIRMATION = 'auth/activateEmail/';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,

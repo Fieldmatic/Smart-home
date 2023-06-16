@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {selectDecodedToken, selectRole} from '../../auth/store/auth.selectors';
+import { selectDecodedToken } from '../../auth/store/auth.selectors';
 import { Store } from '@ngrx/store';
 import { filter, Subscription } from 'rxjs';
 import { logout } from '../../auth/store/auth.actions';
 import { NavigationEnd, Router } from '@angular/router';
-import { StompService } from "../../stomp.service";
-import {NotifierService} from "../../core/notifier.service";
+import { StompService } from '../../stomp.service';
+import { NotifierService } from '../../core/notifier.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,13 +14,18 @@ import {NotifierService} from "../../core/notifier.service";
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   showMobileMenu = false;
-  storeSubscription!: Subscription;
+  private storeSubscription!: Subscription;
   userRole: string | null = null;
   userEmail: string | null = null;
   welcomingPageIsActive = false;
-  websocketByRoleConnected = false;
+  private websocketByRoleConnected = false;
 
-  constructor(private store: Store, private router: Router, private stompService: StompService, private notifierService: NotifierService) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private stompService: StompService,
+    private notifierService: NotifierService
+  ) {}
 
   toggleMobileMenu() {
     this.showMobileMenu = !this.showMobileMenu;
@@ -43,9 +48,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.userEmail = jwt.sub;
         this.userRole = jwt.role;
         if (this.userRole === 'ADMIN') {
-          this.subscribeOnWebSocket("admin");
+          this.subscribeOnWebSocket('admin');
         } else {
-          this.subscribeOnWebSocket("user/" + this.userEmail)
+          this.subscribeOnWebSocket('user/' + this.userEmail);
         }
       });
   }
@@ -59,8 +64,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       const stompClient = this.stompService.connect();
       this.websocketByRoleConnected = true;
       stompClient.connect({}, () => {
-        stompClient.subscribe('/topic/' + role, (response): any => {
-          this.notifierService.notifyWarn(response.body)
+        stompClient.subscribe('/topic/' + role, (response) => {
+          this.notifierService.notifyWarn(response.body);
         });
       });
     }

@@ -8,7 +8,7 @@ import { map, switchMap } from 'rxjs';
 
 @Injectable()
 export class UserPropertiesEffects {
-  getAccessibleProperties = createEffect(() =>
+  getAccessibleProperties$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserPropertiesActions.getAccessibleProperties.type),
       switchMap(() =>
@@ -23,7 +23,7 @@ export class UserPropertiesEffects {
     )
   );
 
-  getPropertyMessages = createEffect(() =>
+  getPropertyMessages$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserPropertiesActions.getPropertyMessages.type),
       switchMap((action) =>
@@ -38,7 +38,7 @@ export class UserPropertiesEffects {
     )
   );
 
-  searchPropertyMessages = createEffect(() =>
+  searchPropertyMessages$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserPropertiesActions.searchPropertyMessages.type),
       switchMap((action) =>

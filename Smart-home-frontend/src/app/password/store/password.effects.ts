@@ -8,7 +8,7 @@ import { map, switchMap } from 'rxjs';
 
 @Injectable()
 export class PasswordEffects {
-  requestPasswordChange = createEffect(() => {
+  requestPasswordChange$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PasswordActions.requestPasswordChange.type),
       switchMap((action) => {
@@ -19,7 +19,7 @@ export class PasswordEffects {
     );
   });
 
-  changePassword = createEffect(() => {
+  changePassword$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PasswordActions.changePassword.type),
       switchMap((action) => {
@@ -34,7 +34,7 @@ export class PasswordEffects {
     );
   });
 
-  requestPasswordChangeSuccess = createEffect(
+  requestPasswordChangeSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(PasswordActions.requestPasswordChangeSuccess.type),
@@ -48,7 +48,7 @@ export class PasswordEffects {
     { dispatch: false }
   );
 
-  changePasswordSuccess = createEffect(
+  changePasswordSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(PasswordActions.changePasswordSuccess.type),

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class CertificatesHttpService {
-  CREATE_CSR = 'csr';
+  private CREATE_CSR = 'csr';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,

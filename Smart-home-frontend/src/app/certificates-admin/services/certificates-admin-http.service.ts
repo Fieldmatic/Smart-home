@@ -11,13 +11,13 @@ import { Certificate } from '../model/certificate.model';
   providedIn: 'root',
 })
 export class CertificatesAdminHttpService {
-  GET_PENDING_CSRS = 'csr/pending';
-  REJECT_CSR = 'csr/reject';
-  GET_CERTIFICATE_TYPES = 'certificate/types';
-  GET_CERTIFICATE_EXTENSIONS = 'certificate/extensions';
-  CREATE_CERTIFICATE = 'certificate';
-  GET_CERTIFICATES = 'certificate/all';
-  REVOKE_CERTIFICATE = 'certificate/revoke';
+  private GET_PENDING_CSRS = 'csr/pending';
+  private REJECT_CSR = 'csr/reject';
+  private GET_CERTIFICATE_TYPES = 'certificate/types';
+  private GET_CERTIFICATE_EXTENSIONS = 'certificate/extensions';
+  private CREATE_CERTIFICATE = 'certificate';
+  private GET_CERTIFICATES = 'certificate/all';
+  private REVOKE_CERTIFICATE = 'certificate/revoke';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,

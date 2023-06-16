@@ -1,11 +1,9 @@
 import { createAction, props, union } from '@ngrx/store';
 import { Property } from '../../shared/model/property';
-import {DeviceType} from "../../shared/model/device-type";
-import { SortDirection } from "../../shared/model/sort-direction";
-import { PageResponse } from "../../shared/model/page-response";
-import { User } from "../../shared/model/user.model";
-import { LogResponse } from "../model/log-response";
-import {Device} from "../../shared/model/device.model";
+import { DeviceType } from '../../shared/model/device-type';
+import { PageResponse } from '../../shared/model/page-response';
+import { LogResponse } from '../model/log-response';
+import { Device } from '../../shared/model/device.model';
 
 export const getUserProperties = createAction(
   '[Properties] Get User Properties',
@@ -48,7 +46,7 @@ export const addPropertyMember = createAction(
 
 export const updatePropertySuccess = createAction(
   '[Properties] Update Property Success',
-  props<{ property: Property, message: string }>()
+  props<{ property: Property; message: string }>()
 );
 
 export const removePropertyMember = createAction(
@@ -73,32 +71,44 @@ export const setSearchAddressResult = createAction(
 
 export const addPropertyDevice = createAction(
   '[Properties] Add Property Device',
-  props<{ propertyId: string; name: string, deviceType: DeviceType, readPeriod: number, messageRegex: string }>()
-)
+  props<{
+    propertyId: string;
+    name: string;
+    deviceType: DeviceType;
+    readPeriod: number;
+    messageRegex: string;
+  }>()
+);
 
 export const addDeviceRule = createAction(
   '[Properties] Add Device Rule',
-  props<{ propertyId: string; deviceId: string; minValue: number; maxValue: number }>()
-)
+  props<{
+    propertyId: string;
+    deviceId: string;
+    minValue: number;
+    maxValue: number;
+  }>()
+);
 
 export const updatePropertyDeviceSuccess = createAction(
   '[Properties] Update Property Device Success',
-  props<{ propertyId: string, device: Device, message: string }>()
+  props<{ propertyId: string; device: Device; message: string }>()
 );
 
 export const getLogsForProperty = createAction(
   '[Properties] Get Logs',
-  props<{ id: string,
-          pageSize?: number;
-          pageNumber?: number;
-          search?: string; }>()
+  props<{
+    id: string;
+    pageSize?: number;
+    pageNumber?: number;
+    search?: string;
+  }>()
 );
 
 export const setLogs = createAction(
   '[Properties] Set Logs',
   props<{ logPage: PageResponse<LogResponse> }>()
 );
-
 
 const all = union({
   getUserProperties,

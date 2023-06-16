@@ -8,7 +8,7 @@ import { NotifierService } from '../../core/notifier.service';
 
 @Injectable()
 export class CertificatesAdminEffects {
-  get_pending_csrs = createEffect(() => {
+  getPendingCSRs$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.getPendingCSRs.type),
       switchMap(() => {
@@ -21,7 +21,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  reject_csr = createEffect(() => {
+  rejectCSR$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.rejectCSR.type),
       switchMap((action) => {
@@ -36,7 +36,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  reject_csr_success = createEffect(
+  rejectCSRSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(CertificatesAdminActions.rejectCSRSuccess.type),
@@ -49,7 +49,7 @@ export class CertificatesAdminEffects {
     { dispatch: false }
   );
 
-  get_certificate_types = createEffect(() => {
+  getCertificateTypes$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.getCertificateTypes.type),
       switchMap(() => {
@@ -64,7 +64,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  get_certificate_extensions = createEffect(() => {
+  getCertificateExtensions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.getCertificateExtensions.type),
       switchMap(() => {
@@ -79,7 +79,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  create_certificate = createEffect(() => {
+  createCertificate$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.createCertificate.type),
       switchMap((action) => {
@@ -101,7 +101,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  create_certificate_success = createEffect(
+  createCertificateSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(CertificatesAdminActions.createCertificateSuccess.type),
@@ -117,7 +117,7 @@ export class CertificatesAdminEffects {
     { dispatch: false }
   );
 
-  get_certificates = createEffect(() => {
+  getCertificates$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.getCertificates.type),
       switchMap(() => {
@@ -130,7 +130,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  delete_certificate = createEffect(() => {
+  deleteCertificate$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesAdminActions.revokeCertificate.type),
       switchMap((action) => {
@@ -147,7 +147,7 @@ export class CertificatesAdminEffects {
     );
   });
 
-  delete_certificate_success = createEffect(
+  deleteCertificateSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(CertificatesAdminActions.revokeCertificateSuccess.type),

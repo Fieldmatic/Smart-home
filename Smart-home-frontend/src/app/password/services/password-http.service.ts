@@ -6,8 +6,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root',
 })
 export class PasswordHttpService {
-  REQUEST_PASSWORD_CHANGE = 'password/request-change';
-  CHANGE_PASSWORD = 'password/change';
+  private REQUEST_PASSWORD_CHANGE = 'password/request-change';
+  private CHANGE_PASSWORD = 'password/change';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,

@@ -1,27 +1,25 @@
 import { Inject, Injectable } from '@angular/core';
 import { APP_SERVICE_CONFIG, AppConfig } from '../../app-config/app-config';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Property } from '../../shared/model/property';
-import {DeviceType} from "../../shared/model/device-type";
-import { LogResponse } from "../model/log-response";
-import { SortDirection } from "../../shared/model/sort-direction";
-import { PageResponse } from "../../shared/model/page-response";
-import { User } from "../../shared/model/user.model";
-import {Device} from "../../shared/model/device.model";
+import { DeviceType } from '../../shared/model/device-type';
+import { LogResponse } from '../model/log-response';
+import { PageResponse } from '../../shared/model/page-response';
+import { Device } from '../../shared/model/device.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PropertiesHttpService {
-  GET_USER_PROPERTIES = 'property/accessible/';
-  GET_SELF_PROPERTIES = 'property/accessible';
-  CREATE_PROPERTY = 'property';
-  DELETE_PROPERTY = 'property/';
-  ADD_PROPERTY_MEMBER = 'property/add-member';
-  REMOVE_PROPERTY_MEMBER = 'property/remove-member';
-  ADD_PROPERTY_DEVICE = 'property/add-device';
-  ADD_DEVICE_RULE = 'device/add-device-rule';
-  GET_LOGS = 'log/search/'
+  private GET_USER_PROPERTIES = 'property/accessible/';
+  private GET_SELF_PROPERTIES = 'property/accessible';
+  private CREATE_PROPERTY = 'property';
+  private DELETE_PROPERTY = 'property/';
+  private ADD_PROPERTY_MEMBER = 'property/add-member';
+  private REMOVE_PROPERTY_MEMBER = 'property/remove-member';
+  private ADD_PROPERTY_DEVICE = 'property/add-device';
+  private ADD_DEVICE_RULE = 'device/add-device-rule';
+  private GET_LOGS = 'log/search/';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
@@ -77,7 +75,13 @@ export class PropertiesHttpService {
     );
   }
 
-  addPropertyDevice(propertyId: string, name: string, deviceType: DeviceType, readPeriod: number, messageRegex: string) {
+  addPropertyDevice(
+    propertyId: string,
+    name: string,
+    deviceType: DeviceType,
+    readPeriod: number,
+    messageRegex: string
+  ) {
     return this.http.put<Property>(
       this.config.apiEndpoint + this.ADD_PROPERTY_DEVICE,
       {
@@ -85,7 +89,7 @@ export class PropertiesHttpService {
         propertyId,
         deviceType,
         readPeriod,
-        messageRegex
+        messageRegex,
       }
     );
   }
@@ -96,17 +100,12 @@ export class PropertiesHttpService {
       {
         deviceId,
         minValue,
-        maxValue
+        maxValue,
       }
     );
   }
 
-  getLogs(
-    id: string,
-    pageSize?: number,
-    pageNumber?: number,
-    search?: string,
-  ) {
+  getLogs(id: string, pageSize?: number, pageNumber?: number, search?: string) {
     let params = new HttpParams();
     if (pageSize) {
       params = params.append('pageSize', pageSize);
@@ -124,5 +123,4 @@ export class PropertiesHttpService {
       }
     );
   }
-
 }

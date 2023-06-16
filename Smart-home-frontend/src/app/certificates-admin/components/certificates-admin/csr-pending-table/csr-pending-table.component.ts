@@ -33,7 +33,7 @@ export class CsrPendingTableComponent
     'accept',
   ];
   dataSource!: MatTableDataSource<CSR>;
-  storeSubscription!: Subscription;
+  private storeSubscription!: Subscription;
 
   @ViewChild(MatSort) sort!: MatSort;
 

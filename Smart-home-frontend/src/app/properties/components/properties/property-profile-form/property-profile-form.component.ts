@@ -39,7 +39,7 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
     address: FormControl;
     addressSelection: FormControl;
   }>;
-  storeSubscription!: Subscription;
+  private storeSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -117,19 +117,6 @@ export class PropertyProfileFormComponent implements OnInit, OnDestroy {
             );
           }
         });
-      } else {
-        // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        //   data: {
-        //     title: 'User Edit',
-        //     text: `Are you sure you want to edit the user?`,
-        //   },
-        // });
-        //
-        // dialogRef.afterClosed().subscribe((result) => {
-        //   if (result) {
-        //     this.store.dispatch(changeUserRole({ id: this.userId, role }));
-        //   }
-        // });
       }
     }
   }

@@ -9,7 +9,7 @@ import { selectCertificateStatus } from '../../../auth/store/auth.selectors';
   styleUrls: ['./user-home-page.component.scss'],
 })
 export class UserHomePageComponent implements OnInit, OnDestroy {
-  storeSubscription!: Subscription;
+  private storeSubscription!: Subscription;
   userCertificateStatus: string | null = null;
 
   constructor(private store: Store) {}

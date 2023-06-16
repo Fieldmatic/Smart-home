@@ -45,9 +45,10 @@
 
       </section>
 
-      <div class="button-row">
+      <div class="button-row" *ngIf="mode === FormMode.NEW">
         <button mat-raised-button class="btn"
-                color="primary">{{mode === FormMode.NEW ? 'Create Property' : 'Save Changes'}}</button>
+                color="primary">Create Property
+        </button>
       </div>
 
       <div *ngIf="mode === FormMode.EDIT" class="button-row">

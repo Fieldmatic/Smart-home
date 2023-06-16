@@ -33,7 +33,7 @@ export class AllCertificatesTableComponent
     'disable',
   ];
   dataSource!: MatTableDataSource<Certificate>;
-  storeSubscription!: Subscription;
+  private storeSubscription!: Subscription;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private store: Store, private dialog: MatDialog) {}

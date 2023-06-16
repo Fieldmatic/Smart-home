@@ -1,24 +1,21 @@
-import {Inject, Injectable} from '@angular/core';
-import {APP_SERVICE_CONFIG, AppConfig} from "../../app-config/app-config";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {SortDirection} from "../../shared/model/sort-direction";
-import {PageResponse} from "../../shared/model/page-response";
-import {User} from "../../shared/model/user.model";
-import {Alarm} from "../../shared/model/alarm.model";
+import { Inject, Injectable } from '@angular/core';
+import { APP_SERVICE_CONFIG, AppConfig } from '../../app-config/app-config';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { PageResponse } from '../../shared/model/page-response';
+import { Alarm } from '../../shared/model/alarm.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlarmsHttpService {
-  GET_ALARMS = 'alarm';
+  private GET_ALARMS = 'alarm';
 
-  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig,
-              private http: HttpClient) { }
+  constructor(
+    @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
+    private http: HttpClient
+  ) {}
 
-  getAlarms(
-    pageSize?: number,
-    pageNumber?: number
-  ) {
+  getAlarms(pageSize?: number, pageNumber?: number) {
     let params = new HttpParams();
     if (pageSize) {
       params = params.append('pageSize', pageSize);
@@ -33,5 +30,4 @@ export class AlarmsHttpService {
       }
     );
   }
-
 }

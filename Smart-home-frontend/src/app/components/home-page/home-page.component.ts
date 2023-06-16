@@ -9,7 +9,7 @@ import { selectRole } from '../../auth/store/auth.selectors';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit, OnDestroy {
-  storeSubscription!: Subscription;
+  private storeSubscription!: Subscription;
   userRole: string | null = null;
 
   constructor(private store: Store) {}

@@ -16,9 +16,9 @@ import { selectUserProperties } from '../../../../properties/store/properties.se
 export class UserProfileComponent implements OnInit, OnDestroy {
   user!: User;
   properties: Property[] = [];
-  userStoreSubscription!: Subscription;
-  propertiesStoreSubscription!: Subscription;
-  authStoreSubscription!: Subscription;
+  private userStoreSubscription!: Subscription;
+  private propertiesStoreSubscription!: Subscription;
+  private authStoreSubscription!: Subscription;
   loggedInUsersRole: string | null | undefined;
 
   constructor(private route: ActivatedRoute, private store: Store) {}

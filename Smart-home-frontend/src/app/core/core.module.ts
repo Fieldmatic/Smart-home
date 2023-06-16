@@ -7,14 +7,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment.prod';
 import { AuthInterceptor } from '../auth/auth.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
-import { UsersEffects } from '../users/store/users.effects';
-import { PropertiesEffects } from '../properties/store/properties.effects';
-import { PasswordEffects } from '../password/store/password.effects';
-import { AlarmsEffects } from '../alarms/store/alarms.effects';
 import { reducers } from './store/core.reducer';
 import { AuthEffects } from '../auth/store/auth.effects';
-import { CertificatesAdminEffects } from '../certificates-admin/store/certificates-admin.effects';
-import { CertificatesEffects } from '../certificates/store/certificates.effects';
 
 @NgModule({
   providers: [
@@ -35,15 +29,6 @@ import { CertificatesEffects } from '../certificates/store/certificates.effects'
   ],
   imports: [
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([
-      AuthEffects,
-      CertificatesEffects,
-      CertificatesAdminEffects,
-      UsersEffects,
-      PropertiesEffects,
-      PasswordEffects,
-      AlarmsEffects,
-    ]),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],

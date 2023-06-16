@@ -8,7 +8,7 @@ import * as CertificatesActions from './certificates.actions';
 
 @Injectable()
 export class CertificatesEffects {
-  create_csr = createEffect(() => {
+  createCSR$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CertificatesActions.createCSR.type),
       switchMap((action) => {
@@ -32,7 +32,7 @@ export class CertificatesEffects {
     );
   });
 
-  create_csr_success = createEffect(
+  createCSRSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(CertificatesActions.createCSRSuccess.type),

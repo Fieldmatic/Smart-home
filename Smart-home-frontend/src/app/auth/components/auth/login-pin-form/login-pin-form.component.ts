@@ -12,8 +12,8 @@ import { selectAuth } from '../../../store/auth.selectors';
 })
 export class LoginPinFormComponent implements OnDestroy, OnInit {
   pinForm!: FormGroup;
-  storeSubscription!: Subscription;
-  userTryingToLogin!: { email: string; password: string };
+  private storeSubscription!: Subscription;
+  private userTryingToLogin!: { email: string; password: string };
   pinExpiresIn!: number;
   hasPinExpired = false;
 

@@ -106,7 +106,8 @@ export class AppComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/pressure.svg'
       )
-    );matIconRegistry.addSvgIcon(
+    );
+    matIconRegistry.addSvgIcon(
       'rule',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/rule.svg'
@@ -168,12 +169,6 @@ export class AppComponent implements OnInit {
       'camera',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/camera.svg'
-      )
-    );
-    matIconRegistry.addSvgIcon(
-      'linkedIn',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/social media/linkedin.svg'
       )
     );
     matIconRegistry.addSvgIcon(

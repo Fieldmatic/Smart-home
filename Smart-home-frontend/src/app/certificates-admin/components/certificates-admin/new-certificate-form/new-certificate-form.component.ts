@@ -38,7 +38,7 @@ export class NewCertificateFormComponent implements OnInit {
   visibleSectionId = 1;
   certificateTypes: CertificateType[] = [];
   certificateExtensions: Extension[] = [];
-  csr: CSR | undefined;
+  private csr: CSR | undefined;
 
   constructor(
     private store: Store,

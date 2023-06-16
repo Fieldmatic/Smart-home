@@ -14,6 +14,7 @@ export class LoginFormComponent implements OnInit {
 
   constructor(private store: Store) {}
 
+  // TODO: Uncomment validator
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),

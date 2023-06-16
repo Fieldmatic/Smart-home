@@ -22,9 +22,9 @@ import { User } from '../../../../shared/model/user.model';
 export class UserProfileFormComponent implements OnInit, OnDestroy {
   userProfileForm!: FormGroup;
   mode: FormMode = FormMode.NEW;
-  storeSubscription!: Subscription;
-  userId!: string;
-  oldUser!: User;
+  private storeSubscription!: Subscription;
+  private userId!: string;
+  private oldUser!: User;
   userChanged = false;
 
   constructor(

@@ -9,10 +9,10 @@ import { PageResponse } from '../../shared/model/page-response';
   providedIn: 'root',
 })
 export class UsersHttpService {
-  GET_USERS = 'user';
-  CREATE_USER = 'user/register';
-  DELETE_USER = 'user/';
-  CHANGE_USER_ROLE = 'user/';
+  private GET_USERS = 'user';
+  private CREATE_USER = 'user/register';
+  private DELETE_USER = 'user/';
+  private CHANGE_USER_ROLE = 'user/';
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
