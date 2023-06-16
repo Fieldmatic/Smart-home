@@ -1,4 +1,4 @@
-package com.bsep.smart.home.repository;
+package com.bsep.devices.repository;
 
 import com.bsep.smart.home.model.Device;
 import com.bsep.smart.home.model.Property;

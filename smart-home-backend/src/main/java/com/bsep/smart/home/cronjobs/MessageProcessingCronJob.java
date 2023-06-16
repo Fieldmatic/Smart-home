@@ -26,13 +26,12 @@ import java.util.regex.Pattern;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class DeviceMessageCronJob {
+public class MessageProcessingCronJob {
     private final DeviceInfo deviceInfo;
     private final DeviceRepository deviceRepository;
-    private final GetDeviceMessage getDeviceMessage;
     private final LogRepository logRepository;
     private final CheckDeviceRules checkDeviceRules;
-    Logger logger = LoggerFactory.getLogger(DeviceMessageCronJob.class);
+    Logger logger = LoggerFactory.getLogger(MessageProcessingCronJob.class);
 
 
     @Scheduled(fixedRate = 10000)
@@ -41,15 +40,6 @@ public class DeviceMessageCronJob {
             if (isReadPeriodElapsed(device)) {
                 processMessages(device);
                 resetLastProcessTime(device);
-            }
-        }
-    }
-
-    @Scheduled(fixedRate = 80000)
-    public void logMessagesForDevices() {
-        for (Device device : deviceInfo.getReadPeriods().keySet()) {
-            if (Util.getRandomBoolean()) {
-                logMessageForDevice(device);
             }
         }
     }
@@ -69,24 +59,6 @@ public class DeviceMessageCronJob {
     private boolean isReadPeriodElapsed(Device device) {
         long readPeriod = deviceInfo.getReadPeriods().get(device);
         return Objects.isNull(device.getLastLogged()) || Duration.between(device.getLastLogged(), LocalDateTime.now()).toMinutes() >= readPeriod;
-    }
-
-    public void logMessageForDevice(Device device) {
-        String message = getDeviceMessage.execute(device);
-        logger.info(message);
-        Log log = getLog(device, message);
-        logRepository.save(log);
-        deviceRepository.save(device);
-    }
-
-    private static Log getLog(Device device, String message) {
-        return Log.builder()
-                .message(message)
-                .deviceId(String.valueOf(device.getId()))
-                .createdAt(LocalDateTime.now())
-                .propertyId(String.valueOf(device.getProperty().getId()))
-                .processed(false)
-                .build();
     }
 
     public void resetLastProcessTime(Device device) {
