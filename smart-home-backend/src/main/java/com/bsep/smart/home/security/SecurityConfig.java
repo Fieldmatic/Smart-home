@@ -39,13 +39,10 @@ public class SecurityConfig {
                 .antMatchers("/ws/**").permitAll()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/login-details-exist").permitAll()
-                .antMatchers("/auth/self").permitAll()
                 .antMatchers("/auth/register").permitAll()
                 .antMatchers("/auth/activateEmail/{token}").permitAll()
-                .antMatchers("/passenger/create").permitAll()
                 .antMatchers("/password/request-change").permitAll()
                 .antMatchers("/password/change").permitAll()
-                .antMatchers("/report/**").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(filterChainExceptionHandler, LogoutFilter.class);
