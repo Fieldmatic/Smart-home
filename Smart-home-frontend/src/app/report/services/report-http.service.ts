@@ -14,8 +14,8 @@ export class ReportHttpService {
   ) {}
 
   getReport(id: string, start: Date, end: Date) {
-    const formattedStart = start.toISOString().split('T')[0];
-    const formattedEnd = end.toISOString().split('T')[0];
+    const formattedStart = this.formatDate(start);
+    const formattedEnd = this.formatDate(end);
     const params = new HttpParams()
       .append('start', formattedStart)
       .append('end', formattedEnd);
@@ -23,5 +23,12 @@ export class ReportHttpService {
       params,
       responseType: 'blob',
     });
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }
