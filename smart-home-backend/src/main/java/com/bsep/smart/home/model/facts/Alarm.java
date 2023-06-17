@@ -3,6 +3,7 @@ package com.bsep.smart.home.model.facts;
 import com.bsep.smart.home.model.AlarmType;
 import com.bsep.smart.home.model.BaseEntity;
 import com.bsep.smart.home.model.Device;
+import com.bsep.smart.home.model.DeviceType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -39,12 +40,19 @@ public class Alarm extends BaseEntity {
         this.userEmail = userEmail;
         this.alarmType = alarmType;
         this.errorMessage = errorMessage;
+        this.value = Double.NEGATIVE_INFINITY;
         this.time = LocalDateTime.now();
     }
 
     public Alarm(AlarmType alarmType, String errorMessage) {
         this.errorMessage = errorMessage;
         this.alarmType = alarmType;
+        this.value = Double.NEGATIVE_INFINITY;
         this.time = LocalDateTime.now();
+    }
+
+    public Alarm(AlarmType alarmType, String errorMessage, Device device) {
+        this(alarmType, errorMessage);
+        this.device = device;
     }
 }

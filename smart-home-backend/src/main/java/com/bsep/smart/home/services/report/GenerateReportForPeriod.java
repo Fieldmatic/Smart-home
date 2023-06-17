@@ -75,7 +75,8 @@ public class GenerateReportForPeriod {
             p.setMarginBottom(10);
             document.add(p);
             document.add(createMainTable(alarms));
-            document.add(createTableDescription("Table of all alarms triggered by all devices"));
+            document.add(createTableDescription("Table of all triggered alarms by measuring devices"));
+            document.add(createTableForAlarmsWithMessage(alarms));
         } else {
             Paragraph p = createContentParagraph("There are no triggered alarms in the selected period.", true);
             p.setFontSize(10);
@@ -85,13 +86,13 @@ public class GenerateReportForPeriod {
         }
 
         float[] columnWidths = {300F, 300F};
-        Table table = new Table(columnWidths);
+        Table table1 = new Table(columnWidths);
 
         Map<Map<String, AlarmType>, List<Alarm>> categorizedAlarms = categorizeAlarms(alarms);
         for (Map<String, AlarmType> category : categorizedAlarms.keySet()) {
-            table.addCell(createBorderlessCell().add(createCategoryTable(categorizedAlarms.get(category), category)));
+            table1.addCell(createBorderlessCell().add(createCategoryTable(categorizedAlarms.get(category), category)));
         }
-        document.add(table);
+        document.add(table1);
 
         document.close();
         return outputStream.toByteArray();
@@ -131,22 +132,17 @@ public class GenerateReportForPeriod {
     }
 
     private Table createMainTable(List<Alarm> alarms) {
-        float[] columnWidths = {300F, 300F, 300F, 300F};
-        Table table = new Table(columnWidths);
-        table.setBorder(Border.NO_BORDER);
-        table.setHorizontalAlignment(HorizontalAlignment.CENTER);
-        table.setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 1f));
-
-        table.addHeaderCell(createHeaderCell("Alarm type"));
+        Table table = getMainTableSetUp();
         table.addHeaderCell(createHeaderCell("Device"));
-        table.addHeaderCell(createHeaderCell("Value"));
+        table.addHeaderCell(createHeaderCell("Alarm type"));
         table.addHeaderCell(createHeaderCell("Time"));
 
         for (Alarm alarm : alarms) {
-            table.addCell(createCell(reformatAlarmType(alarm.getAlarmType())));
-            table.addCell(createCell(alarm.getDevice().getName()));
-            table.addCell(createCell(String.valueOf(alarm.getValue())));
-            table.addCell(createCell(alarm.getTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy. hh:mm"))));
+            if (alarm.getValue() != Double.NEGATIVE_INFINITY ) {
+                table.addCell(createCell(alarm.getDevice().getName()));
+                table.addCell(createCell(reformatAlarmType(alarm.getAlarmType())));
+                table.addCell(createCell(alarm.getTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy. hh:mm"))));
+            }
         }
         return table;
     }
@@ -174,12 +170,41 @@ public class GenerateReportForPeriod {
         return containerTable;
     }
 
+    private Table createTableForAlarmsWithMessage(List<Alarm> alarms) {
+        Table table = getMainTableSetUp();
+        table.addHeaderCell(createHeaderCell("Device"));
+        table.addHeaderCell(createHeaderCell("Message"));
+        table.addHeaderCell(createHeaderCell("Time"));
+
+        for (Alarm alarm : alarms) {
+            if (alarm.getValue() == Double.NEGATIVE_INFINITY) {
+                table.addCell(createCell(alarm.getDevice().getName()));
+                table.addCell(createCell(alarm.getErrorMessage()));
+                table.addCell(createCell(alarm.getTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy. hh:mm"))));
+            }
+        }
+
+        Table containerTable = new Table(1);
+        containerTable.addCell(createBorderlessCell().add(table));
+        containerTable.addCell(createBorderlessCell().add(createTableDescription("Table of all triggered alarms by sensor devices")));
+        return containerTable;
+    }
+
+    private Table getMainTableSetUp() {
+        float[] columnWidths = {100F, 300F, 200F};
+        Table table = new Table(columnWidths);
+        table.setBorder(Border.NO_BORDER);
+        table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        table.setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 1f));
+        return table;
+    }
+
     private Cell createHeaderCell(String text) {
         Cell cell = createBorderlessCell();
         cell.add(new Paragraph(text));
         cell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
         cell.setFontSize(10);
-        cell.setTextAlignment(TextAlignment.CENTER);
+        cell.setTextAlignment(TextAlignment.LEFT);
         return cell;
     }
 
@@ -187,7 +212,7 @@ public class GenerateReportForPeriod {
         Cell cell = createBorderlessCell();
         cell.add(new Paragraph(text));
         cell.setFontSize(9);
-        cell.setTextAlignment(TextAlignment.CENTER);
+        cell.setTextAlignment(TextAlignment.LEFT);
         return cell;
     }
 
@@ -204,12 +229,14 @@ public class GenerateReportForPeriod {
         Map<Map<String, AlarmType>, List<Alarm>> categorizedAlarms = new HashMap<>();
 
         for (Alarm alarm : alarms) {
-            Map<String, AlarmType> category = new HashMap<>();
-            category.put(alarm.getDevice().getName(), alarm.getAlarmType());
+            if (alarm.getValue() != Double.NEGATIVE_INFINITY) {
+                Map<String, AlarmType> category = new HashMap<>();
+                category.put(alarm.getDevice().getName(), alarm.getAlarmType());
 
-            List<Alarm> categoryAlarms = categorizedAlarms.getOrDefault(category, new ArrayList<>());
-            categoryAlarms.add(alarm);
-            categorizedAlarms.put(category, categoryAlarms);
+                List<Alarm> categoryAlarms = categorizedAlarms.getOrDefault(category, new ArrayList<>());
+                categoryAlarms.add(alarm);
+                categorizedAlarms.put(category, categoryAlarms);
+            }
         }
 
         return categorizedAlarms;

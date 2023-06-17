@@ -1,7 +1,8 @@
-package com.bsep.smart.home.security;
+package com.bsep.devices.beans;
 
 import com.bsep.smart.home.exception.FilterChainExceptionHandler;
 import com.bsep.smart.home.filter.AuthTokenFilter;
+import com.bsep.smart.home.security.AuthEntryPointJwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,31 +24,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final AuthTokenFilter authTokenFilter;
-    private final AuthEntryPointJwt authEntryPointJwt;
-
-    private final FilterChainExceptionHandler filterChainExceptionHandler;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().configurationSource(corsConfigurationSource()).and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
+                .exceptionHandling().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/api-docs/**").permitAll()
-                .antMatchers("/ws/**").permitAll()
-                .antMatchers("/auth/login").permitAll()
-                .antMatchers("/auth/login-details-exist").permitAll()
-                .antMatchers("/auth/register").permitAll()
-                .antMatchers("/auth/activateEmail/{token}").permitAll()
-                .antMatchers("/password/request-change").permitAll()
-                .antMatchers("/password/change").permitAll()
+                .antMatchers("/simulation/**").permitAll()
                 .anyRequest().authenticated();
 
-        httpSecurity.addFilterBefore(filterChainExceptionHandler, LogoutFilter.class);
 
-        httpSecurity.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.headers()
                 .xssProtection()
                 .and()
