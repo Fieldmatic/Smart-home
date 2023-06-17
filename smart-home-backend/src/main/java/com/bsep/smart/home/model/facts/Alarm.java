@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 public class Alarm extends BaseEntity {
     AlarmType alarmType;
     String userEmail;
+    String userIpAddress;
     String errorMessage;
     double value;
     LocalDateTime time;
@@ -42,6 +43,11 @@ public class Alarm extends BaseEntity {
         this.errorMessage = errorMessage;
         this.value = Double.NEGATIVE_INFINITY;
         this.time = LocalDateTime.now();
+    }
+
+    public Alarm(String userEmail, String userIpAddress, AlarmType alarmType, String errorMessage) {
+        this(userEmail, alarmType, errorMessage);
+        this.userIpAddress = userIpAddress;
     }
 
     public Alarm(AlarmType alarmType, String errorMessage) {

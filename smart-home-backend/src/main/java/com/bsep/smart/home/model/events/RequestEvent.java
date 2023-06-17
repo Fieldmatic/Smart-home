@@ -10,7 +10,16 @@ import org.kie.api.definition.type.Role;
 @Expires("1m")
 @Getter
 @Setter
-@AllArgsConstructor
 public class RequestEvent {
-    public String userEmail;
+    private String ipAddress;
+    private String userEmail;
+
+    public RequestEvent(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public RequestEvent(String ipAddress, String userEmail) {
+        this(ipAddress);
+        this.userEmail = userEmail;
+    }
 }

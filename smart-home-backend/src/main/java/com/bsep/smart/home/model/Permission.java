@@ -8,6 +8,7 @@ public enum Permission implements GrantedAuthority {
     CERTIFICATE_MANIPULATION,
     USER_MANIPULATION,
     PROPERTY_MANIPULATION,
+    VIEW_MESSAGES,
     REPORT_GENERATING;
 
     @Override

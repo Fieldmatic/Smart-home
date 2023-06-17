@@ -55,7 +55,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiException(Translator.toLocale(ex.getKey()), HttpStatus.UNAUTHORIZED));
     }
 
-    @ExceptionHandler({AccessDeniedException.class, EmailNotVerifiedException.class})
+    @ExceptionHandler({AccessDeniedException.class, EmailNotVerifiedException.class, ForbiddenException.class})
     protected ResponseEntity<?> handleAccessDeniedException() {
         return buildResponseEntity(new ApiException(Translator.toLocale(ExceptionKeys.INSUFFICIENT_PERMISSIONS), HttpStatus.FORBIDDEN));
     }

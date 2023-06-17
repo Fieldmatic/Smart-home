@@ -26,17 +26,17 @@ end
 
 rule "If the user makes 100 requests within 10 seconds, an alarm for too many requests is generated"
     when
-        $request1: RequestEvent($email: userEmail)
-        $requestsNumber: Number(intValue >= 2) from accumulate(
+        $request1: RequestEvent($ip: ipAddress, $email: userEmail)
+        $requestsNumber: Number(intValue >= 100) from accumulate(
         		    $request2: RequestEvent(
         		        this != $request1,
-        		        userEmail == $email) over window: time(10s),
+        		        ipAddress == $ip) over window: time(10s),
         		    count($request2)
         		)
-        not(Alarm(userEmail == $email, alarmType == AlarmType.TOO_MANY_REQUESTS))
+        not(Alarm(userIpAddress == $ip, alarmType == AlarmType.TOO_MANY_REQUESTS))
     then
-       System.out.println("The user with email " + $email + " made " + $requestsNumber + " requests in 10 seconds.");
-       insert(new Alarm($email, AlarmType.TOO_MANY_REQUESTS, "100 requests in 10 seconds"));
+       System.out.println("The user with ip " + $ip + " made " + $requestsNumber + " requests in 10 seconds.");
+       insert(new Alarm($email, $ip, AlarmType.TOO_MANY_REQUESTS, "100 requests in 10 seconds"));
 end
 
 rule "If an error type log appears, error alarm is generated"

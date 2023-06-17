@@ -1,5 +1,6 @@
 package com.bsep.smart.home.repository;
 
+import com.bsep.smart.home.model.AlarmType;
 import com.bsep.smart.home.model.facts.Alarm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Repository
 public interface AlarmRepository extends JpaRepository<Alarm, UUID>, JpaSpecificationExecutor<Alarm> {
 
+    Alarm findAlarmByAlarmTypeAndUserIpAddress(AlarmType alarmType, String userIpAddress);
     Page<Alarm> findByDeviceIdIsNull(Pageable pageable);
 
     List<Alarm> findAllByDevicePropertyIdAndCreatedAtBetween(UUID id, LocalDateTime start, LocalDateTime end);

@@ -28,7 +28,6 @@ export class PropertyDevicesCardComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         this.store.dispatch(
           addDeviceRule({
             propertyId: this.propertyId,

@@ -25,4 +25,9 @@ public class AlarmController {
     public PageResponse<AlarmResponse> getAlarms(@Valid final PageRequest pageRequest) {
         return getAlarms.execute(pageRequest.getPageNumber(), pageRequest.getPageSize());
     }
+
+    @GetMapping(value = "/test")
+    public void unhandledExceptionTest() {
+        throw new RuntimeException("This is a test.");
+    }
 }

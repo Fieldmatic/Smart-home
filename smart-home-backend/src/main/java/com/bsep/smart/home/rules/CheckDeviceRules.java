@@ -68,7 +68,7 @@ public class CheckDeviceRules {
 
     private String getDeviceMessage(DeviceType deviceType) {
         if (deviceType.equals(DeviceType.DOOR)) {
-            return "The door was forced shut.";
+            return "The door was forced opened.";
         } else if (deviceType.equals(DeviceType.CAMERA)) {
             return "An unknown object was spotted on the camera.";
         } else {
