@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Device } from '../../../../../../shared/model/device.model';
 import { Alarm } from '../../../../../../shared/model/alarm.model';
 import { getDeviceIcon } from '../../../../../functions/getDeviceIcon';
+import {AlarmType} from "../../../../../../shared/model/alarm-type";
 
 @Component({
   selector: 'app-property-alarms-card',
@@ -13,4 +14,7 @@ export class PropertyAlarmsCardComponent {
   @Input() alarm!: Alarm;
 
   protected readonly getDeviceIcon = getDeviceIcon;
+
+  protected readonly Number = Number;
+  protected readonly AlarmType = AlarmType;
 }

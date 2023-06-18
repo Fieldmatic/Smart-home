@@ -1,20 +1,30 @@
 <mat-card>
   <mat-card-header>
     <mat-icon mat-card-avatar [svgIcon]="getDeviceIcon(this.device)"></mat-icon>
-    <mat-card-title>Alarm for {{alarm.alarmType.toString().replace("_", " ") | lowercase}}
+    <mat-card-title>
+      <ng-container *ngIf="alarm.alarmType !== AlarmType.ATTACK; else suspiciousBehavior">
+        {{ alarm.alarmType.toString().replace('_', ' ') | titlecase }}
+      </ng-container>
+      <ng-template #suspiciousBehavior>
+        Suspicious Activity
+      </ng-template>
     </mat-card-title>
     <mat-card-subtitle>{{device.name}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div class="attributes-container">
-       <span class="attribute-container" style="width: 45%">
+       <span class="attribute-container" style="width: 45%" *ngIf="alarm.errorMessage === null">
         <span class="attribute-name">Value:</span>
-        <span class="attribute-value">{{alarm.value}} {{alarm.alarmType.toString().includes('TEMPERATURE')? "&deg;C": "bar"}}</span>
+        <span class="attribute-value">{{alarm.value.toFixed(2)}} {{alarm.alarmType.toString().includes('TEMPERATURE')? "&deg;C": "bar"}}</span>
        </span>
       <span class="attribute-container">
         <span class="attribute-name">Time:</span>
         <span class="attribute-value">{{alarm.time | date:'dd.MM.yyyy HH:mm'}}</span>
        </span>
     </div>
+    <span class="attribute-container" style="width: 100%" *ngIf="alarm.errorMessage !== null">
+        <span class="attribute-name">Message:</span>
+        <span class="attribute-value">{{alarm.errorMessage}}</span>
+       </span>
   </mat-card-content>
 </mat-card>

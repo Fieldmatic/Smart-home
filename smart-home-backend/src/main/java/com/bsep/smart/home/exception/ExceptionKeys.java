@@ -10,6 +10,7 @@ public enum ExceptionKeys implements Translation {
 
     USER_BLOCKED("user_blocked"),
     UNAUTHORIZED("unauthorized"),
+    FORBIDDEN("forbidden"),
     AUTH_TOKEN_EXPIRED("auth_token_expired"),
 
     BAD_LOGIN_CREDENTIALS("bad_login_credentials"),

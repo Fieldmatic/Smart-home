@@ -8,7 +8,9 @@ public enum Permission implements GrantedAuthority {
     CSR_MANIPULATION,
     CERTIFICATE_MANIPULATION,
     USER_MANIPULATION,
-    PROPERTY_MANIPULATION;
+    PROPERTY_MANIPULATION,
+    VIEW_MESSAGES;
+
     @Override
     public String getAuthority() {
         return name();

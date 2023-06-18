@@ -6,12 +6,15 @@ import com.bsep.smart.home.dto.response.AuthTokenResponse;
 import com.bsep.smart.home.exception.EmailNotVerifiedException;
 import com.bsep.smart.home.exception.InvalidPinException;
 import com.bsep.smart.home.exception.LockedAccountException;
+import com.bsep.smart.home.filter.AuthTokenFilter;
 import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.UserCertificateStatus;
 import com.bsep.smart.home.services.fingerprint.GenerateFingerprint;
 import com.bsep.smart.home.services.jwt.JwtGenerateTokenWithCertificateStatus;
 import com.bsep.smart.home.services.user.GetUserByEmail;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,15 +48,18 @@ public class LogInUser {
     private final MFACacheService mfaCacheService;
     private final AccountLockService accountLockService;
     private final FireLoginFailedRule fireLoginFailedRule;
+    private final Logger logger = LoggerFactory.getLogger(LogInUser.class);
 
     public ResponseEntity<AuthTokenResponse> execute(final LoginRequest loginRequest) throws CertificateNotYetValidException, UnrecoverableKeyException, CertificateExpiredException, KeyStoreException, NoSuchAlgorithmException {
         final Authentication authentication;
         if (accountLockService.isLocked(loginRequest.getEmail())) throw new LockedAccountException();
         try {
+            logger.info("User " + loginRequest.getEmail() + " has tried logging in.");
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
         } catch (final Exception e) {
+            logger.info("User " + loginRequest.getEmail() + " failed logging in.");
             fireLoginFailedRule.execute(loginRequest.getEmail());
             accountLockService.increaseFailedAttempts(loginRequest.getEmail());
             throw new BadCredentialsException("Bad login credentials");

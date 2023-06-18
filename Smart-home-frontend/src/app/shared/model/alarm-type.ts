@@ -7,4 +7,5 @@ export enum AlarmType {
   LOGIN_FAILED = "LOGIN_FAILED",
   TOO_MANY_REQUESTS = "TOO_MANY_REQUESTS",
   ERROR = "ERROR",
+  ATTACK = "ATTACK",
 }
