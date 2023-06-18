@@ -1,0 +1,32 @@
+<div class="container">
+  <app-property-profile-info *ngIf="property" [property]="property"
+                             [viewReport]="true"
+                             [isAdminLogged]="false"></app-property-profile-info>
+  <mat-tab-group class="property-tabs" mat-stretch-tabs="true" mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="devices"></mat-icon>
+        Devices
+      </ng-template>
+      <app-user-property-profile-devices *ngIf="property"
+                                         [devices]="property.devices"></app-user-property-profile-devices>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="message"></mat-icon>
+        Messages
+      </ng-template>
+      <app-user-property-profile-messages *ngIf="property"
+                                          [propertyId]="property.uuid"></app-user-property-profile-messages>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="alarm"></mat-icon>
+        Alarms
+      </ng-template>
+      <app-user-property-profile-alarms
+        [devices]="property.devices">
+      </app-user-property-profile-alarms>
+    </mat-tab>
+  </mat-tab-group>
+</div>

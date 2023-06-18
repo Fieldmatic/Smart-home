@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    password: admin
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/smart-home
+    driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: smart-home
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    username: milicftn@gmail.com
+    password: zpfomujclzozrrnr
+    port: '587'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+            required: 'true'
+          auth: 'true'
+  redis:
+    host: localhost
+    port: 6379
+server:
+  servlet:
+    contextPath: /api
+  port: '8082'
+  ssl:
+    key-store: smart-home-backend/src/main/resources/ssl/keystore.jks
+    key-store-password: Micomilic123!
+    key-password: Micomilic123!
+    enabled: true
+    key-alias: 1

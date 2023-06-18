@@ -1,0 +1,25 @@
+@import "src/custom-theme";
+
+.grid-container {
+  max-width: 1000px;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-gap: max(2rem);
+}
+
+app-users-overview {
+  grid-column: 1;
+}
+
+app-owners-tenants-pie-chart {
+  grid-column: 2;
+}
+
+app-events-overview {
+  grid-column: 1 / span 2;
+}
+
+app-events-linear-chart {
+  grid-column: 1 / span 2;
+}

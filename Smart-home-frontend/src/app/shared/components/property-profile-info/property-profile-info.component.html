@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-header>
+    <mat-icon svgIcon="property-avatar"></mat-icon>
+    <mat-card-title>{{property.name | titlecase}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <span class="attribute-container">
+      <span class="attribute-name">Address</span>
+      <span class="attribute-value">{{property.address}}</span>
+    </span>
+    <span class="attribute-container">
+      <span class="attribute-name">Owner</span>
+      <span class="attribute-value">{{property.owner.email}}</span>
+    </span>
+  </mat-card-content>
+  <mat-card-actions>
+    <a *ngIf="isAdminLogged" mat-raised-button class="btn" [routerLink]="'/admin/properties/edit/' + property.uuid"
+       color="primary">
+      <mat-icon svgIcon="edit" class="white-btn-icon"></mat-icon>
+      <span>Edit</span>
+    </a>
+    <a *ngIf="viewReport" mat-raised-button class="btn" color="accent" [routerLink]="'/report/'+property.uuid">
+      <mat-icon svgIcon="report"></mat-icon>
+      <span>Generate Report</span>
+    </a>
+  </mat-card-actions>
+</mat-card>

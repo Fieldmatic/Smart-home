@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-content>
+    <app-events-pie-chart
+      [logsCount]="logsCount"
+      [messagesCount]="messagesCount"
+      [alarmsCount]="alarmsCount"
+    ></app-events-pie-chart>
+    <div class="overview">
+      <mat-card>
+        <mat-card-content>
+          <h2 style="margin-right: 30px">
+            <mat-icon svgIcon="log"></mat-icon>
+            <span>Logs</span>
+          </h2>
+          <p>{{logsCount}}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <h2 style="margin-right: 27px">
+            <mat-icon svgIcon="message"></mat-icon>
+            <span>Messages</span>
+          </h2>
+          <p>{{messagesCount}}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <h2 style="margin-right: 27px">
+            <mat-icon svgIcon="alarm"></mat-icon>
+            <span>Alarms</span>
+          </h2>
+          <p>{{alarmsCount}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>

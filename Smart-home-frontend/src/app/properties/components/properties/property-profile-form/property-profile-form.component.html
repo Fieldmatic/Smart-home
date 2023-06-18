@@ -1,0 +1,61 @@
+<mat-card class="form">
+  <mat-card-header class="form">
+    <mat-card-title>{{mode === FormMode.NEW ? 'Property Creation' : 'Property Edit'}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="form">
+    <form [formGroup]="propertyProfileForm" (ngSubmit)="submitPropertyForm()">
+
+      <section>
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter name of property" formControlName="name">
+            <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('required')">Name is a mandatory field
+            </mat-error>
+            <mat-error *ngIf="propertyProfileForm.controls['name'].hasError('text')">Name must contain only
+              words
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              formControlName="address"
+              [matAutocomplete]="addresses"
+            />
+            <mat-error
+              *ngIf="propertyProfileForm.controls['address'].hasError('required') || propertyProfileForm.controls['addressSelection'].hasError('required')">
+              Address is a mandatory field
+            </mat-error>
+            <mat-autocomplete #addresses="matAutocomplete">
+              <mat-option
+                *ngFor="let address of addresses$ | async"
+                [value]="address"
+                (onSelectionChange)="propertyProfileForm.get('addressSelection')?.setValue(address)"
+              >
+                {{ address }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+      </section>
+
+      <div class="button-row" *ngIf="mode === FormMode.NEW">
+        <button mat-raised-button class="btn"
+                color="primary">Create Property
+        </button>
+      </div>
+
+      <div *ngIf="mode === FormMode.EDIT" class="button-row">
+        <button mat-raised-button class="btn"
+                color="warn" (click)="deleteProperty($event)">Delete Property
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

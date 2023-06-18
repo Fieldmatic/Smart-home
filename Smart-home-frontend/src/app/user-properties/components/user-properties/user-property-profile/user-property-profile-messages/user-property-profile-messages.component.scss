@@ -1,0 +1,12 @@
+@import "src/custom-theme";
+
+.input-row {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 100%;
+}

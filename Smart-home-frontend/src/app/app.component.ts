@@ -1,0 +1,232 @@
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { autoLogin } from './auth/store/auth.actions';
+import {MatIcon, MatIconRegistry} from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import {ActivatedRoute, Router} from "@angular/router";
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent implements OnInit {
+  title = 'Smart Home';
+
+  constructor(
+    private store: Store,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+  ) {
+    this.registerIcons();
+  }
+
+  private registerIcons() {
+    this.matIconRegistry.addSvgIcon(
+      'hidePassword',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/password_visibility/visibility_off.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'showPassword',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/password_visibility/visibility.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'search',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/search/search.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'filters',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/search/filters.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'account-avatar',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/account_avatar.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'edit',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/edit.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'property-avatar',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/property_avatar.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'add-member',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/new_member.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'members',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/members.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'owner',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/owner_mark.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'remove-member',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/remove_member.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'devices',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/devices.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'add-device',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/new_device.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'alarm',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/alarm.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'pressure',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/pressure.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'rule',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/rule.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'my-property',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/my_property.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'visible-property',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/user/key.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'plus',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/plus.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'clear',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/user/clear.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'light',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/light.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'network',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/network.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'notification',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/notification.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'security',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/security.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'temperature',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/temperature.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'camera',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/homepage/camera.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'gitHub',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social media/github.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'camera',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/cam.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'light',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/light.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'door',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/door.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'thermostat',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/thermostat.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'log',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/log.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'message',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/property/message.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'report',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/report/report.svg'
+      )
+    );
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(autoLogin());
+  }
+}

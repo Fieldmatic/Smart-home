@@ -1,0 +1,30 @@
+<mat-card class="form">
+  <mat-card-header class="form">
+    <mat-card-title>Two-factor authentication</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="form">
+    <form [formGroup]="pinForm" (ngSubmit)="submitPin()">
+      <section>
+        <div class="input-row">
+          <mat-form-field appearance="fill">
+            <input matInput type="password" id="pin" formControlName="pin" required>
+            <mat-label>PIN</mat-label>
+            <mat-hint>Please enter the PIN that has been sent to you.</mat-hint>
+            <mat-error>Please enter a valid four-digit PIN</mat-error>
+          </mat-form-field>
+        </div>
+      </section>
+      <div class="input-row" style="align-items: stretch; width: 70%; margin-left: 15%; margin-bottom: 20px">
+        <app-timer (timerDone)="pinExpired()" [time]="pinExpiresIn"></app-timer>
+      </div>
+      <div class="input-row">
+        <button *ngIf="!hasPinExpired" mat-raised-button color="primary" type="submit" [disabled]="pinForm.invalid">
+          Login
+        </button>
+        <button *ngIf="hasPinExpired" (click)="resendPIN($event)" mat-raised-button color="primary" type="button">Resend
+          PIN
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

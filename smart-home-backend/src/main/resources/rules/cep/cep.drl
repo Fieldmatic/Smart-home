@@ -1,0 +1,63 @@
+package cep;
+
+import com.bsep.smart.home.model.events.LoginFailedEvent;
+import com.bsep.smart.home.model.events.RequestEvent;
+import com.bsep.smart.home.model.events.ErrorEvent;
+import com.bsep.smart.home.model.events.DeviceAttackEvent;
+
+import com.bsep.smart.home.model.facts.Alarm;
+import com.bsep.smart.home.model.AlarmType;
+
+
+rule "If the user tries to log in unsuccessfully 3 times, an alarm for failed login is generated"
+    when
+        $loginFailed1: LoginFailedEvent($email: userEmail)
+        $loginFailsNumber: Number(intValue >= 2) from accumulate(
+        		    $loginFailed2: LoginFailedEvent(
+        		        this != $loginFailed1),
+        		    count($loginFailed2)
+        		)
+        not(Alarm(alarmType == AlarmType.LOGIN_FAILED, userEmail == $email))
+    then
+       String message = "Login Failed 3 Times";
+       System.out.println(message);
+       insert(new Alarm($email, AlarmType.LOGIN_FAILED, message));
+end
+
+rule "If the user makes 100 requests within 10 seconds, an alarm for too many requests is generated"
+    when
+        $request1: RequestEvent($ip: ipAddress, $email: userEmail)
+        $requestsNumber: Number(intValue >= 100) from accumulate(
+        		    $request2: RequestEvent(
+        		        this != $request1,
+        		        ipAddress == $ip) over window: time(10s),
+        		    count($request2)
+        		)
+        not(Alarm(userIpAddress == $ip, alarmType == AlarmType.TOO_MANY_REQUESTS))
+    then
+       System.out.println("The user with ip " + $ip + " made " + $requestsNumber + " requests in 10 seconds.");
+       insert(new Alarm($email, $ip, AlarmType.TOO_MANY_REQUESTS, "100 requests in 10 seconds"));
+end
+
+rule "If an error type log appears, error alarm is generated"
+    when
+        $errorEvent: ErrorEvent($message: message, $email: userEmail)
+    then
+       System.out.println("An error appeared with the message " + $message);
+       insert(new Alarm($email, AlarmType.ERROR, $message));
+end
+
+rule "If an attacked device appeared, attack alarm is generated"
+    when
+        $attackEvent: DeviceAttackEvent($message: message, $device: device)
+    then
+       System.out.println("Device of type " + $device.getDeviceType() + " is under attack.");
+       insert(new Alarm(AlarmType.ATTACK, $message, $device));
+end
+
+rule "If an alarm appears, send alarm message to admin"
+    when
+        $alarmFact: Alarm($message: errorMessage, $type: alarmType)
+    then
+       System.out.println("An alarm of type " + $type + " appeared.");
+end

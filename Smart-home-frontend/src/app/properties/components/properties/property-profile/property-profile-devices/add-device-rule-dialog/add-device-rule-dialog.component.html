@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Rule for device {{data.device?.name}}</h1>
+<div mat-dialog-content style="margin-top: 5%" [formGroup]="dialogForm">
+  <ng-container *ngIf="data.device.deviceRule">
+    <span>Defined rule</span>
+    <div class="attributes-container">
+      <span class="attribute-container" style="width: 50%">
+         <span [innerHTML]="data.device.deviceType === DeviceType.THERMOMETER? 'Min Temperature:': 'Min Pressure:'"></span>
+          <span [innerHTML]="data.device.deviceRule.minValue"></span>
+      </span>
+      <span class="attribute-container">
+        <span [innerHTML]="data.device.deviceType === DeviceType.THERMOMETER? 'Max Temperature:': 'Max Pressure:'"></span>
+        <span [innerHTML]="data.device.deviceRule.maxValue"></span>
+      </span>
+    </div>
+  </ng-container>
+  <p>Define New Rule</p>
+  <div class="form-row">
+    <mat-form-field>
+      <input matInput [placeholder]="data.device.deviceType === DeviceType.THERMOMETER? 'Min Temperature': 'Min Pressure'" formControlName="minValue">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 2%">
+      <input matInput [placeholder]="data.device.deviceType === DeviceType.THERMOMETER? 'Max Temperature': 'Max Pressure'" formControlName="maxValue">
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="dialogForm.value" [disabled]="dialogForm.invalid">Confirm</button>
+</div>
+

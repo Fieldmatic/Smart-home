@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>{{data.title}} - {{data.name}}</h1>
+<div mat-dialog-content style="margin-top: 5%" [formGroup]="dialogForm">
+  <p [innerHTML]="data.text"></p>
+  <div class="form-row">
+    <mat-form-field>
+      <input matInput placeholder="Read period" formControlName="readPeriod">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 2%">
+      <input matInput placeholder="Message Regex" formControlName="messageRegex">
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field>
+      <mat-label>Device Type</mat-label>
+      <mat-select formControlName="deviceType">
+        <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="dialogForm.value" [disabled]="dialogForm.invalid">Confirm</button>
+</div>

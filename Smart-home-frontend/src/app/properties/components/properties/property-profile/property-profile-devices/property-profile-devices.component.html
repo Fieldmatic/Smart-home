@@ -1,0 +1,14 @@
+<div class="input-row" [formGroup]="newDeviceForm">
+  <mat-form-field appearance="fill">
+    <mat-label>New Device Name</mat-label>
+    <input
+      matInput
+      formControlName="name"
+    />
+    <button matTooltip="Add Device" type="button" matSuffix mat-icon-button (click)="addDevice()">
+      <mat-icon svgIcon="add-device"></mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<app-property-devices-card *ngFor="let device of devices" [device]="device" [propertyId]="propertyId" [isAdmin]="true">
+</app-property-devices-card>

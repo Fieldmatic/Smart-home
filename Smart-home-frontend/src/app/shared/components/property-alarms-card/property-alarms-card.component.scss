@@ -1,0 +1,50 @@
+@import "src/app/properties/components/properties/properties.component";
+
+mat-card-title {
+  font-weight: bolder;
+  font-size: 18px;
+  color: $Smart-home-frontend-dark-gray;
+}
+
+mat-card {
+  width: 99%;
+  margin-bottom: 0.5rem;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+mat-icon:not(.red-btn-icon) {
+  margin-bottom: 0;
+  background-color: $Smart-home-frontend-green;
+  padding: 2px;
+}
+
+mat-card-content {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.attribute-name {
+  width: fit-content;
+}
+
+.attributes-container {
+  display: flex;
+}
+
+.attribute-container {
+  display: flex;
+}

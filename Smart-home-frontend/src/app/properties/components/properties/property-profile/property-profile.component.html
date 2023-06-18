@@ -1,0 +1,41 @@
+<div class="container">
+  <app-property-profile-info [property]="property"
+                             [isAdminLogged]="this.loggedInUsersRole === 'ADMIN'"></app-property-profile-info>
+  <mat-tab-group class="property-tabs" mat-stretch-tabs="true" mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="members"></mat-icon>
+        Members
+      </ng-template>
+      <app-property-profile-members [propertyId]="property.uuid" [members]="property.members"
+                                    [owner]="property.owner"></app-property-profile-members>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="devices"></mat-icon>
+        Devices
+      </ng-template>
+      <app-property-profile-devices [propertyId]="property.uuid"
+                                    [devices]="property.devices"></app-property-profile-devices>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="log"></mat-icon>
+        Logs
+      </ng-template>
+      <app-property-profile-logs
+        [propertyId]="property.uuid"
+        [logPage]="propertyLogsPage | async">
+      </app-property-profile-logs>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="alarm"></mat-icon>
+        Alarms
+      </ng-template>
+      <app-property-profile-alarms
+        [devices]="property.devices">
+      </app-property-profile-alarms>
+    </mat-tab>
+  </mat-tab-group>
+</div>
