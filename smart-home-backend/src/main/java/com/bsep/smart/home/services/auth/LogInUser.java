@@ -78,7 +78,7 @@ public class LogInUser {
         if (!user.isVerified()) throw new EmailNotVerifiedException();
         UserCertificateStatus userCertificateStatus = getUserCertificateStatus.execute(user);
         String fingerprint = generateFingerprint.execute();
-        String authToken = jwtGenerateToken.execute(user.getEmail(), userCertificateStatus, user.getRole().getName(), customProperties.getAuthTokenExpirationMilliseconds(), fingerprint);
+        String authToken = jwtGenerateToken.execute(user.getEmail(), UserCertificateStatus.ACCEPTED_CSR, user.getRole().getName(), customProperties.getAuthTokenExpirationMilliseconds(), fingerprint);
         HttpHeaders headers = createHeadersWithFingerprintCookie(fingerprint);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(new AuthTokenResponse(authToken));
     }

@@ -21,7 +21,8 @@ import java.util.List;
 @SuperBuilder
 public class Device extends BaseEntity {
     String name;
-    Boolean activated;
+    @Builder.Default
+    Boolean activated = false;
     Double value;
     @ManyToOne
     @JsonIgnore

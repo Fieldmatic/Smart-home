@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserPropertiesEffects } from './store/user-properties.effects';
 import { UserPropertyProfileDevicesComponent } from './components/user-properties/user-property-profile/user-property-profile-devices/user-property-profile-devices.component';
 import { UserPropertyProfileMessagesComponent } from './components/user-properties/user-property-profile/user-property-profile-messages/user-property-profile-messages.component';
+import { UserPropertyProfileAlarmsComponent } from './components/user-properties/user-property-profile/user-property-profile-alarms/user-property-profile-alarms.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UserPropertyProfileMessagesComponent } from './components/user-properti
     UserPropertyProfileComponent,
     UserPropertyProfileDevicesComponent,
     UserPropertyProfileMessagesComponent,
+    UserPropertyProfileAlarmsComponent,
   ],
   imports: [
     SharedModule,

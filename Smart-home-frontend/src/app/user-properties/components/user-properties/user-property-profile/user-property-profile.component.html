@@ -19,5 +19,14 @@
       <app-user-property-profile-messages *ngIf="property"
                                           [propertyId]="property.uuid"></app-user-property-profile-messages>
     </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon svgIcon="alarm"></mat-icon>
+        Alarms
+      </ng-template>
+      <app-user-property-profile-alarms
+        [devices]="property.devices">
+      </app-user-property-profile-alarms>
+    </mat-tab>
   </mat-tab-group>
 </div>

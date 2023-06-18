@@ -1,6 +1,5 @@
 package com.bsep.devices.simulation;
 
-import com.bsep.devices.beans.DeviceInfo;
 import com.bsep.devices.mongorepository.LogRepository;
 import com.bsep.devices.repository.DeviceRepository;
 import com.bsep.devices.service.GetDeviceMessage;
@@ -15,29 +14,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class DeviceLoggingCronJob {
-    private final DeviceInfo deviceInfo;
     private final DeviceRepository deviceRepository;
     private final GetDeviceMessage getDeviceMessage;
     private final LogRepository logRepository;
     Logger logger = LoggerFactory.getLogger(DeviceLoggingCronJob.class);
 
-    @Scheduled(fixedRate = 80000)
+    @Scheduled(fixedRate = 60000)
     public void logMessagesForDevices() {
-        for (UUID deviceId : deviceInfo.getReadPeriods().keySet()) {
-            if (Util.getRandomBoolean()) {
-                logMessageForDevice(deviceId);
-            }
+        List<Device> devices = deviceRepository.findAll();
+        for (Device device : devices) {
+            logMessageForDevice(device);
         }
     }
-
-    public void logMessageForDevice(UUID deviceId) {
-        Device device = deviceRepository.findById(deviceId).get();
+    public void logMessageForDevice(Device device) {
         String message = getDeviceMessage.execute(device);
         logger.info(message);
         Log log = getLog(device, message);

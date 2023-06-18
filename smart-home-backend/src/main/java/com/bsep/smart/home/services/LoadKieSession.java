@@ -47,8 +47,8 @@ public class LoadKieSession {
         kSession.addEventListener(new AlarmEventListener(notifyAdminAboutAlarm, notifyUserAboutAlarm, saveAlarm));
         String barometerId = "7b3e7182-d732-474a-9ffe-8cebaca697ae";
         String thermometerId = "666ed3a7-277b-403d-8d7b-4c4f7c427260";
-        AddDeviceRuleRequest addDeviceRuleRequest1 = new AddDeviceRuleRequest(barometerId, 0.8, 0.9);
-        AddDeviceRuleRequest addDeviceRuleRequest2 = new AddDeviceRuleRequest(thermometerId, 20, 21);
+        AddDeviceRuleRequest addDeviceRuleRequest1 = new AddDeviceRuleRequest(barometerId, 0.8, 1.05);
+        AddDeviceRuleRequest addDeviceRuleRequest2 = new AddDeviceRuleRequest(thermometerId, 16, 28);
         createDeviceRule.execute(addDeviceRuleRequest1);
         createDeviceRule.execute(addDeviceRuleRequest2);
         printDrl(kSession);

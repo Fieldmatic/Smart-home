@@ -5,6 +5,7 @@ import com.bsep.smart.home.dto.response.LogResponse;
 import com.bsep.smart.home.model.Log;
 import org.apache.logging.log4j.util.Strings;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,6 +21,7 @@ public class LogConverter {
     }
 
     public static List<LogResponse> toLogResponseList(List<Log> logs) {
+        if (Objects.isNull(logs)) return Collections.emptyList();
         return logs.stream().map(log -> LogResponse.builder()
                         .id(log.getId())
                         .message(log.getMessage())

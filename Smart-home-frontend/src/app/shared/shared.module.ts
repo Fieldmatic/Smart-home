@@ -8,6 +8,7 @@ import { ConfirmationDialogWithReasonOptionsComponent } from './components/confi
 import { PropertyProfileInfoComponent } from './components/property-profile-info/property-profile-info.component';
 import { RouterModule } from '@angular/router';
 import { PropertyDevicesCardComponent } from './components/property-devices-card/property-devices-card.component';
+import {PropertyAlarmsCardComponent} from "./components/property-alarms-card/property-alarms-card.component";
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule],
@@ -19,6 +20,7 @@ import { PropertyDevicesCardComponent } from './components/property-devices-card
     FormNavigationComponent,
     PropertyProfileInfoComponent,
     PropertyDevicesCardComponent,
+    PropertyAlarmsCardComponent,
   ],
   declarations: [
     FormNavigationComponent,
@@ -26,6 +28,7 @@ import { PropertyDevicesCardComponent } from './components/property-devices-card
     ConfirmationDialogWithReasonOptionsComponent,
     PropertyProfileInfoComponent,
     PropertyDevicesCardComponent,
+    PropertyAlarmsCardComponent,
   ],
 })
 export class SharedModule {}

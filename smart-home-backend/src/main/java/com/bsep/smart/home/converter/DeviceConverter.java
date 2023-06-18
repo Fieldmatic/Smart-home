@@ -3,7 +3,9 @@ package com.bsep.smart.home.converter;
 import com.bsep.smart.home.dto.response.DeviceResponse;
 import com.bsep.smart.home.model.Device;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class DeviceConverter {
 
@@ -22,6 +24,7 @@ public class DeviceConverter {
     }
 
     public static List<DeviceResponse> toDevicesResponse(final List<Device> devices) {
-        return devices.stream().map(DeviceConverter::toDeviceResponse).toList();
+        if (Objects.isNull(devices)) return Collections.emptyList();
+        else return devices.stream().map(DeviceConverter::toDeviceResponse).toList();
     }
 }

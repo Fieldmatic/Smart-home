@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Device } from '../../../../../shared/model/device.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addPropertyDevice } from '../../../../store/properties.actions';
-import { AddPropertyDialogComponent } from './add-property-device-dialog/add-property-dialog.component';
 import { textValidator } from '../../../../../shared/validators/text.validator';
+import {AddDeviceToPropertyDialogComponent} from "./add-property-device-dialog/add-device-to-property-dialog.component";
 
 @Component({
   selector: 'app-property-profile-devices',
@@ -25,7 +25,7 @@ export class PropertyProfileDevicesComponent {
   addDevice() {
     const name = this.newDeviceForm.controls['name'].value;
     if (name) {
-      const dialogRef = this.dialog.open(AddPropertyDialogComponent, {
+      const dialogRef = this.dialog.open(AddDeviceToPropertyDialogComponent, {
         data: {
           title: 'New Property Device',
           name: name,

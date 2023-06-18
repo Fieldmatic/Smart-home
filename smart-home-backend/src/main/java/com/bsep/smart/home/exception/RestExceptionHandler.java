@@ -1,6 +1,8 @@
 package com.bsep.smart.home.exception;
 
+import com.bsep.smart.home.model.Person;
 import com.bsep.smart.home.model.events.ErrorEvent;
+import com.bsep.smart.home.services.auth.GetLoggedInUser;
 import com.bsep.smart.home.translations.Translator;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
@@ -32,6 +34,7 @@ import java.util.List;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
     private final KieSession kieSession;
+    private final GetLoggedInUser getLoggedInUser;
 
     @ExceptionHandler({
             UserAlreadyExistsException.class,
@@ -98,8 +101,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Throwable.class)
-    protected ResponseEntity<?> defaultExceptionHandler(Throwable t) {
-        ErrorEvent errorEvent = new ErrorEvent(t.getMessage());
+    protected ResponseEntity<?> defaultExceptionHandler(Throwable t) throws UnauthorizedException {
+        ErrorEvent errorEvent = ErrorEvent.builder().message(t.getMessage()).build();
+        Person loggedInUser = getLoggedInUser.execute();
+        errorEvent.setUserEmail(loggedInUser.getEmail());
         kieSession.insert(errorEvent);
         kieSession.fireAllRules();
         logger.error("Unhandled exception: " + Strings.join(Arrays.asList(t.getStackTrace()), '\n'));

@@ -10,12 +10,12 @@ import { PropertyProfileFormComponent } from './components/properties/property-p
 import { PropertyProfileMembersComponent } from './components/properties/property-profile/property-profile-members/property-profile-members.component';
 import { PropertyMemberCardComponent } from './components/properties/property-profile/property-profile-members/property-member-card/property-member-card.component';
 import { PropertyProfileDevicesComponent } from './components/properties/property-profile/property-profile-devices/property-profile-devices.component';
-import { AddPropertyDialogComponent } from './components/properties/property-profile/property-profile-devices/add-property-device-dialog/add-property-dialog.component';
+import { AddDeviceToPropertyDialogComponent } from './components/properties/property-profile/property-profile-devices/add-property-device-dialog/add-device-to-property-dialog.component';
 import { PropertyProfileLogsComponent } from './components/properties/property-profile/property-profile-logs/property-profile-logs.component';
 import { EffectsModule } from '@ngrx/effects';
 import { PropertiesEffects } from './store/properties.effects';
 import { PropertyProfileAlarmsComponent } from './components/properties/property-profile/property-profile-alarms/property-profile-alarms.component';
-import { PropertyAlarmsCardComponent } from './components/properties/property-profile/property-profile-alarms/property-alarms-card/property-alarms-card.component';
+import { PropertyAlarmsCardComponent } from '../shared/components/property-alarms-card/property-alarms-card.component';
 import { AddDeviceRuleDialogComponent } from './components/properties/property-profile/property-profile-devices/add-device-rule-dialog/add-device-rule-dialog.component';
 
 @NgModule({
@@ -26,10 +26,9 @@ import { AddDeviceRuleDialogComponent } from './components/properties/property-p
     PropertyProfileMembersComponent,
     PropertyMemberCardComponent,
     PropertyProfileDevicesComponent,
-    AddPropertyDialogComponent,
+    AddDeviceToPropertyDialogComponent,
     PropertyProfileLogsComponent,
     PropertyProfileAlarmsComponent,
-    PropertyAlarmsCardComponent,
     AddDeviceRuleDialogComponent,
   ],
   imports: [

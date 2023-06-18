@@ -41,10 +41,10 @@ end
 
 rule "If an error type log appears, error alarm is generated"
     when
-        $errorEvent: ErrorEvent($message: message)
+        $errorEvent: ErrorEvent($message: message, $email: userEmail)
     then
        System.out.println("An error appeared with the message " + $message);
-       insert(new Alarm(AlarmType.ERROR, $message));
+       insert(new Alarm($email, AlarmType.ERROR, $message));
 end
 
 rule "If an attacked device appeared, attack alarm is generated"

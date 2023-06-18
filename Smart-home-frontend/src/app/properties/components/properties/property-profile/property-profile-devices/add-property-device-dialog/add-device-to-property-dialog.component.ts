@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-property-dialog',
-  templateUrl: './add-property-dialog.component.html',
-  styleUrls: ['./add-property-dialog.component.scss'],
+  templateUrl: './add-device-to-property-dialog.component.html',
+  styleUrls: ['./add-device-to-property-dialog.component.scss'],
 })
-export class AddPropertyDialogComponent {
+export class AddDeviceToPropertyDialogComponent {
   dialogForm: FormGroup;
-  options: string[] = ['DOOR', 'CAMERA', 'THERMOMETER', 'LIGHT'];
+  options: string[] = ['DOOR', 'CAMERA', 'THERMOMETER', 'LIGHT', 'BAROMETER'];
 
   constructor(
     private formBuilder: FormBuilder,
