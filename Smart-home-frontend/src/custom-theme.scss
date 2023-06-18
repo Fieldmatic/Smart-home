@@ -128,7 +128,7 @@ td {
   padding: 1rem;
 }
 
-table, .search-fields, mat-paginator {
+table, .search-fields, mat-paginator, .grid-container {
   width: 100%;
   grid-column: 2;
 }
@@ -195,7 +195,7 @@ table, .search-fields, mat-paginator {
     margin-top: 5%;
   }
 
-  table, .search-fields, mat-paginator {
+  table, .search-fields, mat-paginator, .grid-container {
     grid-column: 1;
   }
 }

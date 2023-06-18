@@ -1,0 +1,67 @@
+@import "src/custom-theme";
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 10px;
+  min-height: 500px;
+  margin-top: 10px;
+
+  p {
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+}
+
+.logo {
+  max-width: 400px;
+}
+
+h1 {
+  color: $Smart-home-frontend-dark-gray;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+h2 {
+  color: $Smart-home-frontend-dark-gray;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+p {
+  margin: 0 0 max(0.5rem);
+  color: $Smart-home-frontend-dark-gray;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.btn {
+  margin-top: 32px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home {
+  width: fit-content;
+  height: 100%;
+}

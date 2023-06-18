@@ -17,6 +17,12 @@ import { UserHomePageComponent } from './components/home-page/user-home-page/use
 import { UserHomePageNoCsrComponent } from './components/home-page/user-home-page/user-home-page-no-csr/user-home-page-no-csr.component';
 import { UserHomePagePendingCsrComponent } from './components/home-page/user-home-page/user-home-page-pending-csr/user-home-page-pending-csr.component';
 import { UserHomePageCsrComponent } from './components/home-page/user-home-page/user-home-page-csr/user-home-page-csr.component';
+import { UsersOverviewComponent } from './components/home-page/admin-home-page/users-overview/users-overview.component';
+import { OwnersTenantsPieChartComponent } from './components/home-page/admin-home-page/owners-tenants-pie-chart/owners-tenants-pie-chart.component';
+import { EventsOverviewComponent } from './components/home-page/admin-home-page/events-overview/events-overview.component';
+import { NgChartsModule } from 'ng2-charts';
+import { EventsPieChartComponent } from './components/home-page/admin-home-page/events-overview/events-pie-chart/events-pie-chart.component';
+import { EventsLinearChartComponent } from './components/home-page/admin-home-page/events-linear-chart/events-linear-chart.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +36,11 @@ import { UserHomePageCsrComponent } from './components/home-page/user-home-page/
     UserHomePageNoCsrComponent,
     UserHomePagePendingCsrComponent,
     UserHomePageCsrComponent,
+    UsersOverviewComponent,
+    OwnersTenantsPieChartComponent,
+    EventsOverviewComponent,
+    EventsPieChartComponent,
+    EventsLinearChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +51,7 @@ import { UserHomePageCsrComponent } from './components/home-page/user-home-page/
       preventDuplicates: true,
       closeButton: true,
     }),
+    NgChartsModule,
     HttpClientModule,
     SharedModule,
     CoreModule,

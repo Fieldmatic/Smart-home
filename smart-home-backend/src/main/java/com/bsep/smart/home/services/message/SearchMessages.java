@@ -31,9 +31,9 @@ public class SearchMessages {
             filters.remove("");
             String regex = "(?=.*" + String.join(")(?=.*", filters) + ")";
             Pattern filterPattern = Pattern.compile(regex);
-            logPage = logRepository.getLogsByPropertyIdAndMessageContainsFilters(propertyId, filterPattern, pageable);
+            logPage = logRepository.getLogsByPropertyIdAndMessageContainsFiltersAndProcessed(propertyId, filterPattern, pageable);
         } else {
-            logPage = logRepository.getLogsByPropertyId(propertyId, pageable);
+            logPage = logRepository.getLogsByPropertyIdAndProcessed(propertyId, pageable);
         }
         return PageResponse.<String>builder()
                 .pageNumber(pageNumber)

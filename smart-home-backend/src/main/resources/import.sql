@@ -2,6 +2,7 @@ insert into PUBLIC.ROLE (ID,CREATED_AT, NAME) values ('9c4cf245-67c7-466e-9ff2-9
 insert into PUBLIC.ROLE (ID,CREATED_AT, NAME) values ('faf8829f-cb60-4365-b419-14f7b80afa4c',CURRENT_TIMESTAMP, 'OWNER');
 insert into PUBLIC.ROLE (ID,CREATED_AT, NAME) values ('ebc16e4e-64e1-4b35-946a-0885ab058453',CURRENT_TIMESTAMP, 'TENANT');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'SEND_CSR_REQUEST');
+insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'READ_ADMIN_STATISTICS');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'CSR_MANIPULATION');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'USER_MANIPULATION');
 insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('9c4cf245-67c7-466e-9ff2-9878acef91cb', 'CERTIFICATE_MANIPULATION');
@@ -14,7 +15,7 @@ insert into ROLE_PERMISSIONS (ROLE_ID, PERMISSIONS) values ('ebc16e4e-64e1-4b35-
 insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('201ab15f-3b22-4659-b839-235b9e6a728e', CURRENT_TIMESTAMP, 'milicftn@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
 insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('0d6df743-a243-4e80-86a0-ef5710a57e4c', CURRENT_TIMESTAMP, 'istevanovic3112@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
 insert into PUBLIC.ADMIN (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('83aebc30-729c-4923-8aa1-ef71bb1e5247', CURRENT_TIMESTAMP, 'prijovic.uros13@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', '9c4cf245-67c7-466e-9ff2-9878acef91cb', true);
-insert into PERSON (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('e0e389ee-ac19-4ad7-97a9-4c956935bd15', CURRENT_TIMESTAMP, 'easypeasylemonsquezzzy@gmail.com', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', 'faf8829f-cb60-4365-b419-14f7b80afa4c', true);
+insert into PERSON (ID, CREATED_AT, EMAIL, PASSWORD_HASH, ROLE_ID, VERIFIED) values ('e0e389ee-ac19-4ad7-97a9-4c956935bd15', CURRENT_TIMESTAMP, 'prijovic.sw79.2019@uns.ac.rs', '$2a$10$5tykbOhp3Uo2QrY2t3/uCOmsuwvEZl4KgEgZgN3At6JB3HQX.Z75y', 'faf8829f-cb60-4365-b419-14f7b80afa4c', true);
 
 insert into PROPERTY (id, created_at, address, name, owner_id) values ('b838d2d8-35e7-4592-b3c8-fb99edc8a962', CURRENT_TIMESTAMP, 'Adresa', 'Vikendica', 'e0e389ee-ac19-4ad7-97a9-4c956935bd15');
 insert into device (id, created_at, name, activated, value, property_id, read_period, message_regex, device_type, attack) values ('60775bb4-fe74-49d6-8cc8-f12d489d5c1a', CURRENT_TIMESTAMP, 'Ulaz', false, null, 'b838d2d8-35e7-4592-b3c8-fb99edc8a962', 1, '.*.opened', 'DOOR', false);

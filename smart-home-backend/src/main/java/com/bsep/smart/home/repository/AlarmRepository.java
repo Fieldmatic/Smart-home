@@ -20,4 +20,6 @@ public interface AlarmRepository extends JpaRepository<Alarm, UUID>, JpaSpecific
 
     List<Alarm> findAllByDevicePropertyIdAndCreatedAtBetween(UUID id, LocalDateTime start, LocalDateTime end);
 
+    Long countAlarmsByTimeBetween(LocalDateTime start, LocalDateTime end);
+
 }

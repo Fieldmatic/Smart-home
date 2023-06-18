@@ -1,1 +1,24 @@
-<p>admin-home-page works!</p>
+<div class="table-container" *ngIf="adminDashboardData">
+  <div class="grid-container">
+    <app-users-overview
+      [usersCount]="adminDashboardData.usersCount"
+      [propertiesCount]="adminDashboardData.propertiesCount"
+      [devicesCount]="adminDashboardData.devicesCount"
+      [alarmsCount]="adminDashboardData.alarmsCount"
+    ></app-users-overview>
+    <app-owners-tenants-pie-chart
+      [ownersCount]="adminDashboardData.ownersCount"
+      [tenantsCount]="adminDashboardData.tenantsCount"
+    ></app-owners-tenants-pie-chart>
+    <app-events-overview
+      [logsCount]="adminDashboardData.logsCount"
+      [messagesCount]="adminDashboardData.messagesCount"
+      [alarmsCount]="adminDashboardData.alarmsCount"
+    ></app-events-overview>
+    <app-events-linear-chart
+      [logsCountInLastYearByMonths]="adminDashboardData.logsCountInLastYearByMonths"
+      [messagesCountInLastYearByMonths]="adminDashboardData.messagesCountInLastYearByMonths"
+      [alarmsCountInLastYearByMonths]="adminDashboardData.alarmsCountInLastYearByMonths"
+    ></app-events-linear-chart>
+  </div>
+</div>
