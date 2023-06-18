@@ -1,0 +1,72 @@
+@use "src/custom-theme" as theme;
+
+mat-card:not(mat-card mat-card) {
+  padding: max(2rem);
+
+  mat-card-content {
+    justify-content: space-between;
+  }
+}
+
+mat-card {
+  width: 100%;
+}
+
+mat-card-content {
+  display: flex;
+  gap: max(2rem);
+  padding: 0 !important;
+}
+
+.overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: max(2rem);
+  width: 100%;
+}
+
+mat-card {
+  width: 100%;
+
+  mat-card {
+    padding: max(0.5rem);
+    height: 100%;
+    width: 100%;
+
+    p {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    mat-card-content {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+  }
+}
+
+h2 {
+  color: theme.$Smart-home-frontend-gray;
+  font-weight: 600;
+}
+
+p {
+  color: theme.$Smart-home-frontend-dark-gray;
+  font-weight: 500;
+}
+
+h2, p {
+  margin: 0;
+}
+
+h2 {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: max(0.5rem);
+}
