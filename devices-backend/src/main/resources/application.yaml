@@ -30,3 +30,9 @@ server:
   servlet:
     contextPath: /api
   port: '8082'
+  ssl:
+    key-store: smart-home-backend/src/main/resources/ssl/keystore.jks
+    key-store-password: Micomilic123!
+    key-password: Micomilic123!
+    enabled: true
+    key-alias: 1

@@ -19,6 +19,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
+import java.util.UUID;
 
 
 @Service
@@ -33,7 +34,7 @@ public class CreateCertificate {
     private final LoadCertificateChain loadCertificateChain;
 
     public void execute(CreateCertificateRequest createCertificateRequest) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, InvalidKeySpecException, CertificateException, OperatorCreationException, SignatureException, InvalidKeyException, NoSuchProviderException, IOException {
-        CSR csr = csrRepository.getReferenceById(createCertificateRequest.getCsrId());
+        CSR csr = csrRepository.getReferenceById(UUID.fromString(createCertificateRequest.getCsrId()));
         KeyEntryData issuer = getKeyEntryData.execute(createCertificateRequest.getCaAlias());
         KeyEntryData subject = getKeyEntryData.execute(csr.getEmail());
         SubjectData subjectData = new SubjectData(subject.getPublicKey(), subject.getX500Principal(), createCertificateRequest.getSerialNumber(), createCertificateRequest.getStart(), createCertificateRequest.getEnd());
