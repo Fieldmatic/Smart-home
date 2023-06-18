@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { autoLogin } from './auth/store/auth.actions';
-import { MatIconRegistry } from '@angular/material/icon';
+import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -15,205 +16,209 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
   ) {
-    matIconRegistry.addSvgIcon(
+    this.registerIcons();
+  }
+
+  private registerIcons() {
+    this.matIconRegistry.addSvgIcon(
       'hidePassword',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/password_visibility/visibility_off.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'showPassword',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/password_visibility/visibility.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'search',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/search/search.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'filters',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/search/filters.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'account-avatar',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/account_avatar.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'edit',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/edit.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'property-avatar',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/property_avatar.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'add-member',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/new_member.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'members',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/members.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'owner',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/owner_mark.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'remove-member',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/remove_member.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'devices',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/devices.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'add-device',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/new_device.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'alarm',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/alarm.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'pressure',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/pressure.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'rule',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/rule.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'my-property',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/my_property.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'visible-property',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/user/key.svg')
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'plus',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/plus.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'clear',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/user/clear.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'light',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/light.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'network',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/network.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'notification',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/notification.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'security',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/security.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'temperature',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/temperature.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'camera',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/homepage/camera.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'gitHub',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/social media/github.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'camera',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/cam.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'light',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/light.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'door',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/door.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'thermostat',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/thermostat.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'log',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/log.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'message',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/property/message.svg'
       )
     );
-    matIconRegistry.addSvgIcon(
+    this.matIconRegistry.addSvgIcon(
       'report',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         '../assets/report/report.svg'
