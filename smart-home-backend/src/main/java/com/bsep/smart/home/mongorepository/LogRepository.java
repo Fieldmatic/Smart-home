@@ -16,7 +16,7 @@ public interface LogRepository extends MongoRepository<Log, UUID> {
 
     Page<Log> getLogsByPropertyIdAndProcessed(String propertyId, Pageable pageable);
 
-    @Query("{$or:[{'message':{$regex:?1, $options: 'i'}}], 'propertyId': ?0}")
+    @Query("{$or:[{'message':{$regex:?1, $options: 'i'}}], 'propertyId': ?0,  'processed':  true}")
     Page<Log> getLogsByPropertyIdAndMessageContainsFiltersAndProcessed(String propertyId, Pattern filters, Pageable pageable);
 
     @Query("{$or:[{'createdAt':{$regex:?0}}, {'message':{$regex:?0}}, {'propertyId':  {$regex: ?0}}, {'deviceId': {$regex:  ?0}}], 'propertyId': ?1, 'processed':  true}")
